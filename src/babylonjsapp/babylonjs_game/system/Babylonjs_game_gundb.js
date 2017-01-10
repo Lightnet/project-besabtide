@@ -31,8 +31,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
     }
     //BABYLONJSAPI.SaveSceneMap();
 
-    init_gundb(){
-
+    setup_GunDBScript(){
         Gun.chain.live = function(cb, opt){
           return this.on(function(val, field){
             delete val._;
@@ -93,6 +92,10 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
           var each = this.map();
           return this.valueobj.apply(each, arguments);
         };
+    }
+
+    init_gundb(){
+        //this.setup_GunDBScript();
         //http://stackoverflow.com/questions/7667958/clear-localstorage
         localStorage.clear();
 
@@ -105,7 +108,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         //this.gun.get('scene');
         //gun bug using different way to handle angular 2 from requirejs
         this.gun.get('scene').each(function (_obj) {
-          console.log(_obj)
+          //console.log(_obj)
         });
         console.log("need to call out function to init?");
     }

@@ -5485,9 +5485,8 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
     //BABYLONJSAPI.SaveSceneMap();
 
     _createClass(Babylonjs_game_gundb, [{
-        key: 'init_gundb',
-        value: function init_gundb() {
-
+        key: 'setup_GunDBScript',
+        value: function setup_GunDBScript() {
             Gun.chain.live = function (cb, opt) {
                 return this.on(function (val, field) {
                     delete val._;
@@ -5548,6 +5547,11 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
                 var each = this.map();
                 return this.valueobj.apply(each, arguments);
             };
+        }
+    }, {
+        key: 'init_gundb',
+        value: function init_gundb() {
+            //this.setup_GunDBScript();
             //http://stackoverflow.com/questions/7667958/clear-localstorage
             localStorage.clear();
 
@@ -5560,7 +5564,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
             //this.gun.get('scene');
             //gun bug using different way to handle angular 2 from requirejs
             this.gun.get('scene').each(function (_obj) {
-                console.log(_obj);
+                //console.log(_obj)
             });
             console.log("need to call out function to init?");
         }
@@ -7256,9 +7260,13 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
     _createClass(GameEditor, [{
         key: 'ngOnInit',
         value: function ngOnInit() {
+            var self = this;
             console.log("init layout!");
             this.setup_layout();
-            this.init();
+            window.addEventListener('load', function () {
+                console.log("loaded?");
+                self.init();
+            }, false);
         }
     }, {
         key: 'setup_layout',
@@ -7301,7 +7309,9 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             var baylonjs_Game = new _babylonjs_game.Babylonjs_game(config);
             console.log(baylonjs_Game);
             baylonjs_Game.init();
+            baylonjs_Game.setup_GunDBScript();
             this.gameservice.app = baylonjs_Game;
+
             this.gameservice.scene = baylonjs_Game.scene;
 
             // get the canvas DOM element
