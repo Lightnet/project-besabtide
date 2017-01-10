@@ -68,10 +68,16 @@ export class EditorMenu {
 
     scriptloadscene(){
         console.log("scriptloadscene");
+        if(this.gameservice.app !=null){
+            this.gameservice.app.LoadSceneMap();
+        }
     }
 
     scriptsavescene(){
         console.log("scriptsavescene");
+        if(this.gameservice.app !=null){
+            this.gameservice.app.SaveSceneMap();
+        }
     }
 
     scriptdeletescene(){
@@ -80,12 +86,18 @@ export class EditorMenu {
 
     scriptclearscene(){
         console.log("scriptclearscene");
+
+        if(this.gameservice.app !=null){
+            this.gameservice.app.ClearSceneMap();
+        }
+        /*
         if(this.gameservice.scene !=null){
             var objscene = this.gameservice.scene;
             for(var i = objscene.meshes.length; i > 0 ;i--){
                 objscene.meshes[0].dispose();
             }
         }
+        */
     }
 
     scriptdeleteobject(){

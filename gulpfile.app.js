@@ -7,6 +7,7 @@ const assign = require('object-assign');
 const browserify = require('browserify');
 const watchify = require('watchify');
 const babelify = require('babelify');
+const babel = require('gulp-babel');
 const del = require('del');
 const gls = require('gulp-live-server');
 const gutil  = require('gulp-util');
@@ -155,9 +156,23 @@ gulp.task('clean', (cb) => {
   //return;
 });
 
+
+
+gulp.task('src:server', () => {
+    return gulp.src(['src/index.js'])
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+		//.pipe(uglify())
+		.pipe(gulp.dest('dist'));
+});
+
+
 //server host default 0.0.0.0:80
 gulp.task('serve', ()=> {
-  var server = gls.static('public', 80);
+  //var server = gls.static('public', 80);
+
+  var server = gls.new('dist/index.js');
   server.start();
   return;
 });
@@ -183,7 +198,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('app_dev:cleanbuild', ['clean','copy','assets:copy','js:copy','build:vendor.js','build:app.js','watch','browser-sync']);
 
-gulp.task('app_dev:build', ['copy','build:app.js','watch','browser-sync']);
+gulp.task('app_dev:build', ['copy','build:app.js','watch','src:server','serve','browser-sync']);
 
 // default development build
 gulp.task('default', ['app_dev:build']);

@@ -199,11 +199,14 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
     LoadSceneMap(){
         console.log("LOAD SCENE MAP");
         //this.gun.get('scene');
+        console.log(this.gun);
         var self = this;
         this.gun.get('scene').valueobj(function(data){
+            console.log("SCENE?");
             for(var o in data){
                 console.log(data[o]);
                 if(data[o] !=null){
+                    console.log(data[o]);
                     self.prase_gobject(data[o]);
                 }
             }
@@ -225,6 +228,15 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
 
     ClearSceneMap(){
         console.log("clear scene...");
+
+        if(this.scene !=null){
+            var objscene = this.scene;
+            for(var i = objscene.meshes.length; i > 0 ;i--){
+                objscene.meshes[0].dispose();
+            }
+        }
+
+        /*
         var delobjs = [];
         //console.log(this.scene.meshes.length);
         for(var i = 0; i < this.scene.meshes.length;i++){
@@ -241,5 +253,6 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
         }
         delobjs = null;
         //console.log(this.scene.meshes.length);
+        */
     }
 }

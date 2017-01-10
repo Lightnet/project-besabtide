@@ -89,6 +89,7 @@ export class GameEditor implements OnInit{
         console.log(baylonjs_Game);
         baylonjs_Game.init();
         this.gameservice.app = baylonjs_Game;
+        this.gameservice.scene = baylonjs_Game.scene;
 
         // get the canvas DOM element
         /*

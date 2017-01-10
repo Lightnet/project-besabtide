@@ -5472,6 +5472,8 @@ var uuid = function() {
     });
 };
 */
+//import '../../../js/gun.js';
+
 var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_game_modul) {
     _inherits(Babylonjs_game_gundb, _Babylonjs_game_modul);
 
@@ -5509,11 +5511,13 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
                 for (var i in data) {
                     if (_typeof(data[i]) === 'object') {
                         if (data[i] != null) {
+                            //console.log(data[i]);
                             var id = data[i]['#'];
                             data[i] = {}; //clear id hash
                             self.get(id).val(function (objdata) {
                                 delete objdata._;
                                 data[i] = objdata;
+                                //console.log(objdata);
                                 gunObjDataAssign(self, objdata);
                             });
                         }
@@ -5523,6 +5527,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
 
             Gun.chain.valueobj = function (cb, opt) {
                 return this.val(function (val, field) {
+
                     if (val != null) {
                         delete val._;
                     }
@@ -5546,13 +5551,18 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
             //http://stackoverflow.com/questions/7667958/clear-localstorage
             localStorage.clear();
 
-            this.peers = ['http://127.0.0.1/gun'];
-            //this.peers = ['https://hgdb.herokuapp.com/gun'];
+            //this.peers = ['http://127.0.0.1/gun'];
+            //this.peers = ['http://127.0.0.1/gun','https://hgdb.herokuapp.com/gun'];
+            this.peers = ['https://hgdb.herokuapp.com/gun'];
             this.gun = Gun(this.peers);
+            console.log("init gundb...");
             //var gun = this.gun;
-            //gun.get('greetings').each(function (example) {
-            //console.log(example)
-            //});
+            //this.gun.get('scene');
+            //gun bug using different way to handle angular 2 from requirejs
+            this.gun.get('scene').each(function (_obj) {
+                console.log(_obj);
+            });
+            console.log("need to call out function to init?");
         }
     }]);
 
@@ -5794,11 +5804,14 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
         value: function LoadSceneMap() {
             console.log("LOAD SCENE MAP");
             //this.gun.get('scene');
+            console.log(this.gun);
             var self = this;
             this.gun.get('scene').valueobj(function (data) {
+                console.log("SCENE?");
                 for (var o in data) {
                     console.log(data[o]);
                     if (data[o] != null) {
+                        console.log(data[o]);
                         self.prase_gobject(data[o]);
                     }
                 }
@@ -5824,22 +5837,32 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
         key: 'ClearSceneMap',
         value: function ClearSceneMap() {
             console.log("clear scene...");
+
+            if (this.scene != null) {
+                var objscene = this.scene;
+                for (var i = objscene.meshes.length; i > 0; i--) {
+                    objscene.meshes[0].dispose();
+                }
+            }
+
+            /*
             var delobjs = [];
             //console.log(this.scene.meshes.length);
-            for (var i = 0; i < this.scene.meshes.length; i++) {
+            for(var i = 0; i < this.scene.meshes.length;i++){
                 //console.log(this.scene.meshes[i]);
-                if (this.scene.meshes[i].rpgobj != null) {
+                if(this.scene.meshes[i].rpgobj !=null){
                     //console.log(this.scene.meshes[i]);
                     //this.scene.meshes[i].dispose();
                     //console.log(this.scene.meshes[i].dispose());
                     delobjs.push(this.scene.meshes[i]);
                 }
             }
-            for (var j = 0; j < delobjs.length; j++) {
+            for(var j = 0; j < delobjs.length;j++){
                 delobjs[j].dispose();
             }
             delobjs = null;
             //console.log(this.scene.meshes.length);
+            */
         }
     }]);
 
@@ -7040,11 +7063,17 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
         key: 'scriptloadscene',
         value: function scriptloadscene() {
             console.log("scriptloadscene");
+            if (this.gameservice.app != null) {
+                this.gameservice.app.LoadSceneMap();
+            }
         }
     }, {
         key: 'scriptsavescene',
         value: function scriptsavescene() {
             console.log("scriptsavescene");
+            if (this.gameservice.app != null) {
+                this.gameservice.app.SaveSceneMap();
+            }
         }
     }, {
         key: 'scriptdeletescene',
@@ -7055,12 +7084,18 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
         key: 'scriptclearscene',
         value: function scriptclearscene() {
             console.log("scriptclearscene");
-            if (this.gameservice.scene != null) {
+
+            if (this.gameservice.app != null) {
+                this.gameservice.app.ClearSceneMap();
+            }
+            /*
+            if(this.gameservice.scene !=null){
                 var objscene = this.gameservice.scene;
-                for (var i = objscene.meshes.length; i > 0; i--) {
+                for(var i = objscene.meshes.length; i > 0 ;i--){
                     objscene.meshes[0].dispose();
                 }
             }
+            */
         }
     }, {
         key: 'scriptdeleteobject',
@@ -7267,6 +7302,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             console.log(baylonjs_Game);
             baylonjs_Game.init();
             this.gameservice.app = baylonjs_Game;
+            this.gameservice.scene = baylonjs_Game.scene;
 
             // get the canvas DOM element
             /*

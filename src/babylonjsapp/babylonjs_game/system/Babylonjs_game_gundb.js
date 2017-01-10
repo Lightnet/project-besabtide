@@ -23,6 +23,8 @@ var uuid = function() {
     });
 };
 */
+//import '../../../js/gun.js';
+
 export class Babylonjs_game_gundb extends Babylonjs_game_module{
     constructor(args){
         super(args);
@@ -54,11 +56,13 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
             for(var i in data){
                 if(typeof data[i] === 'object'){
                     if(data[i] !=null){
+                        //console.log(data[i]);
                         var id = data[i]['#'];
                         data[i] = {}; //clear id hash
                         self.get(id).val((objdata)=>{
                             delete objdata._;
                             data[i] = objdata;
+                            //console.log(objdata);
                             gunObjDataAssign(self,objdata);
                         });
                     }
@@ -68,6 +72,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
 
         Gun.chain.valueobj = function (cb, opt) {
           return this.val(function (val, field) {
+
               if(val !=null){
                   delete val._;
               }
@@ -91,13 +96,18 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         //http://stackoverflow.com/questions/7667958/clear-localstorage
         localStorage.clear();
 
-        this.peers = ['http://127.0.0.1/gun'];
-        //this.peers = ['https://hgdb.herokuapp.com/gun'];
+        //this.peers = ['http://127.0.0.1/gun'];
+        //this.peers = ['http://127.0.0.1/gun','https://hgdb.herokuapp.com/gun'];
+        this.peers = ['https://hgdb.herokuapp.com/gun'];
         this.gun = Gun(this.peers);
+        console.log("init gundb...");
         //var gun = this.gun;
-        //gun.get('greetings').each(function (example) {
-          //console.log(example)
-        //});
+        //this.gun.get('scene');
+        //gun bug using different way to handle angular 2 from requirejs
+        this.gun.get('scene').each(function (_obj) {
+          console.log(_obj)
+        });
+        console.log("need to call out function to init?");
     }
 
 }
