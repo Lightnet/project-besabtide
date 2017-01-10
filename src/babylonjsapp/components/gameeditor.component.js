@@ -7,6 +7,8 @@ import {GameService} from '../services/game.service';
 
 import '../../js/babylon.min.js';
 
+import {Babylonjs_game} from '../babylonjs_game/babylonjs_game';
+
 import '../../js/jquery.min.js';
 import '../../js/jquery-ui.min.js';
 import '../../js/jquery.layout.min.js';
@@ -41,16 +43,10 @@ export class GameEditor implements OnInit{
 
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
-        //var self = this;
-        //window.addEventListener('DOMContentLoaded', ()=>{
-            //console.log("loaded?");
-            //self.init();
-        //});
     }
 
     ngOnInit(): void {
         console.log("init layout!");
-
         this.setup_layout();
         this.init();
     }
@@ -87,7 +83,15 @@ export class GameEditor implements OnInit{
     }
 
     init(){
+        var config = {};
+        config = {mode:"editor"};
+        var baylonjs_Game = new Babylonjs_game(config);
+        console.log(baylonjs_Game);
+        baylonjs_Game.init();
+        this.gameservice.app = baylonjs_Game;
+
         // get the canvas DOM element
+        /*
         var canvas = document.getElementById('renderCanvas');
 
         // load the 3D engine
@@ -138,5 +142,6 @@ export class GameEditor implements OnInit{
         window.addEventListener('resize', function(){
             engine.resize();
         });
+        */
     }
 }

@@ -22,6 +22,8 @@ import {ScriptEditorLayout} from './components/scripteditorlayout.component';
 import {ScriptEditorMenu} from './components/scripteditormenu.component';
 import {EditorMenu} from './components/editormenu.component';
 import {EditorPanel} from './components/editorpanel.component';
+import {ConsolePanel} from './components/consolepanel.component';
+
 
 
 import {NavMenu} from './components/navmenu.component';
@@ -51,6 +53,7 @@ import {GameService} from './services/game.service';
         CodeEditor,
         Objectprops,
         EditorPanel,
+        ConsolePanel,
         EditorMenu
     ],
     providers: [

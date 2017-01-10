@@ -41,14 +41,6 @@ const vendors = [
     'ng2-ace-editor'
 ];
 
-const javascripts = [
-    './src/js/babylon.min.js',
-    './src/js/jquery.min.js',
-    './src/js/jquery-ui.min.js',
-    './src/js/jquery.layout.min.js'
-];
-
-
 //Add vender.js support files from angular, rxjs, babel-polyfill, zone
 gulp.task('build:vendor.js', () => {
   const b = browserify({
@@ -73,10 +65,14 @@ gulp.task('build:vendor.js', () => {
 });
 
 gulp.task('js:copy', () => {
-  return gulp.src([ 'src/js/*.js'])
+  return gulp.src([ 'src/js/*.js','src/js/**/*.js'])
     .pipe(gulp.dest('public/js'));
 });
 
+gulp.task('assets:copy', () => {
+  return gulp.src([ PATHAPP+'/assets/**/*'])
+    .pipe(gulp.dest(PATHAPP_OUT+'/assets'));
+});
 
 //development index.html
 gulp.task('html:copy', () => {
@@ -112,11 +108,13 @@ gulp.task('copy',['html:copy','app_html:copy','css:copy','app_css:copy']);
 gulp.task('build:app.js', () => {
   const b = browserify(PATHAPP+'/index.js', { debug: true })
     .ignore('./src/js/babylon.min.js')
+    .ignore('./src/js/babylon.canvas2d.max.js')
     .ignore('./src/js/three.min.js')
+    .ignore('./src/js/postprocessing/EffectComposer.js')
+    .ignore('./src/js/shaders/CopyShader.js')
     .ignore('./src/js/jquery.min.js')
     .ignore('./src/js/jquery-ui.min.js')
     .ignore('./src/js/jquery.layout.min.js')
-    //.external(javascripts) // Specify all vendors as external source
     .external(vendors) // Specify all vendors as external source
     .transform(babelify);
   return bundle(b);
@@ -125,11 +123,13 @@ gulp.task('build:app.js', () => {
 gulp.task('app_watch:index.js', () => {
   const b = browserify([PATHAPP+'/index.js'], assign({ debug: true }, watchify.args))
     .ignore('./src/js/babylon.min.js')
+    .ignore('./src/js/babylon.canvas2d.max.js')
     .ignore('./src/js/three.min.js')
+    .ignore('./src/js/postprocessing/EffectComposer.js')
+    .ignore('./src/js/shaders/CopyShader.js')
     .ignore('./src/js/jquery.min.js')
     .ignore('./src/js/jquery-ui.min.js')
     .ignore('./src/js/jquery.layout.min.js')
-    //.external(javascripts) // Specify all vendors as external source
     .external(vendors) // Specify all vendors as external source
     .transform(babelify);
   const w = watchify(b)
@@ -181,7 +181,7 @@ gulp.task('browser-sync', function() {
 // serve =setup server url http://127.0.0.1:80
 //gulp.task('dev', ['clean','copy','build:vendor','build','watch','serve']);
 
-gulp.task('app_dev:cleanbuild', ['clean','copy','js:copy','build:vendor.js','build:app.js','watch','browser-sync']);
+gulp.task('app_dev:cleanbuild', ['clean','copy','assets:copy','js:copy','build:vendor.js','build:app.js','watch','browser-sync']);
 
 gulp.task('app_dev:build', ['copy','build:app.js','watch','browser-sync']);
 

@@ -6,6 +6,10 @@ import 'rxjs/add/operator/map';
 import {GameService} from '../services/game.service';
 
 import '../../js/three.min.js';
+import '../../js/postprocessing/EffectComposer.js';
+import '../../js/shaders/CopyShader.js';
+
+import {Threejs_game} from '../threejs_game/threejs_game';
 
 import '../../js/jquery.min.js';
 import '../../js/jquery-ui.min.js';
@@ -17,7 +21,8 @@ import '../../js/jquery.layout.min.js';
     <editormenu></editormenu>
     <div id="container" style="height:100%;">
         <div class="ui-layout-center" style="margin: 0;padding : 0;">
-            <canvas id="renderCanvas"></canvas>
+            <!--<canvas id="renderCanvas"></canvas>-->
+            <div id="renderCanvas"></div>
         </div>
         <div class="ui-layout-north">
 
@@ -41,11 +46,6 @@ export class GameEditor implements OnInit{
 
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
-        //var self = this;
-        //window.addEventListener('DOMContentLoaded', ()=>{
-            //console.log("loaded?");
-            //self.init();
-        //});
     }
 
     ngOnInit(): void {
@@ -74,9 +74,9 @@ export class GameEditor implements OnInit{
             var layout = $('#container').layout();
             var width     = layout.state.center.innerWidth;
             var height     = layout.state.center.innerHeight;
-            this.camera.aspect = width / height;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize( width,height );
+            //this.camera.aspect = width / height;
+            //this.camera.updateProjectionMatrix();
+            //this.renderer.setSize( width,height );
             layout = null;
             width = null;
             height = null;
@@ -84,47 +84,10 @@ export class GameEditor implements OnInit{
     }
 
     init(){
-        var canvas = document.getElementById("renderCanvas");
-
-        var scene = new THREE.Scene();
-		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-		//var renderer = new THREE.WebGLRenderer();
-        var renderer = new THREE.WebGLRenderer({ canvas: canvas });
-		//renderer.setSize( window.innerWidth, window.innerHeight );
-        var layout = $('#container').layout();
-        var width     = layout.state.center.innerWidth;
-        var height     = layout.state.center.innerHeight;
-        renderer.setSize( width, height );
-		//document.body.appendChild( renderer.domElement );
-
-
-        this.renderer = renderer;
-        this.camera = camera;
-		var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		var cube = new THREE.Mesh( geometry, material );
-        cube.name = "cube";
-        //cube.position.x = 5;
-        //cube.position.y = -0.1;
-		scene.add( cube );
-        //cube = new THREE.Mesh( geometry, material );
-        //cube.name = "cube";
-        //scene.add( cube );
-
-        this.gameservice.scene = scene;
-
-		camera.position.z = 5;
-
-		var render = function () {
-			requestAnimationFrame( render );
-
-			cube.rotation.x += 0.1;
-			cube.rotation.y += 0.1;
-
-			renderer.render(scene, camera);
-		};
-
-		render();
+        var config;
+        config = {bupdateobjects:true};
+        var game = new Threejs_game(config);
+        console.log(game);
+        this.gameservice.app = game;
     }
 }

@@ -5,5 +5,6 @@ export class GameService {
 
     scene = null;
     selectobject = null;
+    app = null;
 
 }
