@@ -11,8 +11,6 @@ import {GameService} from '../services/game.service';
             <br>Size: <input type="number" [(ngModel)]="shape_size" >
             <br>Height: <input type="number" [(ngModel)]="shape_height" >
             <br>Width: <input type="number" [(ngModel)]="shape_width" >
-
-
             <br>
             <br>px: <input type="number" [(ngModel)]="shape_x" >
             <br>py: <input type="number" [(ngModel)]="shape_y" >
@@ -30,7 +28,6 @@ export class ShapePlaneModal implements OnInit{
     shape_x = 0;
     shape_y = 0;
     shape_z = 0;
-
 
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
@@ -59,8 +56,8 @@ export class ShapePlaneModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#shapeplane").dialog();
         $("#shapeplane").dialog('close');
     }

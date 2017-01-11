@@ -19,7 +19,7 @@ import '../js/jquery.layout.min.js';
 })
 export class MainApp {
     constructor(gameservice:GameService){
-        console.log(gameservice);
+        //console.log(gameservice);
         this.gameservice = gameservice;
     }
 }

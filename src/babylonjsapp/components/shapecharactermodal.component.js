@@ -10,7 +10,6 @@ import {GameService} from '../services/game.service';
             <br>Camera Position: <input id="terrain_camera" type="checkbox">
             <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->
             <!--</select>-->
-
             <!--
             <br>Height: <input type="number" [(ngModel)]="shape_height" >
             <br>Width: <input type="number" [(ngModel)]="shape_width" >
@@ -34,7 +33,6 @@ export class ShapeCharacterModal implements OnInit{
     shape_y = 0;
     shape_z = 0;
 
-
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
     }
@@ -56,8 +54,8 @@ export class ShapeCharacterModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#shapecharacter").dialog();
         $("#shapecharacter").dialog('close');
     }

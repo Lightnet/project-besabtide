@@ -31,7 +31,6 @@ export class ShapeCubeModal implements OnInit{
     shape_y = 0;
     shape_z = 0;
 
-
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
     }
@@ -59,8 +58,8 @@ export class ShapeCubeModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#shapecube").dialog();
         $("#shapecube").dialog('close');
     }

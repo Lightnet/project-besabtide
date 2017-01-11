@@ -29,11 +29,11 @@ export class CodeEditor implements OnInit{
 function Test(){
     console.log("hello world text");
 }
-
 //Test();
-
 //console.log("test");
-console.log(this);
+//console.log(this);
+//console.log(Game);
+//console.log(Game.scene);
     `;
 
     ngOnInit(): void {
@@ -49,14 +49,12 @@ console.log(this);
 
     ngAfterViewInit() {
         //console.log(this);
-        console.log(this.editor.nativeElement.env.editor);//works
+        //console.log(this.editor.nativeElement.env.editor);//works
         //console.log(this.editor);
         //var edit = this.editor();
         //console.log(edit);
         //this.editor.setTheme("eclipse");
-
         this.editor.nativeElement.env.editor.getSession().setMode("ace/mode/javascript");
-
         this.editor.nativeElement.env.editor.commands.addCommand({
            name: "showOtherCompletions",
            bindKey: "Ctrl-.",

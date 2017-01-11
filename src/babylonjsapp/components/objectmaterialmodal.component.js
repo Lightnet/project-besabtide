@@ -34,7 +34,6 @@ export class ObjectMaterialModal implements OnInit{
     shape_y = 0;
     shape_z = 0;
 
-
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
     }
@@ -62,8 +61,8 @@ export class ObjectMaterialModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#objectmaterial").dialog();
         $("#objectmaterial").dialog('close');
     }

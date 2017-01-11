@@ -38,10 +38,11 @@ import {Babylonjs_game_parse} from './system/Babylonjs_game_parse';
 import {Babylonjs_game_loadsave} from './system/Babylonjs_game_loadsave';
 import {Babylonjs_game_gundb} from './system/Babylonjs_game_gundb';
 
-
 import {Babylonjs_game_terrain} from './terrain/Babylonjs_game_terrain';
 
 import {Babylonjs_game_jqueryui} from './jqueryui/Babylonjs_game_jqueryui';
+
+import {GAMEAPI} from './system/Babylonjs_game_api';
 
 // Converts from degrees to radians.
 Math.radians = function(degrees) {
@@ -282,8 +283,13 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     setup_game() {
         var self = this;
+        console.log(GAMEAPI);
+
+        new GAMEAPI(this);
+
+        //new API(self);
         //Global variable when just Game in the any script area out once loaded.
-        window.Game = this;
+        //window.Game = this;
 
         console.log("setup game!");
         //this.canvasrender();

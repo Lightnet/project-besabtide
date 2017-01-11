@@ -52,8 +52,8 @@ export class ShapeSphereModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#shapesphere").dialog();
         $("#shapesphere").dialog('close');
     }

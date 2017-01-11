@@ -110,7 +110,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         this.gun.get('scene').each(function (_obj) {
           //console.log(_obj)
         });
-        console.log("need to call out function to init?");
+        //console.log("need to call out function to init?");
     }
 
 }

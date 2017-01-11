@@ -34,7 +34,6 @@ export class ShapeTerrainModal implements OnInit{
     shape_y = 0;
     shape_z = 0;
 
-
     constructor(gameservice:GameService){
         this.gameservice = gameservice;
     }
@@ -56,8 +55,8 @@ export class ShapeTerrainModal implements OnInit{
     }
 
     ngOnInit(): void {
-        var self = this;
-        console.log("init modal!");
+        //var self = this;
+        //console.log("init modal!");
         $("#shapeterrain").dialog();
         $("#shapeterrain").dialog('close');
     }
