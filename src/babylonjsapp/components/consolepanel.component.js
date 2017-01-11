@@ -8,8 +8,7 @@ import { Component } from '@angular/core';
     selector: 'consolepanel',
     //styleUrls:  ['./components/editorpanel.component.css'],
     template: `
-        <div style="">
-            <div id="myLog" style="height:100%;width:100%;overflow-y : hidden;overflow-x : hidden;overflow:auto ;"></div>
+        <div id="myLog" style="float:left;height:100%;width:100%;margin:0;padding:0;overflow-y:auto;">
         </div>
     `
 })

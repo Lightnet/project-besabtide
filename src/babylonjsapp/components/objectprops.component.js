@@ -4,7 +4,7 @@ import {GameService} from '../services/game.service';
 @Component({
     selector: 'objectprops',
     template: `
-        <div style="height:50%;width:100%">
+        <div style="height:50%;width:100%;overflow-y:scroll;">
             Props:
             <!--<button (click)="refresh()">Refresh</button>-->
             <div *ngIf="gameservice.selectobject">

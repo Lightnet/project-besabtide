@@ -126,23 +126,32 @@ export class EditorMenu {
 
     addcube(){
         console.log("addcube");
+        $("#shapecube").dialog('open');
+        /*
         if(this.gameservice.scene !=null){
             BABYLON.MeshBuilder.CreateBox('box1', {height:1,width:1,depth:1}, this.gameservice.scene);
         }
+        */
     }
 
     addspshere(){
         console.log("addspshere");
+        $("#shapesphere").dialog('open');
+        /*
         if(this.gameservice.scene !=null){
             BABYLON.MeshBuilder.CreateSphere('sphere1', {diameter:1}, this.gameservice.scene);
         }
+        */
     }
 
     addsplane(){
         console.log("addsplane");
+        $("#shapesphere").dialog('open');
+        /*
         if(this.gameservice.scene !=null){
             var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.gameservice.scene);
         }
+        */
     }
 
     addmesh(){

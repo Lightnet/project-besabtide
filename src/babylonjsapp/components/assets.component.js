@@ -6,6 +6,9 @@ import {GameService} from '../services/game.service';
     selector: 'assets-list',
     template: `
         Assets
+        <div style="width:100%;height:100%;overflow-y:scroll;">
+
+        </div>
         <!--<button (click)="refresh()">Refresh</button>-->
         <!--
         <div *ngIf="gameservice.scene">

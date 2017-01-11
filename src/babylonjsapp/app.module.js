@@ -24,6 +24,8 @@ import {EditorMenu} from './components/editormenu.component';
 import {EditorPanel} from './components/editorpanel.component';
 import {ConsolePanel} from './components/consolepanel.component';
 
+import {CubeModal} from './components/cubemodal.component';
+
 
 
 import {NavMenu} from './components/navmenu.component';
@@ -54,7 +56,8 @@ import {GameService} from './services/game.service';
         Objectprops,
         EditorPanel,
         ConsolePanel,
-        EditorMenu
+        EditorMenu,
+        CubeModal
     ],
     providers: [
         GameService

@@ -37,7 +37,7 @@ var MainApp = exports.MainApp = (_dec = (0, _core.Component)({
 }) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], MainApp);
 
-},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":61,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
+},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":62,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -88,6 +88,8 @@ var _editorpanel = require('./components/editorpanel.component');
 
 var _consolepanel = require('./components/consolepanel.component');
 
+var _cubemodal = require('./components/cubemodal.component');
+
 var _navmenu = require('./components/navmenu.component');
 
 var _game = require('./services/game.service');
@@ -101,14 +103,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AppModule = exports.AppModule = (_dec = (0, _core.NgModule)({
     imports: [_platformBrowser.BrowserModule, _forms.FormsModule],
-    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu],
+    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu, _cubemodal.CubeModal],
     providers: [_game.GameService],
     bootstrap: [_app.MainApp]
 }), _dec(_class = function AppModule() {
     _classCallCheck(this, AppModule);
 }) || _class);
 
-},{"./app.component":2,"./components/assets.component":48,"./components/codeeditor.component":49,"./components/consolepanel.component":50,"./components/editormenu.component":51,"./components/editorpanel.component":52,"./components/gameeditor.component":53,"./components/navmenu.component":54,"./components/objectprops.component":55,"./components/scene.component":56,"./components/scripteditorexplore.component":57,"./components/scripteditorlayout.component":58,"./components/scripteditormenu.component":59,"./services/game.service":61,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
+},{"./app.component":2,"./components/assets.component":48,"./components/codeeditor.component":49,"./components/consolepanel.component":50,"./components/cubemodal.component":51,"./components/editormenu.component":52,"./components/editorpanel.component":53,"./components/gameeditor.component":54,"./components/navmenu.component":55,"./components/objectprops.component":56,"./components/scene.component":57,"./components/scripteditorexplore.component":58,"./components/scripteditorlayout.component":59,"./components/scripteditormenu.component":60,"./services/game.service":62,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6928,7 +6930,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
     selector: 'assets-list',
-    template: '\n        Assets\n        <!--<button (click)="refresh()">Refresh</button>-->\n        <!--\n        <div *ngIf="gameservice.scene">\n            <a *ngFor="let obj of gameservice.scene.children">\n                <label>{{obj.name}}</label>\n            </a>\n        </div>\n        -->\n    '
+    template: '\n        Assets\n        <div style="width:100%;height:100%;overflow-y:scroll;">\n\n        </div>\n        <!--<button (click)="refresh()">Refresh</button>-->\n        <!--\n        <div *ngIf="gameservice.scene">\n            <a *ngFor="let obj of gameservice.scene.children">\n                <label>{{obj.name}}</label>\n            </a>\n        </div>\n        -->\n    '
 }), _dec(_class = function () {
     function AssetsList(gameservice) {
         _classCallCheck(this, AssetsList);
@@ -6950,7 +6952,7 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], AssetsList);
 
-},{"../services/game.service":61,"@angular/core":"@angular/core"}],49:[function(require,module,exports){
+},{"../services/game.service":62,"@angular/core":"@angular/core"}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7012,7 +7014,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var ConsolePanel = exports.ConsolePanel = (_dec = (0, _core.Component)({
     selector: 'consolepanel',
     //styleUrls:  ['./components/editorpanel.component.css'],
-    template: '\n        <div style="">\n            <div id="myLog" style="height:100%;width:100%;overflow-y : hidden;overflow-x : hidden;overflow:auto ;"></div>\n        </div>\n    '
+    template: '\n        <div id="myLog" style="float:left;height:100%;width:100%;margin:0;padding:0;overflow-y:auto;">\n        </div>\n    '
 }), _dec(_class = function ConsolePanel() {
     /*
     window.console = {
@@ -7028,6 +7030,78 @@ var ConsolePanel = exports.ConsolePanel = (_dec = (0, _core.Component)({
 }) || _class);
 
 },{"@angular/core":"@angular/core"}],51:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.CubeModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var CubeModal = exports.CubeModal = (_dec = (0, _core.Component)({
+    selector: 'cubemodal',
+    template: '\n        <div id="shapecube">\n            Shape: Cube\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function CubeModal(gameservice) {
+        _classCallCheck(this, CubeModal);
+
+        this.shape_height = 1;
+        this.shape_width = 1;
+        this.shape_depth = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(CubeModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.parse_object({ geometrytype: 'cube',
+                    parameters: {
+                        height: this.shape_height,
+                        width: this.shape_width,
+                        depth: this.shape_depth },
+                    position: {
+                        x: this.shape_x,
+                        y: this.shape_y,
+                        z: this.shape_z
+                    }
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapecube").dialog();
+            $("#shapecube").dialog('close');
+        }
+    }]);
+
+    return CubeModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], CubeModal);
+
+},{"../services/game.service":62,"@angular/core":"@angular/core"}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7134,25 +7208,34 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
         key: 'addcube',
         value: function addcube() {
             console.log("addcube");
-            if (this.gameservice.scene != null) {
-                BABYLON.MeshBuilder.CreateBox('box1', { height: 1, width: 1, depth: 1 }, this.gameservice.scene);
+            $("#shapecube").dialog('open');
+            /*
+            if(this.gameservice.scene !=null){
+                BABYLON.MeshBuilder.CreateBox('box1', {height:1,width:1,depth:1}, this.gameservice.scene);
             }
+            */
         }
     }, {
         key: 'addspshere',
         value: function addspshere() {
             console.log("addspshere");
-            if (this.gameservice.scene != null) {
-                BABYLON.MeshBuilder.CreateSphere('sphere1', { diameter: 1 }, this.gameservice.scene);
+            $("#shapesphere").dialog('open');
+            /*
+            if(this.gameservice.scene !=null){
+                BABYLON.MeshBuilder.CreateSphere('sphere1', {diameter:1}, this.gameservice.scene);
             }
+            */
         }
     }, {
         key: 'addsplane',
         value: function addsplane() {
             console.log("addsplane");
-            if (this.gameservice.scene != null) {
+            $("#shapesphere").dialog('open');
+            /*
+            if(this.gameservice.scene !=null){
                 var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.gameservice.scene);
             }
+            */
         }
     }, {
         key: 'addmesh',
@@ -7170,7 +7253,7 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":61,"@angular/core":"@angular/core"}],52:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":62,"@angular/core":"@angular/core"}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7189,7 +7272,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     selector: 'editorpanel',
     styleUrls: ['./components/editorpanel.component.css'],
-    template: '\n        <div style="height:100%;width:100%;">\n            <div style="width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </div>\n            <div [hidden]="bconsole"style="width:100%;height:100%;">\n                <consolepanel></consolepanel>\n            </div>\n            <div [hidden]="bscript" style="width:100%;height:100%;">\n                <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                    <scripteditormenu></scripteditormenu>\n                    <scripteditorexplore></scripteditorexplore>\n                </div>\n                <div style="width:80%;height:100%;float:left;">\n                    <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n                </div>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;margin:0;padding:0;">\n            <div style="width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </div>\n            <div [hidden]="bconsole"style="width:100%;height:80%;background-color: #00ff00;">\n                <consolepanel></consolepanel>\n            </div>\n            <div [hidden]="bscript" style="width:100%;height:100%;">\n                <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                    <scripteditormenu></scripteditormenu>\n                    <scripteditorexplore></scripteditorexplore>\n                </div>\n                <div style="width:80%;height:100%;float:left;">\n                    <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n                </div>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function EditorPanel() {
         _classCallCheck(this, EditorPanel);
@@ -7215,7 +7298,7 @@ var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     return EditorPanel;
 }()) || _class);
 
-},{"@angular/core":"@angular/core"}],53:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7247,7 +7330,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
     selector: 'gameeditor',
-    template: '\n    <editormenu></editormenu>\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin: 0;padding : 0;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north">\n\n        </div>\n        <div class="ui-layout-south" style="margin: 0;padding : 0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    '
+    template: '\n    <editormenu></editormenu>\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north">\n\n        </div>\n        <div class="ui-layout-south" style="margin:0;padding:0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east" style="margin:0;padding:0;overflow:hidden;">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west" style="margin:0;padding:0;overflow:hidden;">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    <cubemodal></cubemodal>\n    '
 }), _dec(_class = function () {
     function GameEditor(gameservice) {
         _classCallCheck(this, GameEditor);
@@ -7313,46 +7396,6 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             this.gameservice.app = baylonjs_Game;
 
             this.gameservice.scene = baylonjs_Game.scene;
-
-            // get the canvas DOM element
-            /*
-            var canvas = document.getElementById('renderCanvas');
-              // load the 3D engine
-            var engine = new BABYLON.Engine(canvas, true);
-              // createScene function that creates and return the scene
-            var createScene = function(){
-                // create a basic BJS Scene object
-                var scene = new BABYLON.Scene(engine);
-                  // create a FreeCamera, and set its position to (x:0, y:5, z:-10)
-                var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), scene);
-                  // target the camera to scene origin
-                camera.setTarget(BABYLON.Vector3.Zero());
-                  // attach the camera to the canvas
-                camera.attachControl(canvas, false);
-                  // create a basic light, aiming 0,1,0 - meaning, to the sky
-                var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene);
-                  // create a built-in "sphere" shape; its constructor takes 5 params: name, width, depth, subdivisions, scene
-                var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene);
-                  // move the sphere upward 1/2 of its height
-                sphere.position.y = 1;
-                  // create a built-in "ground" shape; its constructor takes the same 5 params as the sphere's one
-                var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene);
-                  // return the created scene
-                return scene;
-            }
-              // call the createScene function
-            var scene = createScene();
-              this.scene = scene;
-            this.gameservice.scene = scene;
-              // run the render loop
-            engine.runRenderLoop(function(){
-                scene.render();
-            });
-              // the canvas/window resize event handler
-            window.addEventListener('resize', function(){
-                engine.resize();
-            });
-            */
         }
     }]);
 
@@ -7360,7 +7403,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], GameEditor);
 
-},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":61,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],54:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":62,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7419,7 +7462,7 @@ var NavMenu = exports.NavMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], NavMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":61,"@angular/core":"@angular/core"}],55:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":62,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7439,7 +7482,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     selector: 'objectprops',
-    template: '\n        <div style="height:50%;width:100%">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}<button (click)="meshdelete()">Delete</button>\n                <br><label>px:<input type="number" ng-model=\'val | number: 2\' [ngModel]="gameservice.selectobject.position.x" value="{{gameservice.selectobject.position.x}}" (ngModelChange)="objposx($event)" step ="0.000001" /></label>\n                <br><label>py:<input type="number" [ngModel]="gameservice.selectobject.position.y" value="{{gameservice.selectobject.position.y}}" (ngModelChange)="objposy($event)" step ="0.000001" /></label>\n                <br><label>pz:<input type="number" [ngModel]="gameservice.selectobject.position.z" value="{{gameservice.selectobject.position.z}}" (ngModelChange)="objposz($event)" step ="0.000001" /></label>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}<button (click)="meshdelete()">Delete</button>\n                <br><label>px:<input type="number" ng-model=\'val | number: 2\' [ngModel]="gameservice.selectobject.position.x" value="{{gameservice.selectobject.position.x}}" (ngModelChange)="objposx($event)" step ="0.000001" /></label>\n                <br><label>py:<input type="number" [ngModel]="gameservice.selectobject.position.y" value="{{gameservice.selectobject.position.y}}" (ngModelChange)="objposy($event)" step ="0.000001" /></label>\n                <br><label>pz:<input type="number" [ngModel]="gameservice.selectobject.position.z" value="{{gameservice.selectobject.position.z}}" (ngModelChange)="objposz($event)" step ="0.000001" /></label>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function Objectprops(gameservice) {
         _classCallCheck(this, Objectprops);
@@ -7499,7 +7542,7 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], Objectprops);
 
-},{"../services/game.service":61,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
+},{"../services/game.service":62,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7519,7 +7562,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
-    template: '\n        <div style="height:50%;width:100%">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label (click)="selectobject(obj)">{{obj.name}}</label>\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label (click)="selectobject(obj)">{{obj.name}}</label>\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
@@ -7548,7 +7591,7 @@ var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], SceneList);
 
-},{"../services/game.service":61,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
+},{"../services/game.service":62,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7569,7 +7612,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
     _classCallCheck(this, ScriptEditorExplore);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],58:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7590,7 +7633,7 @@ var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Componen
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],59:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7644,7 +7687,7 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
     return ScriptEditorMenu;
 }()) || _class);
 
-},{"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -7659,7 +7702,7 @@ var _app = require('./app.module');
 
 (0, _platformBrowserDynamic.platformBrowserDynamic)().bootstrapModule(_app.AppModule);
 
-},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],61:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7681,6 +7724,6 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.app = null;
 }) || _class);
 
-},{"@angular/core":"@angular/core"}]},{},[60])
+},{"@angular/core":"@angular/core"}]},{},[61])
 
 //# sourceMappingURL=app.js.map
