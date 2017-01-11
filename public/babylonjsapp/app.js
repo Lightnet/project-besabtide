@@ -37,7 +37,7 @@ var MainApp = exports.MainApp = (_dec = (0, _core.Component)({
 }) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], MainApp);
 
-},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":62,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
+},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":68,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -88,7 +88,17 @@ var _editorpanel = require('./components/editorpanel.component');
 
 var _consolepanel = require('./components/consolepanel.component');
 
-var _cubemodal = require('./components/cubemodal.component');
+var _shapecubemodal = require('./components/shapecubemodal.component');
+
+var _shapespheremodal = require('./components/shapespheremodal.component');
+
+var _shapeplanemodal = require('./components/shapeplanemodal.component');
+
+var _shapeterrainmodal = require('./components/shapeterrainmodal.component');
+
+var _objectmaterialmodal = require('./components/objectmaterialmodal.component');
+
+var _shapecharactermodal = require('./components/shapecharactermodal.component');
 
 var _navmenu = require('./components/navmenu.component');
 
@@ -103,14 +113,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AppModule = exports.AppModule = (_dec = (0, _core.NgModule)({
     imports: [_platformBrowser.BrowserModule, _forms.FormsModule],
-    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu, _cubemodal.CubeModal],
+    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu, _shapecubemodal.ShapeCubeModal, _shapespheremodal.ShapeSphereModal, _shapeplanemodal.ShapePlaneModal, _shapeterrainmodal.ShapeTerrainModal, _objectmaterialmodal.ObjectMaterialModal, _shapecharactermodal.ShapeCharacterModal],
     providers: [_game.GameService],
     bootstrap: [_app.MainApp]
 }), _dec(_class = function AppModule() {
     _classCallCheck(this, AppModule);
 }) || _class);
 
-},{"./app.component":2,"./components/assets.component":48,"./components/codeeditor.component":49,"./components/consolepanel.component":50,"./components/cubemodal.component":51,"./components/editormenu.component":52,"./components/editorpanel.component":53,"./components/gameeditor.component":54,"./components/navmenu.component":55,"./components/objectprops.component":56,"./components/scene.component":57,"./components/scripteditorexplore.component":58,"./components/scripteditorlayout.component":59,"./components/scripteditormenu.component":60,"./services/game.service":62,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
+},{"./app.component":2,"./components/assets.component":49,"./components/codeeditor.component":50,"./components/consolepanel.component":51,"./components/editormenu.component":52,"./components/editorpanel.component":53,"./components/gameeditor.component":54,"./components/navmenu.component":55,"./components/objectmaterialmodal.component":56,"./components/objectprops.component":57,"./components/scene.component":58,"./components/scripteditorexplore.component":59,"./components/scripteditorlayout.component":60,"./components/scripteditormenu.component":61,"./components/shapecharactermodal.component":62,"./components/shapecubemodal.component":63,"./components/shapeplanemodal.component":64,"./components/shapespheremodal.component":65,"./components/shapeterrainmodal.component":66,"./services/game.service":68,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1232,7 +1242,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
     return Babylonjs_game;
 }(_babylonjs_framework.Babylonjs_framework);
 
-},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":36,"./rpg/RPGStatus":37,"./scene/Babylonjs_game_scene":39,"./system/Babylonjs_game_assets":40,"./system/Babylonjs_game_battle":41,"./system/Babylonjs_game_gundb":42,"./system/Babylonjs_game_loadsave":43,"./system/Babylonjs_game_parse":45,"./terrain/Babylonjs_game_terrain":46,"./ui/Babylonjs_game_ui":47}],12:[function(require,module,exports){
+},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":37,"./rpg/RPGStatus":38,"./scene/Babylonjs_game_scene":40,"./system/Babylonjs_game_assets":41,"./system/Babylonjs_game_battle":42,"./system/Babylonjs_game_gundb":43,"./system/Babylonjs_game_loadsave":44,"./system/Babylonjs_game_parse":46,"./terrain/Babylonjs_game_terrain":47,"./ui/Babylonjs_game_ui":48}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1440,7 +1450,7 @@ var Babylonjs_game_character = exports.Babylonjs_game_character = function (_Bab
     return Babylonjs_game_character;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":44}],13:[function(require,module,exports){
+},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":45}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1695,7 +1705,7 @@ var Babylonjs_game_controller = exports.Babylonjs_game_controller = function (_B
     return Babylonjs_game_controller;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":36,"../rpg/RPGStatus":37,"../system/Babylonjs_game_module":44}],14:[function(require,module,exports){
+},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":37,"../rpg/RPGStatus":38,"../system/Babylonjs_game_module":45}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1712,6 +1722,8 @@ var _RPGCube = require('../rpg/RPGCube');
 var _RPGSphere = require('../rpg/RPGSphere');
 
 var _RPGCylinder = require('../rpg/RPGCylinder');
+
+var _RPGPlane = require('../rpg/RPGPlane');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1765,10 +1777,12 @@ var Babylonjs_game_editor = exports.Babylonjs_game_editor = function (_Babylonjs
 
                     if (args['geometrytype'] == 'ground') {
                         _obj = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.scene);
+                        //_obj = this.parse_createplane(args);
                     }
 
                     if (args['geometrytype'] == 'plane') {
-                        _obj = BABYLON.Mesh.CreatePlane("plane", 10.0, this.scene, false, BABYLON.Mesh.DEFAULTSIDE);
+                        //_obj = BABYLON.Mesh.CreatePlane("plane", 10.0, this.scene, false, BABYLON.Mesh.DEFAULTSIDE);
+                        _obj = this.parse_createplane(args);
                     }
 
                     if (args['geometrytype'] == 'disc') {
@@ -1830,6 +1844,26 @@ var Babylonjs_game_editor = exports.Babylonjs_game_editor = function (_Babylonjs
                     }
                 }
             } else {}
+            return _obj;
+        }
+    }, {
+        key: 'parse_createplane',
+        value: function parse_createplane(args) {
+            //console.log("found");
+            //console.log(args);
+            var _obj = null;
+            var params = {};
+            //if(args['box'] != null){
+            //var _obj = BABYLON.MeshBuilder.CreateBox("ground", {height:1,width:20,depth:20}, this.scene);
+            //args = args['box'];
+            params.size = args['parameters']['size'] || 1;
+            params.width = args['parameters']['width'] || 1;
+            params.height = args['parameters']['height'] || 1;
+            //console.log(params);
+            var _obj = BABYLON.MeshBuilder.CreatePlane("plane", params, this.scene);
+            _obj.rpgobj = new _RPGCube.RPGCube(args);
+            //console.log(args['position']);
+            //}
             return _obj;
         }
     }, {
@@ -2198,7 +2232,7 @@ var Babylonjs_game_editor = exports.Babylonjs_game_editor = function (_Babylonjs
     return Babylonjs_game_editor;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGSphere":35,"../system/Babylonjs_game_module":44}],15:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGPlane":35,"../rpg/RPGSphere":36,"../system/Babylonjs_game_module":45}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2459,7 +2493,7 @@ var Babylonjs_game_hud = exports.Babylonjs_game_hud = function (_Babylonjs_game_
     return Babylonjs_game_hud;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],16:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2526,7 +2560,7 @@ var Babylonjs_game_hud_battle = exports.Babylonjs_game_hud_battle = function (_B
     return Babylonjs_game_hud_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],17:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2767,7 +2801,7 @@ var Babylonjs_game_hud_inventory = exports.Babylonjs_game_hud_inventory = functi
     return Babylonjs_game_hud_inventory;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],18:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2833,7 +2867,7 @@ var Babylonjs_game_hud_loot = exports.Babylonjs_game_hud_loot = function (_Babyl
     return Babylonjs_game_hud_loot;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],19:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2869,7 +2903,7 @@ var Babylonjs_game_hud_market = exports.Babylonjs_game_hud_market = function (_B
     return Babylonjs_game_hud_market;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],20:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],20:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3031,7 +3065,7 @@ var Babylonjs_game_hud_shop = exports.Babylonjs_game_hud_shop = function (_Babyl
     return Babylonjs_game_hud_shop;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],21:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3100,7 +3134,7 @@ var Babylonjs_game_hud_skills = exports.Babylonjs_game_hud_skills = function (_B
     return Babylonjs_game_hud_skills;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],22:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3166,7 +3200,7 @@ var Babylonjs_game_hud_storage = exports.Babylonjs_game_hud_storage = function (
     return Babylonjs_game_hud_storage;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],23:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3202,7 +3236,7 @@ var Babylonjs_game_hud_trade = exports.Babylonjs_game_hud_trade = function (_Bab
     return Babylonjs_game_hud_trade;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],24:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],24:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4039,7 +4073,7 @@ var Babylonjs_game_jqueryui = exports.Babylonjs_game_jqueryui = function (_Babyl
     return Babylonjs_game_jqueryui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],25:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4103,7 +4137,7 @@ var Babylonjs_game_load = exports.Babylonjs_game_load = function (_Babylonjs_gam
     return Babylonjs_game_load;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],26:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4181,7 +4215,7 @@ var Babylonjs_game_network = exports.Babylonjs_game_network = function (_Babylon
     return Babylonjs_game_network;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],27:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4217,7 +4251,7 @@ var Babylonjs_game_physics = exports.Babylonjs_game_physics = function (_Babylon
     return Babylonjs_game_physics;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],28:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4641,6 +4675,55 @@ var RPGNPCCharacter = exports.RPGNPCCharacter = function (_ObjectRPGID) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.RPGPlane = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('./ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: bes-threejs
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/bes-threejs
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+var RPGPlane = exports.RPGPlane = function (_ObjectRPGID) {
+    _inherits(RPGPlane, _ObjectRPGID);
+
+    _createClass(RPGPlane, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGPlane';
+        }
+    }]);
+
+    function RPGPlane(args) {
+        _classCallCheck(this, RPGPlane);
+
+        var _this = _possibleConstructorReturn(this, (RPGPlane.__proto__ || Object.getPrototypeOf(RPGPlane)).call(this, args));
+
+        _this.objtype = "mesh";
+        _this.nameClass = "RPGPlane";
+        _this.geometrytype = 'plane';
+        return _this;
+    }
+
+    return RPGPlane;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"./ObjectRPGID":28}],36:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.RPGSphere = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -4684,7 +4767,7 @@ var RPGSphere = exports.RPGSphere = function (_ObjectRPGID) {
     return RPGSphere;
 }(_ObjectRPGID2.ObjectRPGID);
 
-},{"./ObjectRPGID":28}],36:[function(require,module,exports){
+},{"./ObjectRPGID":28}],37:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4733,7 +4816,7 @@ var RPGStats = exports.RPGStats = function () {
 		return RPGStats;
 }();
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4830,7 +4913,7 @@ var RPGStatus = exports.RPGStatus = function (_ObjectRPGID) {
 		return RPGStatus;
 }(_ObjectRPGID2.ObjectRPGID);
 
-},{"./ObjectRPGID":28,"./RPGStats":36}],38:[function(require,module,exports){
+},{"./ObjectRPGID":28,"./RPGStats":37}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4878,7 +4961,7 @@ var RPGTerrain = exports.RPGTerrain = function (_ObjectRPGID) {
     return RPGTerrain;
 }(_ObjectRPGID2.ObjectRPGID);
 
-},{"./ObjectRPGID":28}],39:[function(require,module,exports){
+},{"./ObjectRPGID":28}],40:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4960,7 +5043,7 @@ var Babylonjs_game_scene = exports.Babylonjs_game_scene = function (_Babylonjs_g
     return Babylonjs_game_scene;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],40:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],41:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5164,7 +5247,7 @@ var Babylonjs_game_assets = exports.Babylonjs_game_assets = function (_Babylonjs
 				return Babylonjs_game_assets;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":44}],41:[function(require,module,exports){
+},{"./Babylonjs_game_module":45}],42:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5432,7 +5515,7 @@ var Babylonjs_game_battle = exports.Babylonjs_game_battle = function (_Babylonjs
 	return Babylonjs_game_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":44}],42:[function(require,module,exports){
+},{"./Babylonjs_game_module":45}],43:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5575,7 +5658,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
     return Babylonjs_game_gundb;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":44}],43:[function(require,module,exports){
+},{"./Babylonjs_game_module":45}],44:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5875,7 +5958,7 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
     return Babylonjs_game_loadsave;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":35,"../rpg/RPGTerrain":38,"./Babylonjs_game_module":44}],44:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":36,"../rpg/RPGTerrain":39,"./Babylonjs_game_module":45}],45:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5912,7 +5995,7 @@ var Babylonjs_game_module = exports.Babylonjs_game_module = function Babylonjs_g
     }
 };
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6062,7 +6145,7 @@ var Babylonjs_game_parse = exports.Babylonjs_game_parse = function (_Babylonjs_g
 	return Babylonjs_game_parse;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":44}],46:[function(require,module,exports){
+},{"./Babylonjs_game_module":45}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6393,7 +6476,7 @@ var Babylonjs_game_terrain = exports.Babylonjs_game_terrain = function (_Babylon
     return Babylonjs_game_terrain;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGTerrain":38,"../system/Babylonjs_game_module":44}],47:[function(require,module,exports){
+},{"../rpg/RPGTerrain":39,"../system/Babylonjs_game_module":45}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6910,7 +6993,7 @@ var Babylonjs_game_ui = exports.Babylonjs_game_ui = function (_Babylonjs_game_mo
     return Babylonjs_game_ui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":44}],48:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":45}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6952,7 +7035,7 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], AssetsList);
 
-},{"../services/game.service":62,"@angular/core":"@angular/core"}],49:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],50:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6995,7 +7078,7 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
     return CodeEditor;
 }()) || _class);
 
-},{"@angular/core":"@angular/core","ng2-ace-editor":"ng2-ace-editor","zone.js/dist/zone":"zone.js/dist/zone"}],50:[function(require,module,exports){
+},{"@angular/core":"@angular/core","ng2-ace-editor":"ng2-ace-editor","zone.js/dist/zone":"zone.js/dist/zone"}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7029,79 +7112,7 @@ var ConsolePanel = exports.ConsolePanel = (_dec = (0, _core.Component)({
     _classCallCheck(this, ConsolePanel);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],51:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.CubeModal = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _dec, _class;
-
-var _core = require('@angular/core');
-
-var _game = require('../services/game.service');
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var CubeModal = exports.CubeModal = (_dec = (0, _core.Component)({
-    selector: 'cubemodal',
-    template: '\n        <div id="shapecube">\n            Shape: Cube\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
-}), _dec(_class = function () {
-    function CubeModal(gameservice) {
-        _classCallCheck(this, CubeModal);
-
-        this.shape_height = 1;
-        this.shape_width = 1;
-        this.shape_depth = 1;
-        this.shape_x = 0;
-        this.shape_y = 0;
-        this.shape_z = 0;
-
-        this.gameservice = gameservice;
-    }
-
-    _createClass(CubeModal, [{
-        key: 'createshape',
-        value: function createshape() {
-            if (this.gameservice.app != null) {
-                //console.log("pass");
-                console.log(this);
-                console.log(this.shape_height);
-
-                this.gameservice.app.parse_object({ geometrytype: 'cube',
-                    parameters: {
-                        height: this.shape_height,
-                        width: this.shape_width,
-                        depth: this.shape_depth },
-                    position: {
-                        x: this.shape_x,
-                        y: this.shape_y,
-                        z: this.shape_z
-                    }
-                });
-            } else {
-                //console.log("fail");
-            }
-        }
-    }, {
-        key: 'ngOnInit',
-        value: function ngOnInit() {
-            var self = this;
-            console.log("init modal!");
-            $("#shapecube").dialog();
-            $("#shapecube").dialog('close');
-        }
-    }]);
-
-    return CubeModal;
-}()) || _class);
-Reflect.defineMetadata('design:paramtypes', [_game.GameService], CubeModal);
-
-},{"../services/game.service":62,"@angular/core":"@angular/core"}],52:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7124,7 +7135,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
     selector: 'editormenu',
     styleUrls: ['./components/editormenu.component.css'],
-    template: '\n    <ul>\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addmesh();">Mesh</a>\n      <a href="#" (click)="addmaterial();">Material</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
+    template: '\n    <ul>\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addterrain();">Terrain</a>\n      <!--<a href="#" (click)="addmesh();">Mesh</a>-->\n      <a href="#" (click)="addmaterial();">Material</a>\n      <a href="#" (click)="addcharacter();">Character</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
 }), _dec(_class = function () {
     function EditorMenu(gameservice) {
         _classCallCheck(this, EditorMenu);
@@ -7209,43 +7220,42 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
         value: function addcube() {
             console.log("addcube");
             $("#shapecube").dialog('open');
-            /*
-            if(this.gameservice.scene !=null){
-                BABYLON.MeshBuilder.CreateBox('box1', {height:1,width:1,depth:1}, this.gameservice.scene);
-            }
-            */
         }
     }, {
         key: 'addspshere',
         value: function addspshere() {
             console.log("addspshere");
             $("#shapesphere").dialog('open');
-            /*
-            if(this.gameservice.scene !=null){
-                BABYLON.MeshBuilder.CreateSphere('sphere1', {diameter:1}, this.gameservice.scene);
-            }
-            */
         }
     }, {
         key: 'addsplane',
         value: function addsplane() {
             console.log("addsplane");
-            $("#shapesphere").dialog('open');
-            /*
-            if(this.gameservice.scene !=null){
-                var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.gameservice.scene);
-            }
-            */
+            $("#shapeplane").dialog('open');
+        }
+    }, {
+        key: 'addterrain',
+        value: function addterrain() {
+            console.log("addsplane");
+            $("#shapeterrain").dialog('open');
+        }
+    }, {
+        key: 'addcharacter',
+        value: function addcharacter() {
+            console.log("addsplane");
+            $("#shapecharacter").dialog('open');
         }
     }, {
         key: 'addmesh',
         value: function addmesh() {
             console.log("addmesh");
+            //$("#").dialog('open');
         }
     }, {
         key: 'addmaterial',
         value: function addmaterial() {
             console.log("addmaterial > ?");
+            $("#objectmaterial").dialog('open');
         }
     }]);
 
@@ -7253,7 +7263,7 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":62,"@angular/core":"@angular/core"}],53:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":68,"@angular/core":"@angular/core"}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7330,7 +7340,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
     selector: 'gameeditor',
-    template: '\n    <editormenu></editormenu>\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north">\n\n        </div>\n        <div class="ui-layout-south" style="margin:0;padding:0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east" style="margin:0;padding:0;overflow:hidden;">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west" style="margin:0;padding:0;overflow:hidden;">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    <cubemodal></cubemodal>\n    '
+    template: '\n    <editormenu></editormenu>\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north">\n\n        </div>\n        <div class="ui-layout-south" style="margin:0;padding:0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east" style="margin:0;padding:0;overflow:hidden;">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west" style="margin:0;padding:0;overflow:hidden;">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    <shapecubemodal></shapecubemodal>\n    <shapespheremodal></shapespheremodal>\n    <shapesplanemodal></shapesplanemodal>\n    <shapeterrainmodal></shapeterrainmodal>\n    <objectmaterialmodal></objectmaterialmodal>\n    <shapecharactermodal></shapecharactermodal>\n    '
 }), _dec(_class = function () {
     function GameEditor(gameservice) {
         _classCallCheck(this, GameEditor);
@@ -7403,7 +7413,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], GameEditor);
 
-},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":62,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],55:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":68,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7462,7 +7472,79 @@ var NavMenu = exports.NavMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], NavMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":62,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":68,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ObjectMaterialModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ObjectMaterialModal = exports.ObjectMaterialModal = (_dec = (0, _core.Component)({
+    selector: 'objectmaterialmodal',
+    template: '\n        <div id="objectmaterial">\n            Create: Material\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n\n            <!--\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            -->\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ObjectMaterialModal(gameservice) {
+        _classCallCheck(this, ObjectMaterialModal);
+
+        this.shape_height = 1;
+        this.shape_width = 1;
+        this.shape_depth = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(ObjectMaterialModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.parse_object({ geometrytype: 'cube',
+                    parameters: {
+                        height: this.shape_height,
+                        width: this.shape_width,
+                        depth: this.shape_depth },
+                    position: {
+                        x: this.shape_x,
+                        y: this.shape_y,
+                        z: this.shape_z
+                    }
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#objectmaterial").dialog();
+            $("#objectmaterial").dialog('close');
+        }
+    }]);
+
+    return ObjectMaterialModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ObjectMaterialModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7542,7 +7624,7 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], Objectprops);
 
-},{"../services/game.service":62,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7591,7 +7673,7 @@ var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], SceneList);
 
-},{"../services/game.service":62,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7612,7 +7694,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
     _classCallCheck(this, ScriptEditorExplore);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],59:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7633,7 +7715,7 @@ var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Componen
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7687,7 +7769,352 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
     return ScriptEditorMenu;
 }()) || _class);
 
-},{"@angular/core":"@angular/core"}],61:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],62:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ShapeCharacterModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ShapeCharacterModal = exports.ShapeCharacterModal = (_dec = (0, _core.Component)({
+    selector: 'shapecharactermodal',
+    template: '\n        <div id="shapecharacter">\n            Create: Character\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n\n            <!--\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            -->\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ShapeCharacterModal(gameservice) {
+        _classCallCheck(this, ShapeCharacterModal);
+
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+    //shape_height = 1;
+    //shape_width = 1;
+    //shape_depth = 1;
+
+    _createClass(ShapeCharacterModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.spawn_character({
+                    x: this.shape_x,
+                    y: this.shape_y,
+                    z: this.shape_z
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapecharacter").dialog();
+            $("#shapecharacter").dialog('close');
+        }
+    }]);
+
+    return ShapeCharacterModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCharacterModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],63:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ShapeCubeModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ShapeCubeModal = exports.ShapeCubeModal = (_dec = (0, _core.Component)({
+    selector: 'shapecubemodal',
+    template: '\n        <div id="shapecube">\n            Shape: Cube\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ShapeCubeModal(gameservice) {
+        _classCallCheck(this, ShapeCubeModal);
+
+        this.shape_height = 1;
+        this.shape_width = 1;
+        this.shape_depth = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(ShapeCubeModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.parse_object({ geometrytype: 'cube',
+                    parameters: {
+                        height: this.shape_height,
+                        width: this.shape_width,
+                        depth: this.shape_depth },
+                    position: {
+                        x: this.shape_x,
+                        y: this.shape_y,
+                        z: this.shape_z
+                    }
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapecube").dialog();
+            $("#shapecube").dialog('close');
+        }
+    }]);
+
+    return ShapeCubeModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCubeModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],64:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ShapePlaneModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ShapePlaneModal = exports.ShapePlaneModal = (_dec = (0, _core.Component)({
+    selector: 'shapesplanemodal',
+    template: '\n        <div id="shapeplane">\n            Shape: Plane\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <br>Size: <input type="number" [(ngModel)]="shape_size" >\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n\n\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ShapePlaneModal(gameservice) {
+        _classCallCheck(this, ShapePlaneModal);
+
+        this.shape_size = 1;
+        this.shape_height = 1;
+        this.shape_width = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(ShapePlaneModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.parse_object({ geometrytype: 'plane',
+                    parameters: {
+                        height: this.shape_height,
+                        width: this.shape_width,
+                        size: this.shape_size },
+                    position: {
+                        x: this.shape_x,
+                        y: this.shape_y,
+                        z: this.shape_z
+                    }
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapeplane").dialog();
+            $("#shapeplane").dialog('close');
+        }
+    }]);
+
+    return ShapePlaneModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapePlaneModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ShapeSphereModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ShapeSphereModal = exports.ShapeSphereModal = (_dec = (0, _core.Component)({
+    selector: 'shapespheremodal',
+    template: '\n        <div id="shapesphere">\n            Shape: Sphere\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <br>Diameter: <input type="number" [(ngModel)]="shape_diameter" >\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ShapeSphereModal(gameservice) {
+        _classCallCheck(this, ShapeSphereModal);
+
+        this.shape_diameter = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(ShapeSphereModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.parse_object({ geometrytype: 'sphere',
+                    parameters: {
+                        diameter: this.shape_diameter
+                    },
+                    position: {
+                        x: this.shape_x,
+                        y: this.shape_y,
+                        z: this.shape_z
+                    }
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapesphere").dialog();
+            $("#shapesphere").dialog('close');
+        }
+    }]);
+
+    return ShapeSphereModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeSphereModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ShapeTerrainModal = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ShapeTerrainModal = exports.ShapeTerrainModal = (_dec = (0, _core.Component)({
+    selector: 'shapeterrainmodal',
+    template: '\n        <div id="shapeterrain">\n            Shape: Terrain\n            <br>Camera Position: <input id="terrain_camera" type="checkbox">\n            <!--<br><select id="sceneshape" onclick="this.gameservice.app.ui_selectshape();">-->\n            <!--</select>-->\n\n            <!--\n            <br>Height: <input type="number" [(ngModel)]="shape_height" >\n            <br>Width: <input type="number" [(ngModel)]="shape_width" >\n            <br>Depth: <input type="number" [(ngModel)]="shape_depth" >\n            -->\n            <br>\n            <br>px: <input type="number" [(ngModel)]="shape_x" >\n            <br>py: <input type="number" [(ngModel)]="shape_y" >\n            <br>pz: <input type="number" [(ngModel)]="shape_z" >\n            <br>\n            <br><button (click)="createshape();">Create Shape</button>\n        </div>\n    '
+}), _dec(_class = function () {
+    function ShapeTerrainModal(gameservice) {
+        _classCallCheck(this, ShapeTerrainModal);
+
+        this.shape_height = 1;
+        this.shape_width = 1;
+        this.shape_depth = 1;
+        this.shape_x = 0;
+        this.shape_y = 0;
+        this.shape_z = 0;
+
+        this.gameservice = gameservice;
+    }
+
+    _createClass(ShapeTerrainModal, [{
+        key: 'createshape',
+        value: function createshape() {
+            if (this.gameservice.app != null) {
+                //console.log("pass");
+                console.log(this);
+                console.log(this.shape_height);
+
+                this.gameservice.app.createterrain({
+                    x: this.shape_x,
+                    y: this.shape_y,
+                    z: this.shape_z
+                });
+            } else {
+                //console.log("fail");
+            }
+        }
+    }, {
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            var self = this;
+            console.log("init modal!");
+            $("#shapeterrain").dialog();
+            $("#shapeterrain").dialog('close');
+        }
+    }]);
+
+    return ShapeTerrainModal;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeTerrainModal);
+
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -7702,7 +8129,7 @@ var _app = require('./app.module');
 
 (0, _platformBrowserDynamic.platformBrowserDynamic)().bootstrapModule(_app.AppModule);
 
-},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],62:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],68:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7724,6 +8151,6 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.app = null;
 }) || _class);
 
-},{"@angular/core":"@angular/core"}]},{},[61])
+},{"@angular/core":"@angular/core"}]},{},[67])
 
 //# sourceMappingURL=app.js.map

@@ -35,7 +35,12 @@ import '../../js/jquery.layout.min.js';
             <assets-list></assets-list>
         </div>
     </div>
-    <cubemodal></cubemodal>
+    <shapecubemodal></shapecubemodal>
+    <shapespheremodal></shapespheremodal>
+    <shapesplanemodal></shapesplanemodal>
+    <shapeterrainmodal></shapeterrainmodal>
+    <objectmaterialmodal></objectmaterialmodal>
+    <shapecharactermodal></shapecharactermodal>
     `
 })
 export class GameEditor implements OnInit{

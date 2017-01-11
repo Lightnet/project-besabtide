@@ -11,6 +11,7 @@ import {Babylonjs_game_module} from '../system/Babylonjs_game_module';
 import {RPGCube} from '../rpg/RPGCube';
 import {RPGSphere} from '../rpg/RPGSphere';
 import {RPGCylinder} from '../rpg/RPGCylinder';
+import {RPGPlane} from '../rpg/RPGPlane';
 
 export class Babylonjs_game_editor extends Babylonjs_game_module{
 
@@ -33,7 +34,6 @@ export class Babylonjs_game_editor extends Babylonjs_game_module{
                 _obj = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), this.scene);
             }
 
-
 			if(args['geometrytype'] !=null){
 				if(args['geometrytype'] == 'cube'){
 					_obj = this.parse_createcube(args);
@@ -46,10 +46,12 @@ export class Babylonjs_game_editor extends Babylonjs_game_module{
 
 	            if(args['geometrytype'] == 'ground'){
 	                _obj = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.scene);
+                    //_obj = this.parse_createplane(args);
 	            }
 
 				if(args['geometrytype'] == 'plane'){
-	                _obj = BABYLON.Mesh.CreatePlane("plane", 10.0, this.scene, false, BABYLON.Mesh.DEFAULTSIDE);
+	                //_obj = BABYLON.Mesh.CreatePlane("plane", 10.0, this.scene, false, BABYLON.Mesh.DEFAULTSIDE);
+                    _obj = this.parse_createplane(args);
 	            }
 
 	            if(args['geometrytype'] == 'disc'){
@@ -115,6 +117,25 @@ export class Babylonjs_game_editor extends Babylonjs_game_module{
         }
         return _obj;
     }
+
+    parse_createplane(args){
+		//console.log("found");
+		//console.log(args);
+		var _obj = null;
+		var params = {};
+		//if(args['box'] != null){
+			//var _obj = BABYLON.MeshBuilder.CreateBox("ground", {height:1,width:20,depth:20}, this.scene);
+			//args = args['box'];
+			params.size = args['parameters']['size'] || 1;
+			params.width = args['parameters']['width'] || 1;
+			params.height = args['parameters']['height'] || 1;
+            //console.log(params);
+			var _obj = BABYLON.MeshBuilder.CreatePlane("plane",params, this.scene);
+            _obj.rpgobj = new RPGCube(args);
+            //console.log(args['position']);
+		//}
+		return _obj;
+	}
 
 	parse_createcube(args){
 		//console.log("found");

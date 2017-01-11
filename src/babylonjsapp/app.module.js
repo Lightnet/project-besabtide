@@ -24,8 +24,13 @@ import {EditorMenu} from './components/editormenu.component';
 import {EditorPanel} from './components/editorpanel.component';
 import {ConsolePanel} from './components/consolepanel.component';
 
-import {CubeModal} from './components/cubemodal.component';
+import {ShapeCubeModal} from './components/shapecubemodal.component';
+import {ShapeSphereModal} from './components/shapespheremodal.component';
+import {ShapePlaneModal} from './components/shapeplanemodal.component';
+import {ShapeTerrainModal} from './components/shapeterrainmodal.component';
 
+import {ObjectMaterialModal} from './components/objectmaterialmodal.component';
+import {ShapeCharacterModal} from './components/shapecharactermodal.component';
 
 
 import {NavMenu} from './components/navmenu.component';
@@ -57,7 +62,12 @@ import {GameService} from './services/game.service';
         EditorPanel,
         ConsolePanel,
         EditorMenu,
-        CubeModal
+        ShapeCubeModal,
+        ShapeSphereModal,
+        ShapePlaneModal,
+        ShapeTerrainModal,
+        ObjectMaterialModal,
+        ShapeCharacterModal
     ],
     providers: [
         GameService

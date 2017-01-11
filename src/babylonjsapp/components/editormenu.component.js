@@ -31,8 +31,10 @@ import '../../js/babylon.min.js';
       <a href="#" (click)="addcube();" >Cube</a>
       <a href="#" (click)="addspshere();">Sphere</a>
       <a href="#" (click)="addsplane();">Plane</a>
-      <a href="#" (click)="addmesh();">Mesh</a>
+      <a href="#" (click)="addterrain();">Terrain</a>
+      <!--<a href="#" (click)="addmesh();">Mesh</a>-->
       <a href="#" (click)="addmaterial();">Material</a>
+      <a href="#" (click)="addcharacter();">Character</a>
     </div>
     </li>
     <!--
@@ -127,38 +129,35 @@ export class EditorMenu {
     addcube(){
         console.log("addcube");
         $("#shapecube").dialog('open');
-        /*
-        if(this.gameservice.scene !=null){
-            BABYLON.MeshBuilder.CreateBox('box1', {height:1,width:1,depth:1}, this.gameservice.scene);
-        }
-        */
     }
 
     addspshere(){
         console.log("addspshere");
         $("#shapesphere").dialog('open');
-        /*
-        if(this.gameservice.scene !=null){
-            BABYLON.MeshBuilder.CreateSphere('sphere1', {diameter:1}, this.gameservice.scene);
-        }
-        */
     }
 
     addsplane(){
         console.log("addsplane");
-        $("#shapesphere").dialog('open');
-        /*
-        if(this.gameservice.scene !=null){
-            var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, this.gameservice.scene);
-        }
-        */
+        $("#shapeplane").dialog('open');
+    }
+
+    addterrain(){
+        console.log("addsplane");
+        $("#shapeterrain").dialog('open');
+    }
+
+    addcharacter(){
+        console.log("addsplane");
+        $("#shapecharacter").dialog('open');
     }
 
     addmesh(){
         console.log("addmesh");
+        //$("#").dialog('open');
     }
 
     addmaterial(){
         console.log("addmaterial > ?");
+        $("#objectmaterial").dialog('open');
     }
 }
