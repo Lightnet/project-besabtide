@@ -1094,6 +1094,8 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         key: 'setup_game',
         value: function setup_game() {
             var self = this;
+            //Global variable when just Game in the any script area out once loaded.
+            window.Game = this;
 
             console.log("setup game!");
             //this.canvasrender();
@@ -7045,9 +7047,10 @@ exports.CodeEditor = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class; //add "AceEditorDirective" to your modules list
+var _dec, _dec2, _class, _desc, _value, _class2, _descriptor; //add "AceEditorDirective" to your modules list
 
-var _ng2AceEditor = require('ng2-ace-editor');
+//import { AceEditorDirective } from 'ng2-ace-editor';
+
 
 var _core = require('@angular/core');
 
@@ -7055,14 +7058,69 @@ require('zone.js/dist/zone');
 
 var _game = require('../services/game.service');
 
+function _initDefineProp(target, property, descriptor, context) {
+    if (!descriptor) return;
+    Object.defineProperty(target, property, {
+        enumerable: descriptor.enumerable,
+        configurable: descriptor.configurable,
+        writable: descriptor.writable,
+        value: descriptor.initializer ? descriptor.initializer.call(context) : void 0
+    });
+}
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
+    var desc = {};
+    Object['ke' + 'ys'](descriptor).forEach(function (key) {
+        desc[key] = descriptor[key];
+    });
+    desc.enumerable = !!desc.enumerable;
+    desc.configurable = !!desc.configurable;
+
+    if ('value' in desc || desc.initializer) {
+        desc.writable = true;
+    }
+
+    desc = decorators.slice().reverse().reduce(function (desc, decorator) {
+        return decorator(target, property, desc) || desc;
+    }, desc);
+
+    if (context && desc.initializer !== void 0) {
+        desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
+        desc.initializer = undefined;
+    }
+
+    if (desc.initializer === void 0) {
+        Object['define' + 'Property'](target, property, desc);
+        desc = null;
+    }
+
+    return desc;
+}
+
+function _initializerWarningHelper(descriptor, context) {
+    throw new Error('Decorating class property failed. Please ensure that transform-class-properties is enabled.');
+}
 
 var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
     selector: 'codeeditor-component',
-    template: '\n    <div ace-editor\n       [text]="text"\n       [options]="options"\n       [readOnly]="false"\n       [autoUpdateContent]="true"\n       (textChanged)="onChange($event)"\n       style="min-height: 200px; height:100%; width:100%; overflow: auto;margin: 0;padding : 0;"></div>\n    '
-}), _dec(_class = function () {
+    template: '\n    <div ace-editor\n        #editor\n       [text]="text"\n       [options]="options"\n       [readOnly]="false"\n       [autoUpdateContent]="true"\n       (textChanged)="onChange($event)"\n       style="min-height: 200px; height:100%; width:100%; overflow: auto;margin: 0;padding : 0;"></div>\n    '
+}), _dec2 = (0, _core.ViewChild)('editor'), _dec(_class = (_class2 = function () {
+    _createClass(CodeEditor, [{
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            //this.editor.setTheme("eclipse");
+            //console.log(this.editor);
+        }
+        //options:any = {maxLines: 1000, printMargin: false};
+
+    }]);
+
     function CodeEditor(gameservice) {
         _classCallCheck(this, CodeEditor);
+
+        _initDefineProp(this, 'editor', _descriptor, this);
 
         this.options = { printMargin: false };
         this.gameservice = null;
@@ -7072,10 +7130,28 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
         this.gameservice = gameservice;
         this.gameservice.textscript = this.text;
     }
-    //options:any = {maxLines: 1000, printMargin: false};
-
 
     _createClass(CodeEditor, [{
+        key: 'ngAfterViewInit',
+        value: function ngAfterViewInit() {
+            //console.log(this);
+            console.log(this.editor.nativeElement.env.editor); //works
+            //console.log(this.editor);
+            //var edit = this.editor();
+            //console.log(edit);
+            //this.editor.setTheme("eclipse");
+
+            this.editor.nativeElement.env.editor.getSession().setMode("ace/mode/javascript");
+
+            this.editor.nativeElement.env.editor.commands.addCommand({
+                name: "showOtherCompletions",
+                bindKey: "Ctrl-.",
+                exec: function exec(editor) {
+                    console.log("CTRL-");
+                }
+            });
+        }
+    }, {
         key: 'onChange',
         value: function onChange(code) {
             //console.log(this.text);
@@ -7085,10 +7161,15 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
     }]);
 
     return CodeEditor;
-}()) || _class);
+}(), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, 'editor', [_dec2], {
+    enumerable: true,
+    initializer: function initializer() {
+        return this.editor;
+    }
+})), _class2)) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], CodeEditor);
 
-},{"../services/game.service":68,"@angular/core":"@angular/core","ng2-ace-editor":"ng2-ace-editor","zone.js/dist/zone":"zone.js/dist/zone"}],51:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

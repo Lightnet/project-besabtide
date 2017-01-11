@@ -282,6 +282,8 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     setup_game() {
         var self = this;
+        //Global variable when just Game in the any script area out once loaded.
+        window.Game = this;
 
         console.log("setup game!");
         //this.canvasrender();
