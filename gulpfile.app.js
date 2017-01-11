@@ -199,6 +199,7 @@ gulp.task('browser-sync', function() {
 gulp.task('app_dev:cleanbuild', ['clean','copy','assets:copy','js:copy','build:vendor.js','build:app.js','watch','browser-sync']);
 
 gulp.task('app_dev:build', ['copy','build:app.js','watch','src:server','serve','browser-sync']);
+//gulp.task('app_dev:build', ['copy','build:app.js','watch','src:server','browser-sync']);
 
 // default development build
 gulp.task('default', ['app_dev:build']);

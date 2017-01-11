@@ -55,10 +55,10 @@ export class GameEditor implements OnInit{
         var self = this;
         console.log("init layout!");
         this.setup_layout();
-        window.addEventListener('load',()=>{
-            console.log("loaded?");
+        //window.addEventListener('load',()=>{
+            //console.log("loaded?");
             self.init();
-        },false);
+        //},false);
     }
 
     setup_layout(){
@@ -98,10 +98,8 @@ export class GameEditor implements OnInit{
         var baylonjs_Game = new Babylonjs_game(config);
         console.log(baylonjs_Game);
         baylonjs_Game.init();
-        baylonjs_Game.setup_GunDBScript();
+        //baylonjs_Game.setup_GunDBScript();
         this.gameservice.app = baylonjs_Game;
-
         this.gameservice.scene = baylonjs_Game.scene;
-
     }
 }

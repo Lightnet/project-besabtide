@@ -7053,17 +7053,24 @@ var _core = require('@angular/core');
 
 require('zone.js/dist/zone');
 
+var _game = require('../services/game.service');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
     selector: 'codeeditor-component',
     template: '\n    <div ace-editor\n       [text]="text"\n       [options]="options"\n       [readOnly]="false"\n       [autoUpdateContent]="true"\n       (textChanged)="onChange($event)"\n       style="min-height: 200px; height:100%; width:100%; overflow: auto;margin: 0;padding : 0;"></div>\n    '
 }), _dec(_class = function () {
-    function CodeEditor() {
+    function CodeEditor(gameservice) {
         _classCallCheck(this, CodeEditor);
 
-        this.text = "Test";
         this.options = { printMargin: false };
+        this.gameservice = null;
+        this.text = '\nfunction Test(){\n    console.log("hello world text");\n}\n\n//Test();\n\n//console.log("test");\nconsole.log(this);\n    ';
+
+        //console.log(gameservice);
+        this.gameservice = gameservice;
+        this.gameservice.textscript = this.text;
     }
     //options:any = {maxLines: 1000, printMargin: false};
 
@@ -7071,14 +7078,17 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
     _createClass(CodeEditor, [{
         key: 'onChange',
         value: function onChange(code) {
-            console.log("new code", code);
+            //console.log(this.text);
+            //console.log("new code", code);
+            this.gameservice.textscript = code;
         }
     }]);
 
     return CodeEditor;
 }()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], CodeEditor);
 
-},{"@angular/core":"@angular/core","ng2-ace-editor":"ng2-ace-editor","zone.js/dist/zone":"zone.js/dist/zone"}],51:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core","ng2-ace-editor":"ng2-ace-editor","zone.js/dist/zone":"zone.js/dist/zone"}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7356,10 +7366,10 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             var self = this;
             console.log("init layout!");
             this.setup_layout();
-            window.addEventListener('load', function () {
-                console.log("loaded?");
-                self.init();
-            }, false);
+            //window.addEventListener('load',()=>{
+            //console.log("loaded?");
+            self.init();
+            //},false);
         }
     }, {
         key: 'setup_layout',
@@ -7402,9 +7412,8 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             var baylonjs_Game = new _babylonjs_game.Babylonjs_game(config);
             console.log(baylonjs_Game);
             baylonjs_Game.init();
-            baylonjs_Game.setup_GunDBScript();
+            //baylonjs_Game.setup_GunDBScript();
             this.gameservice.app = baylonjs_Game;
-
             this.gameservice.scene = baylonjs_Game.scene;
         }
     }]);
@@ -7644,7 +7653,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label (click)="selectobject(obj)">{{obj.name}}</label>\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
+    styleUrls: ['./components/scene.component.css'],
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
@@ -7729,14 +7739,21 @@ var _dec, _class;
 
 var _core = require('@angular/core');
 
+var _game = require('../services/game.service');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
     selector: 'scripteditormenu',
     template: '\n        Action\n        <button (click)="ScriptReload();">Reload</button>\n        <button (click)="ScriptSave();">Save</button>\n        <button (click)="ScriptRun();">Run</button>\n        <button (click)="ScriptCreate();">Create</button>\n        <button (click)="ScriptDelete();">Delete</button>\n    '
 }), _dec(_class = function () {
-    function ScriptEditorMenu() {
+    function ScriptEditorMenu(gameservice) {
         _classCallCheck(this, ScriptEditorMenu);
+
+        this.gameservice = null;
+
+        //console.log(gameservice);
+        this.gameservice = gameservice;
     }
 
     _createClass(ScriptEditorMenu, [{
@@ -7753,6 +7770,25 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
         key: 'ScriptRun',
         value: function ScriptRun() {
             console.log('Run');
+            if (this.gameservice.textscript != null) {
+                //console.log(this.gameservice.textscript);
+                var runscript = document.getElementById("runscript");
+                if (runscript != null) {
+                    document.getElementById("runscript").remove();
+                    this.AddScript();
+                } else {
+                    this.AddScript();
+                }
+            }
+        }
+    }, {
+        key: 'AddScript',
+        value: function AddScript() {
+            if (this.gameservice != null) {
+                var _script = document.createElement("script");
+                _script.innerHTML = this.gameservice.textscript;
+                document.getElementsByTagName('body')[0].appendChild(_script);
+            }
         }
     }, {
         key: 'ScriptDelete',
@@ -7768,8 +7804,9 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
 
     return ScriptEditorMenu;
 }()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorMenu);
 
-},{"@angular/core":"@angular/core"}],62:[function(require,module,exports){
+},{"../services/game.service":68,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8149,7 +8186,11 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.scene = null;
     this.selectobject = null;
     this.app = null;
-}) || _class);
+    this.textscriptname = '';
+    this.textscript = '';
+}
+//scripteditor = null;
+) || _class);
 
 },{"@angular/core":"@angular/core"}]},{},[67])
 

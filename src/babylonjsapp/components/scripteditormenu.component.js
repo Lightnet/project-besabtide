@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import {GameService} from '../services/game.service';
+
 @Component({
     selector: 'scripteditormenu',
     template: `
@@ -13,6 +15,13 @@ import { Component } from '@angular/core';
 })
 export class ScriptEditorMenu {
 
+    gameservice = null;
+
+    constructor(gameservice:GameService){
+        //console.log(gameservice);
+        this.gameservice = gameservice;
+    }
+
     ScriptReload(){
         console.log('Reload');
     }
@@ -23,7 +32,27 @@ export class ScriptEditorMenu {
 
     ScriptRun(){
         console.log('Run');
+        if(this.gameservice.textscript !=null){
+            //console.log(this.gameservice.textscript);
+            var runscript = document.getElementById("runscript");
+            if(runscript !=null){
+                document.getElementById("runscript").remove();
+                this.AddScript();
+            }else{
+                this.AddScript();
+            }
+        }
     }
+
+    AddScript(){
+        if(this.gameservice !=null){
+            var _script = document.createElement("script");
+            _script.innerHTML = this.gameservice.textscript;
+            document.getElementsByTagName('body')[0].appendChild(_script);
+        }
+    }
+
+
 
     ScriptDelete(){
         console.log('Delete');

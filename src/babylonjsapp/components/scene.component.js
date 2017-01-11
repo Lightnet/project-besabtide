@@ -3,6 +3,7 @@ import {GameService} from '../services/game.service';
 
 @Component({
     selector: 'scene-list',
+    styleUrls:  ['./components/scene.component.css'],
     template: `
         <div style="height:50%;width:100%;overflow-y:scroll;">
             Scene
@@ -10,7 +11,7 @@ import {GameService} from '../services/game.service';
             <div *ngIf="gameservice.scene">
                 <ul>
                 <li *ngFor="let obj of gameservice.scene.meshes">
-                    <label (click)="selectobject(obj)">{{obj.name}}</label>
+                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >
                 </li>
                 </ul>
             </div>

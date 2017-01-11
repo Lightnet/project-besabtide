@@ -4,6 +4,8 @@ import { AceEditorDirective } from 'ng2-ace-editor';
 import { Component } from '@angular/core';
 import 'zone.js/dist/zone';
 
+import {GameService} from '../services/game.service';
+
 @Component({
     selector: 'codeeditor-component',
     template: `
@@ -17,11 +19,30 @@ import 'zone.js/dist/zone';
     `
 })
 export class CodeEditor {
-    text:string = "Test";
     //options:any = {maxLines: 1000, printMargin: false};
-    options:any = { printMargin: false};
+    options:any = { printMargin: false };
+
+    gameservice = null;
+    text:string = `
+function Test(){
+    console.log("hello world text");
+}
+
+//Test();
+
+//console.log("test");
+console.log(this);
+    `;
+
+    constructor(gameservice:GameService){
+        //console.log(gameservice);
+        this.gameservice = gameservice;
+        this.gameservice.textscript = this.text;
+    }
 
     onChange(code) {
-        console.log("new code", code);
+        //console.log(this.text);
+        //console.log("new code", code);
+        this.gameservice.textscript = code;
     }
 }

@@ -2,8 +2,9 @@
 
 Information: To run gulp auto script builds for development testing to run web page with Babel ES6, Angular2 and Babylon.js and threejs javascript.
 
-[Angular 2 Babylonjs Editor Prototype](https://lightnet.github.io/project-besabtide/public/babylonjsapp/) (Main builds)
-[Angular 2 Threejs Editor Prototype](https://lightnet.github.io/project-besabtide/public/threejsapp/)
+Apps Demo:
+ * [Angular 2 Babylonjs Editor Prototype](https://lightnet.github.io/project-besabtide/public/babylonjsapp/) (Main builds)
+ * [Angular 2 Threejs Editor Prototype](https://lightnet.github.io/project-besabtide/public/threejsapp/)
 
 Programs:
  * Atom.io (optional)
@@ -12,6 +13,7 @@ Programs:
  * Nodejs 7.3.0 (Require)
   * Babel.js ES6 (npm package from babelify)
   * gulp (npm package)
+  * GunDB (work in progress database)
 
 Gulp run auto script with browserify, babelify and others.
 
