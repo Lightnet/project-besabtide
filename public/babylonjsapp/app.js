@@ -1110,8 +1110,17 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
     }, {
         key: 'initscripts',
         value: function initscripts() {
-            this.scriptcomponents.push({ name: 'main', script: 'function main(){console.log("main");}Test();' });
-            this.scriptcomponents.push({ name: 'test', script: 'function Test(){console.log("test");}Test();' });
+            var mainscript = {
+                name: 'main',
+                script: '\nfunction Test(){\n    console.log("hello world text");\n}\nTest();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);'
+            };
+            this.scriptcomponents.push(mainscript);
+            mainscript = {
+                name: 'test',
+                script: 'function Test(){\n    console.log("test");\n}\nTest();'
+            };
+            this.scriptcomponents.push(mainscript);
+            mainscript = null;
         }
     }, {
         key: 'setup_game',
@@ -7206,6 +7215,11 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
             //var edit = this.editor();
             //console.log(edit);
             //this.editor.setTheme("eclipse");
+
+            if (this.gameservice != null) {
+                this.gameservice.scripteditor = this.editor.nativeElement.env.editor;
+            }
+            this.editor.nativeElement.env.editor.$blockScrolling = Infinity;
             this.editor.nativeElement.env.editor.getSession().setMode("ace/mode/javascript");
             this.editor.nativeElement.env.editor.commands.addCommand({
                 name: "showOtherCompletions",
@@ -7460,7 +7474,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     selector: 'editorpanel',
     styleUrls: ['./components/editorpanel.component.css'],
-    template: '\n        <div style="height:100%;width:100%;margin:0;padding:0;">\n            <div style="width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <!--<li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>-->\n                </ul>\n            </div>\n            \n            <div [hidden]="bconsole"style="width:100%;height:80%;background-color: #00ff00;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <div [hidden]="bscript" style="height:100%;margin:0;padding:0;">\n                <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                    <!--\n\n                    -->\n                    <scripteditormenu></scripteditormenu>\n                    <scripteditorexplore></scripteditorexplore>\n                </div>\n                <div style="width:80%;height:100%;float:left;margin:0;padding:0;">\n                    <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n                    <!--\n\n                    -->\n                </div>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;">\n\n            <div style="position: static;width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </div>\n\n            <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <scripteditorlayout [hidden]="bscript" style="height:100%;margin:0;padding:0;"></scripteditorlayout>\n        </div>\n    '
 }), _dec(_class = function () {
     function EditorPanel() {
         _classCallCheck(this, EditorPanel);
@@ -7916,12 +7930,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Component)({
     selector: 'scripteditorexplore',
-    template: '\n        <div style="height:100%;overflow:auto;background-color:gray;">\n        Files:\n        <div *ngIf="gameservice.app.scriptcomponents">\n            <ul>\n            <li *ngFor="let obj of this.gameservice.app.scriptcomponents">\n                <label style="display: block;" (click)="selectobject(obj)"> {{obj.name}}</label>\n            </li>\n            </ul>\n        </div>\n\n        </div>\n    '
+    styleUrls: ['./components/scripteditorexplore.component.css'],
+    template: '\n        <div style="height:100%;overflow:auto;background-color:gray;">\n        Files:\n        <div *ngIf="gameservice.app.scriptcomponents">\n            <ul>\n            <li *ngFor="let obj of this.gameservice.app.scriptcomponents">\n                <label style="display: block;" (click)="selectscript(obj)"> {{obj.name}}</label>\n            </li>\n            </ul>\n        </div>\n        </div>\n    '
 }), _dec(_class = function () {
     _createClass(ScriptEditorExplore, [{
-        key: 'selectobject',
-        value: function selectobject(value) {
-            console.log(value);
+        key: 'selectscript',
+        value: function selectscript(value) {
+            //console.log(value);
+            //check if game service editor is not null
+            if (this.gameservice.scripteditor != null) {
+                //console.log("found!");
+                this.gameservice.scripteditor.setValue(value.script);
+                this.gameservice.scripteditor.clearSelection();
+            }
         }
     }]);
 
@@ -7966,15 +7987,13 @@ var _dec, _class; /*
                       Information: Please read the readme.md file for more information.
                   */
 
-// NOT in used
-
 var _core = require('@angular/core');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Component)({
     selector: 'scripteditorlayout',
-    template: '\n        <div style="height:100%;width:100%;">\n            <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                <!--<scripteditormenu></scripteditormenu>\n                <scripteditorexplore></scripteditorexplore>\n                -->\n            </div>\n            <div style="width:80%;height:100%;float:left;">\n            <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;">\n            <div style="position: static;width:20%;height:100%;float:left;margin:0;padding:0;">\n                <scripteditormenu></scripteditormenu>\n                <scripteditorexplore></scripteditorexplore>\n            </div>\n            <div style="position: static;width:80%;height:100%;float:left;margin:0;padding:0;">\n                <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </div>\n        </div>\n    '
 }), _dec(_class = function ScriptEditorLayout() {
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
@@ -8498,11 +8517,10 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.scene = null;
     this.selectobject = null;
     this.app = null;
+    this.scripteditor = null;
     this.textscriptname = '';
     this.textscript = '';
-}
-//scripteditor = null;
-) || _class);
+}) || _class);
 
 },{"@angular/core":"@angular/core"}]},{},[68])
 

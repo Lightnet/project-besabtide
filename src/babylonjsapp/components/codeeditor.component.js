@@ -62,6 +62,11 @@ function Test(){
         //var edit = this.editor();
         //console.log(edit);
         //this.editor.setTheme("eclipse");
+
+        if(this.gameservice !=null){
+            this.gameservice.scripteditor = this.editor.nativeElement.env.editor;
+        }
+        this.editor.nativeElement.env.editor.$blockScrolling = Infinity;
         this.editor.nativeElement.env.editor.getSession().setMode("ace/mode/javascript");
         this.editor.nativeElement.env.editor.commands.addCommand({
            name: "showOtherCompletions",

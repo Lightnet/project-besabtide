@@ -15,7 +15,7 @@ export class GameService {
     scene = null;
     selectobject = null;
     app = null;
-    //scripteditor = null;
+    scripteditor = null;
     textscriptname = '';
     textscript = '';
 

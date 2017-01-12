@@ -285,8 +285,28 @@ export class Babylonjs_game extends Babylonjs_framework {
     }
 
     initscripts(){
-        this.scriptcomponents.push({name:'main', script:`function main(){console.log("main");}Test();`});
-        this.scriptcomponents.push({name:'test', script:`function Test(){console.log("test");}Test();`});
+var mainscript ={
+name:'main',
+script:`
+function Test(){
+    console.log("hello world text");
+}
+Test();
+//console.log("test");
+//console.log(this);
+//console.log(Game);
+//console.log(Game.scene);`
+};
+this.scriptcomponents.push(mainscript);
+mainscript = {
+name:'test',
+script:`function Test(){
+    console.log("test");
+}
+Test();`
+}
+        this.scriptcomponents.push(mainscript);
+        mainscript = null;
     }
 
     setup_game() {

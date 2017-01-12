@@ -13,25 +13,31 @@ import {GameService} from '../services/game.service';
 
 @Component({
     selector: 'scripteditorexplore',
+    styleUrls:  ['./components/scripteditorexplore.component.css'],
     template: `
         <div style="height:100%;overflow:auto;background-color:gray;">
         Files:
         <div *ngIf="gameservice.app.scriptcomponents">
             <ul>
             <li *ngFor="let obj of this.gameservice.app.scriptcomponents">
-                <label style="display: block;" (click)="selectobject(obj)"> {{obj.name}}</label>
+                <label style="display: block;" (click)="selectscript(obj)"> {{obj.name}}</label>
             </li>
             </ul>
         </div>
-
         </div>
     `
 })
 export class ScriptEditorExplore implements OnInit{
     gameservice = null;
 
-    selectobject(value){
-        console.log(value);
+    selectscript(value){
+        //console.log(value);
+        //check if game service editor is not null
+        if(this.gameservice.scripteditor !=null){
+            //console.log("found!");
+            this.gameservice.scripteditor.setValue(value.script);
+            this.gameservice.scripteditor.clearSelection();
+        }
     }
 
     constructor(gameservice:GameService){
