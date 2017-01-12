@@ -1,3 +1,12 @@
+/*
+    Project Name: project-besabtide
+    Link:https://github.com/Lightnet/project-besabtide
+    Created By: Lightnet
+    License: cc (creative commons)
+
+    Information: Please read the readme.md file for more information.
+*/
+
 //http://stackoverflow.com/questions/36342437/show-console-log-in-an-html-element-in-javascript
 //http://stackoverflow.com/questions/20256760/javascript-console-log-to-html
 

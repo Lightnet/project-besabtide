@@ -1,12 +1,12 @@
 /*
-    Project Name: bes-threejs
-    Link:https://github.com/Lightnet/bes-threejs
+    Project Name: project-besabtide
+    Link:https://github.com/Lightnet/project-besabtide
     Created By: Lightnet
     License: cc (creative commons)
 
     Information: Please read the readme.md file for more information.
 */
-
+//this is just testing area for boot start main app 
 console.log("Boot init...");
 //setup simple bare
 //import {Babylonjs_framework} from './babylonjs_framework';

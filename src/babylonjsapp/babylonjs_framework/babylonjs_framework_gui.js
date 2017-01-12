@@ -1,11 +1,13 @@
 /*
-    Project Name: bes-threejs
-    Link:https://github.com/Lightnet/bes-threejs
+    Project Name: project-besabtide
+    Link:https://github.com/Lightnet/project-besabtide
     Created By: Lightnet
     License: cc (creative commons)
 
     Information: Please read the readme.md file for more information.
 */
+
+
 import {Babylonjs_framework_module} from './babylonjs_framework_module';
 
 export class Babylonjs_framework_gui extends Babylonjs_framework_module{
@@ -33,5 +35,5 @@ export class Babylonjs_framework_gui extends Babylonjs_framework_module{
 		});
 	}
 
-    
+
 }

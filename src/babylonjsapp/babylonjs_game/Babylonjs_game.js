@@ -1,11 +1,12 @@
 /*
-    Project Name: bes-threejs
-    Link:https://github.com/Lightnet/bes-threejs
+    Project Name: project-besabtide
+    Link:https://github.com/Lightnet/project-besabtide
     Created By: Lightnet
     License: cc (creative commons)
 
     Information: Please read the readme.md file for more information.
 */
+
 
 import {Babylonjs_framework} from '../babylonjs_framework/babylonjs_framework';
 
@@ -283,8 +284,8 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     setup_game() {
         var self = this;
-        console.log(GAMEAPI);
-
+        //setup game API variable access for sandbox acccess
+        //console.log(GAMEAPI);
         new GAMEAPI(this);
 
         //new API(self);
@@ -326,7 +327,7 @@ export class Babylonjs_game extends Babylonjs_framework {
         //this.spawn_character({y: 32, bplayer: true});
 
     }
-
+    /*
     setup_game00() {
         var self = this;
         console.log("setup game!");
@@ -421,19 +422,6 @@ export class Babylonjs_game extends Babylonjs_framework {
         //console.log(player);
         //this.create_character();
         //this.loadmap_requestXML();
-        /*
-        var panel_group2d = new BABYLON.Group2D({
-            parent:this.screencanvas,
-            id:"panel_group2d"+"test",
-            marginAlignment: "h: left, v: top",
-            height:100,
-            width:100
-            //scale:0.6 //limited since backgroundRoundRadius effect render
-            //scale:1 //limited since backgroundRoundRadius effect render
-        });
-        var panel = this.create_R2D_Drag01(panel_group2d,{text:'DISPLAY',x:0,y:0,width:500});
-        */
-
     }
-
+    */
 }

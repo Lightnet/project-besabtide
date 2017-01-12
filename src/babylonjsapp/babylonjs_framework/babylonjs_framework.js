@@ -1,11 +1,13 @@
 /*
-    Project Name: bes-threejs
-    Link:https://github.com/Lightnet/bes-threejs
+    Project Name: project-besabtide
+    Link:https://github.com/Lightnet/project-besabtide
     Created By: Lightnet
     License: cc (creative commons)
 
     Information: Please read the readme.md file for more information.
 */
+
+
 import {Babylonjs_framework_network} from './babylonjs_framework_network';
 import {Babylonjs_framework_physics} from './babylonjs_framework_physics';
 import {Babylonjs_framework_scene} from './babylonjs_framework_scene';

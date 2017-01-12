@@ -2,6 +2,9 @@
 
 Information: To run gulp auto script builds for development testing to run web page with Babel ES6, Angular2 and Babylon.js and threejs javascript.
 
+License: cc (creative commons)
+
+
 Apps Demo:
  * [Angular 2 Babylonjs Editor Prototype](https://lightnet.github.io/project-besabtide/public/babylonjsapp/) (Main builds)
  * [Angular 2 Threejs Editor Prototype](https://lightnet.github.io/project-besabtide/public/threejsapp/)
