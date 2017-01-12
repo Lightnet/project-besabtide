@@ -25,13 +25,13 @@ import '../../js/jquery.layout.min.js';
 @Component({
     selector: 'gameeditor',
     template: `
-    <editormenu></editormenu>
+    <!---->
     <div id="container" style="height:100%;">
         <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">
             <canvas id="renderCanvas"></canvas>
         </div>
-        <div class="ui-layout-north">
-
+        <div class="ui-layout-north" style="margin:0;padding:0;z-index:100;">
+            <editormenu></editormenu>
         </div>
         <div class="ui-layout-south" style="margin:0;padding:0;">
             <editorpanel></editorpanel>
@@ -81,7 +81,8 @@ export class GameEditor implements OnInit{
         });
         var layout = $('#container').layout();
         layout.sizePane("south", 250);
-        layout.toggle("north");
+        layout.allowOverflow("north");
+        //layout.toggle("north");
     }
 
     resizecanvas(){

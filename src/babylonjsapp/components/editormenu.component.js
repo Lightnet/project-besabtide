@@ -16,10 +16,10 @@ import '../../js/babylon.min.js';
     selector: 'editormenu',
     styleUrls:  ['./components/editormenu.component.css'],
     template: `
-    <ul>
+    <ul style="z-index:100">
     <li class="dropdown" >
     <a href="#" class="dropbtn">File</a>
-    <div class="dropdown-content" style="z-index:5">
+    <div class="dropdown-content" style="z-index:10">
       <a href="#" (click)="scriptopenscene();">Open Scene</a>
       <a href="#" (click)="scriptloadscene();">Load Scene</a>
       <a href="#" (click)="scriptsavescene();">Save Scene</a>

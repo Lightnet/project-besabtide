@@ -948,6 +948,8 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         _this.inventory = [];
         _this.scroll_inventory_y = 0;
 
+        _this.scriptcomponents = [];
+
         new _Babylonjs_game_network.Babylonjs_game_network(_this);
         new _Babylonjs_game_physics.Babylonjs_game_physics(_this);
         new _Babylonjs_game_parse.Babylonjs_game_parse(_this);
@@ -1106,11 +1108,18 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             this.scroll_shop_y = 0;
         }
     }, {
+        key: 'initscripts',
+        value: function initscripts() {
+            this.scriptcomponents.push({ name: 'main', script: 'function main(){console.log("main");}Test();' });
+            this.scriptcomponents.push({ name: 'test', script: 'function Test(){console.log("test");}Test();' });
+        }
+    }, {
         key: 'setup_game',
         value: function setup_game() {
             var self = this;
             //setup game API variable access for sandbox acccess
             //console.log(GAMEAPI);
+            this.initscripts();
             new _Babylonjs_game_api.GAMEAPI(this);
 
             //new API(self);
@@ -7181,7 +7190,7 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
 
         this.options = { printMargin: false };
         this.gameservice = null;
-        this.text = '\nfunction Test(){\n    console.log("hello world text");\n}\n//Test();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);\n    ';
+        this.text = '\nfunction Test(){\n    console.log("hello world text");\n}\n//Test();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);';
 
         //console.log(gameservice);
         this.gameservice = gameservice;
@@ -7297,7 +7306,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
     selector: 'editormenu',
     styleUrls: ['./components/editormenu.component.css'],
-    template: '\n    <ul>\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addterrain();">Terrain</a>\n      <!--<a href="#" (click)="addmesh();">Mesh</a>-->\n      <a href="#" (click)="addmaterial();">Material</a>\n      <a href="#" (click)="addcharacter();">Character</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
+    template: '\n    <ul style="z-index:100">\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:10">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addterrain();">Terrain</a>\n      <!--<a href="#" (click)="addmesh();">Mesh</a>-->\n      <a href="#" (click)="addmaterial();">Material</a>\n      <a href="#" (click)="addcharacter();">Character</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
 }), _dec(_class = function () {
     function EditorMenu(gameservice) {
         _classCallCheck(this, EditorMenu);
@@ -7451,7 +7460,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     selector: 'editorpanel',
     styleUrls: ['./components/editorpanel.component.css'],
-    template: '\n        <div style="height:100%;width:100%;margin:0;padding:0;">\n            <div style="width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </div>\n            <div [hidden]="bconsole"style="width:100%;height:80%;background-color: #00ff00;">\n                <consolepanel></consolepanel>\n            </div>\n            <div [hidden]="bscript" style="width:100%;height:100%;">\n                <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                    <scripteditormenu></scripteditormenu>\n                    <scripteditorexplore></scripteditorexplore>\n                </div>\n                <div style="width:80%;height:100%;float:left;">\n                    <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n                </div>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;margin:0;padding:0;">\n            <div style="width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <!--<li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>-->\n                </ul>\n            </div>\n            \n            <div [hidden]="bconsole"style="width:100%;height:80%;background-color: #00ff00;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <div [hidden]="bscript" style="height:100%;margin:0;padding:0;">\n                <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                    <!--\n\n                    -->\n                    <scripteditormenu></scripteditormenu>\n                    <scripteditorexplore></scripteditorexplore>\n                </div>\n                <div style="width:80%;height:100%;float:left;margin:0;padding:0;">\n                    <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n                    <!--\n\n                    -->\n                </div>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function EditorPanel() {
         _classCallCheck(this, EditorPanel);
@@ -7518,7 +7527,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
     selector: 'gameeditor',
-    template: '\n    <editormenu></editormenu>\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north">\n\n        </div>\n        <div class="ui-layout-south" style="margin:0;padding:0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east" style="margin:0;padding:0;overflow:hidden;">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west" style="margin:0;padding:0;overflow:hidden;">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    <shapecubemodal></shapecubemodal>\n    <shapespheremodal></shapespheremodal>\n    <shapesplanemodal></shapesplanemodal>\n    <shapeterrainmodal></shapeterrainmodal>\n    <objectmaterialmodal></objectmaterialmodal>\n    <shapecharactermodal></shapecharactermodal>\n    '
+    template: '\n    <!---->\n    <div id="container" style="height:100%;">\n        <div class="ui-layout-center" style="margin:0;padding:0;overflow:hidden;">\n            <canvas id="renderCanvas"></canvas>\n        </div>\n        <div class="ui-layout-north" style="margin:0;padding:0;z-index:100;">\n            <editormenu></editormenu>\n        </div>\n        <div class="ui-layout-south" style="margin:0;padding:0;">\n            <editorpanel></editorpanel>\n        </div>\n        <div class="ui-layout-east" style="margin:0;padding:0;overflow:hidden;">\n            <scene-list></scene-list>\n            <objectprops></objectprops>\n        </div>\n        <div class="ui-layout-west" style="margin:0;padding:0;overflow:hidden;">\n            <assets-list></assets-list>\n        </div>\n    </div>\n    <shapecubemodal></shapecubemodal>\n    <shapespheremodal></shapespheremodal>\n    <shapesplanemodal></shapesplanemodal>\n    <shapeterrainmodal></shapeterrainmodal>\n    <objectmaterialmodal></objectmaterialmodal>\n    <shapecharactermodal></shapecharactermodal>\n    '
 }), _dec(_class = function () {
     function GameEditor(gameservice) {
         _classCallCheck(this, GameEditor);
@@ -7552,7 +7561,8 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
             });
             var layout = $('#container').layout();
             layout.sizePane("south", 250);
-            layout.toggle("north");
+            layout.allowOverflow("north");
+            //layout.toggle("north");
         }
     }, {
         key: 'resizecanvas',
@@ -7850,7 +7860,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
     styleUrls: ['./components/scene.component.css'],
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    \n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                </li>\n\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
@@ -7887,6 +7897,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ScriptEditorExplore = undefined;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _dec, _class; /*
                       Project Name: project-besabtide
                       Link:https://github.com/Lightnet/project-besabtide
@@ -7898,16 +7910,46 @@ var _dec, _class; /*
 
 var _core = require('@angular/core');
 
+var _game = require('../services/game.service');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Component)({
     selector: 'scripteditorexplore',
-    template: '\n        <div style="width:100%;">\n        Panel directory folder\n        </div>\n    '
-}), _dec(_class = function ScriptEditorExplore() {
-    _classCallCheck(this, ScriptEditorExplore);
-}) || _class);
+    template: '\n        <div style="height:100%;overflow:auto;background-color:gray;">\n        Files:\n        <div *ngIf="gameservice.app.scriptcomponents">\n            <ul>\n            <li *ngFor="let obj of this.gameservice.app.scriptcomponents">\n                <label style="display: block;" (click)="selectobject(obj)"> {{obj.name}}</label>\n            </li>\n            </ul>\n        </div>\n\n        </div>\n    '
+}), _dec(_class = function () {
+    _createClass(ScriptEditorExplore, [{
+        key: 'selectobject',
+        value: function selectobject(value) {
+            console.log(value);
+        }
+    }]);
 
-},{"@angular/core":"@angular/core"}],61:[function(require,module,exports){
+    function ScriptEditorExplore(gameservice) {
+        _classCallCheck(this, ScriptEditorExplore);
+
+        this.gameservice = null;
+
+        console.log(gameservice);
+        this.gameservice = gameservice;
+
+        //console.log(this.gameservice.app.scriptcomponents);
+    }
+
+    _createClass(ScriptEditorExplore, [{
+        key: 'ngOnInit',
+        value: function ngOnInit() {
+            //this.editor.setTheme("eclipse");
+            //console.log(this.editor);
+            console.log(this.gameservice.app.scriptcomponents);
+        }
+    }]);
+
+    return ScriptEditorExplore;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorExplore);
+
+},{"../services/game.service":69,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7924,13 +7966,15 @@ var _dec, _class; /*
                       Information: Please read the readme.md file for more information.
                   */
 
+// NOT in used
+
 var _core = require('@angular/core');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Component)({
     selector: 'scripteditorlayout',
-    template: '\n        <div style="height:100%;width:100%;">\n            <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                <scripteditormenu></scripteditormenu>\n                <scripteditorexplore></scripteditorexplore>\n            </div>\n            <div style="width:80%;height:100%;float:left;">\n            <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;">\n            <div style="width:20%;height:100%;float:left;margin:0;padding:0;">\n                <!--<scripteditormenu></scripteditormenu>\n                <scripteditorexplore></scripteditorexplore>\n                -->\n            </div>\n            <div style="width:80%;height:100%;float:left;">\n            <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </div>\n        </div>\n    '
 }), _dec(_class = function ScriptEditorLayout() {
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
@@ -7962,7 +8006,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
     selector: 'scripteditormenu',
-    template: '\n        Action\n        <button (click)="ScriptReload();">Reload</button>\n        <button (click)="ScriptSave();">Save</button>\n        <button (click)="ScriptRun();">Run</button>\n        <button (click)="ScriptCreate();">Create</button>\n        <button (click)="ScriptDelete();">Delete</button>\n    '
+    template: '\n        Action\n        <button (click)="ScriptReload();"><span class="ui-icon ui-icon-refresh"></span></button>\n        <button (click)="ScriptSave();"><span class="ui-icon ui-icon-disk"></span></button>\n        <button (click)="ScriptRun();"><span class="ui-icon ui-icon-play"></span></button>\n        <button (click)="ScriptCreate();"><span class="ui-icon ui-icon-newwin"></span></button>\n        <button (click)="ScriptDelete();"><span class="ui-icon ui-icon-trash"></span></button>\n    '
 }), _dec(_class = function () {
     function ScriptEditorMenu(gameservice) {
         _classCallCheck(this, ScriptEditorMenu);

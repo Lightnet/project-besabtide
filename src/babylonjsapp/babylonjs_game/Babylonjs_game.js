@@ -132,6 +132,8 @@ export class Babylonjs_game extends Babylonjs_framework {
         this.inventory = [];
         this.scroll_inventory_y = 0;
 
+        this.scriptcomponents = [];
+
         new Babylonjs_game_network(this);
         new Babylonjs_game_physics(this);
         new Babylonjs_game_parse(this);
@@ -282,11 +284,19 @@ export class Babylonjs_game extends Babylonjs_framework {
         this.scroll_shop_y = 0;
     }
 
+    initscripts(){
+        this.scriptcomponents.push({name:'main', script:`function main(){console.log("main");}Test();`});
+        this.scriptcomponents.push({name:'test', script:`function Test(){console.log("test");}Test();`});
+    }
+
     setup_game() {
         var self = this;
         //setup game API variable access for sandbox acccess
         //console.log(GAMEAPI);
+        this.initscripts();
         new GAMEAPI(this);
+
+
 
         //new API(self);
         //Global variable when just Game in the any script area out once loaded.

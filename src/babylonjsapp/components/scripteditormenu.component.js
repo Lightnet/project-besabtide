@@ -15,11 +15,11 @@ import {GameService} from '../services/game.service';
     selector: 'scripteditormenu',
     template: `
         Action
-        <button (click)="ScriptReload();">Reload</button>
-        <button (click)="ScriptSave();">Save</button>
-        <button (click)="ScriptRun();">Run</button>
-        <button (click)="ScriptCreate();">Create</button>
-        <button (click)="ScriptDelete();">Delete</button>
+        <button (click)="ScriptReload();"><span class="ui-icon ui-icon-refresh"></span></button>
+        <button (click)="ScriptSave();"><span class="ui-icon ui-icon-disk"></span></button>
+        <button (click)="ScriptRun();"><span class="ui-icon ui-icon-play"></span></button>
+        <button (click)="ScriptCreate();"><span class="ui-icon ui-icon-newwin"></span></button>
+        <button (click)="ScriptDelete();"><span class="ui-icon ui-icon-trash"></span></button>
     `
 })
 export class ScriptEditorMenu {

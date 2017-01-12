@@ -17,19 +17,27 @@ import { Component } from '@angular/core';
             <div style="width:100%;height:32px;margin:0;padding:0;">
                 <ul>
                     <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>
-                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>
+                    <!--<li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>-->
                 </ul>
             </div>
+            
             <div [hidden]="bconsole"style="width:100%;height:80%;background-color: #00ff00;">
                 <consolepanel></consolepanel>
             </div>
-            <div [hidden]="bscript" style="width:100%;height:100%;">
+
+            <div [hidden]="bscript" style="height:100%;margin:0;padding:0;">
                 <div style="width:20%;height:100%;float:left;margin:0;padding:0;">
+                    <!--
+
+                    -->
                     <scripteditormenu></scripteditormenu>
                     <scripteditorexplore></scripteditorexplore>
                 </div>
-                <div style="width:80%;height:100%;float:left;">
+                <div style="width:80%;height:100%;float:left;margin:0;padding:0;">
                     <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>
+                    <!--
+
+                    -->
                 </div>
             </div>
         </div>

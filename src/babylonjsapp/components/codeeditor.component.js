@@ -42,8 +42,7 @@ function Test(){
 //console.log("test");
 //console.log(this);
 //console.log(Game);
-//console.log(Game.scene);
-    `;
+//console.log(Game.scene);`;
 
     ngOnInit(): void {
         //this.editor.setTheme("eclipse");
