@@ -37,6 +37,8 @@ export class ScriptEditorExplore implements OnInit{
             //console.log("found!");
             this.gameservice.scripteditor.setValue(value.script);
             this.gameservice.scripteditor.clearSelection();
+            this.gameservice.textscriptname = value.name;
+            this.gameservice.textscript = value.script;
         }
     }
 

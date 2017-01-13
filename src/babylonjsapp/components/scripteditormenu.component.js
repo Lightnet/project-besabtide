@@ -33,10 +33,22 @@ export class ScriptEditorMenu {
 
     ScriptReload(){
         console.log('Reload');
+        if(this.gameservice.app !=null){
+            this.gameservice.app.gscriptcomponents.val(function (data) {
+              // render it, but only once. No updates.
+              console.log(data);
+            })
+        }
     }
 
     ScriptSave(){
         console.log('Save');
+        if(this.gameservice.app !=null){
+            this.gameservice.app.gscriptcomponents.put({
+                name:this.gameservice.textscriptname,
+                textscript:this.gameservice.textscript
+            });
+        }
     }
 
     ScriptRun(){
@@ -65,9 +77,15 @@ export class ScriptEditorMenu {
 
     ScriptDelete(){
         console.log('Delete');
+        if(this.gameservice.app !=null){
+
+        }
     }
 
     ScriptCreate(){
         console.log('Create');
+        if(this.gameservice.app !=null){
+
+        }
     }
 }

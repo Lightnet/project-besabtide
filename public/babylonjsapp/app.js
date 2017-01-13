@@ -5715,6 +5715,10 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
             this.gun.get('scene').each(function (_obj) {
                 //console.log(_obj)
             });
+
+            this.gscene = this.gun.get('scene');
+
+            this.gscriptcomponents = this.gun.get('scriptcomponents');
             //console.log("need to call out function to init?");
         }
     }]);
@@ -7942,6 +7946,8 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
                 //console.log("found!");
                 this.gameservice.scripteditor.setValue(value.script);
                 this.gameservice.scripteditor.clearSelection();
+                this.gameservice.textscriptname = value.name;
+                this.gameservice.textscript = value.script;
             }
         }
     }]);
@@ -8040,11 +8046,23 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
         key: 'ScriptReload',
         value: function ScriptReload() {
             console.log('Reload');
+            if (this.gameservice.app != null) {
+                this.gameservice.app.gscriptcomponents.val(function (data) {
+                    // render it, but only once. No updates.
+                    console.log(data);
+                });
+            }
         }
     }, {
         key: 'ScriptSave',
         value: function ScriptSave() {
             console.log('Save');
+            if (this.gameservice.app != null) {
+                this.gameservice.app.gscriptcomponents.put({
+                    name: this.gameservice.textscriptname,
+                    textscript: this.gameservice.textscript
+                });
+            }
         }
     }, {
         key: 'ScriptRun',
@@ -8074,11 +8092,13 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
         key: 'ScriptDelete',
         value: function ScriptDelete() {
             console.log('Delete');
+            if (this.gameservice.app != null) {}
         }
     }, {
         key: 'ScriptCreate',
         value: function ScriptCreate() {
             console.log('Create');
+            if (this.gameservice.app != null) {}
         }
     }]);
 
