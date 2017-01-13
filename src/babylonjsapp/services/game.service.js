@@ -16,6 +16,7 @@ export class GameService {
     selectobject = null;
     app = null;
     scripteditor = null;
+    scriptuuid = '';
     textscriptname = '';
     textscript = '';
 

@@ -25,7 +25,6 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
     }
 
     //BABYLONJSAPI.SaveSceneMap();
-
     check_gunsceneobj(uuid,cb){
         //console.log("------------------- start");
         var self = this;

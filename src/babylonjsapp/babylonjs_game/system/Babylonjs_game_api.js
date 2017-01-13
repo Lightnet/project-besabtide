@@ -30,6 +30,20 @@ export function GAMEAPI(app){
         set scene(value){
             app.scene = value;
         }
+
+        get entities(){
+            return [];
+        }
+
+        get parties(){
+            return [];
+        }
+
+        get enemies(){
+            return [];
+        }
+
+
     }
     //global variable setup
     window.Game = new GameAPI();

@@ -1111,11 +1111,13 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         key: 'initscripts',
         value: function initscripts() {
             var mainscript = {
+                uuid: '3a3c3492-d77e-4dd1-9ac5-af121106673e',
                 name: 'main',
                 script: '\nfunction Test(){\n    console.log("hello world text");\n}\nTest();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);'
             };
             this.scriptcomponents.push(mainscript);
             mainscript = {
+                uuid: '9f20014a-200e-4e8b-bd1d-0a1484dd21dd',
                 name: 'test',
                 script: 'function Test(){\n    console.log("test");\n}\nTest();'
             };
@@ -5100,6 +5102,21 @@ function GAMEAPI(app) {
             set: function set(value) {
                 app.scene = value;
             }
+        }, {
+            key: "entities",
+            get: function get() {
+                return [];
+            }
+        }, {
+            key: "parties",
+            get: function get() {
+                return [];
+            }
+        }, {
+            key: "enemies",
+            get: function get() {
+                return [];
+            }
         }]);
 
         return GameAPI;
@@ -5719,7 +5736,87 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
             this.gscene = this.gun.get('scene');
 
             this.gscriptcomponents = this.gun.get('scriptcomponents');
+            this.gscriptcomponents.each(function (_obj) {
+                //console.log(_obj)
+            });
             //console.log("need to call out function to init?");
+        }
+    }, {
+        key: 'gunobjectsave',
+        value: function gunobjectsave(keyname, id, obj) {
+            this.gun.get(keyname).path(id).put(obj);
+        }
+
+        //create new instance
+
+    }, {
+        key: 'gunsetobject',
+        value: function gunsetobject(keyname, obj, cb) {
+            this.gun.get(keyname).set(obj, cb);
+        }
+
+        //get list object only check
+
+    }, {
+        key: 'gunobjectlist',
+        value: function gunobjectlist(keyname, cb) {
+            this.gun.get(keyname).valueobj(function (data) {
+                console.log(keyname + "?");
+                for (var o in data) {
+                    //make sure it object data
+                    if (data[o] != null && _typeof(data[o]) === 'object') {
+                        //console.log(data[o]);
+                        cb(data[o]);
+                    }
+                }
+            });
+        }
+
+        //key object list check UUID object
+
+    }, {
+        key: 'gunobjectcheckid',
+        value: function gunobjectcheckid(keyname, uuid, cb) {
+            var self = this;
+            this.gun.get(keyname).value(function (data) {
+                //console.log("check scene?" + Object.keys(data).length);
+                var bfound = false;
+                var count = 0;
+                function checkid(state, id) {
+                    if (Object.keys(data).length - 1 == count && state == false && bfound == false) {
+                        //console.log("not found object!");
+                        count = null;
+                        cb(false);
+                    }
+                }
+                for (var o in data) {
+                    if (data[o] != null) {
+                        if (data[o]['#'] != null) {
+                            //console.log(data[o]['#']);
+                            self.gun.get(data[o]['#']).value(function (objdata) {
+                                //console.log(objdata);
+                                if (objdata['uuid'] != null) {
+                                    if (objdata['uuid'].toString() == String(uuid)) {
+                                        //console.log(objdata['uuid']);
+                                        //return cb(true, data[o]['#']);
+                                        bfound = true;
+                                        //console.log("found!");
+                                        //return checkid(true,data[o]['#']);
+                                        return cb(true, data[o]['#']);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    checkid(false);
+                    count++;
+                }
+                //return cb(bfound);
+                //console.log("END GUN CHECK...");
+                //console.log(data[1]);
+            });
+            //return cb(false);
+            //console.log("------------------- end");
         }
     }]);
 
@@ -5775,6 +5872,7 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
     }
 
     //BABYLONJSAPI.SaveSceneMap();
+
 
     _createClass(Babylonjs_game_loadsave, [{
         key: 'check_gunsceneobj',
@@ -7946,6 +8044,8 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
                 //console.log("found!");
                 this.gameservice.scripteditor.setValue(value.script);
                 this.gameservice.scripteditor.clearSelection();
+                console.log(value.uuid);
+                this.gameservice.scriptuuid = value.uuid;
                 this.gameservice.textscriptname = value.name;
                 this.gameservice.textscript = value.script;
             }
@@ -8045,22 +8145,45 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
     _createClass(ScriptEditorMenu, [{
         key: 'ScriptReload',
         value: function ScriptReload() {
+            var _this = this;
+
             console.log('Reload');
             if (this.gameservice.app != null) {
-                this.gameservice.app.gscriptcomponents.val(function (data) {
-                    // render it, but only once. No updates.
-                    console.log(data);
+                //this.gameservice.app.gscriptcomponents.val(function (data) {
+                // render it, but only once. No updates.
+                //console.log(data);
+                //})
+                this.gameservice.app.scriptcomponents = [];
+                this.gameservice.app.gunobjectlist('scriptcomponents', function (_obj) {
+                    console.log(_obj);
+                    _this.gameservice.app.scriptcomponents.push(_obj);
                 });
             }
         }
     }, {
         key: 'ScriptSave',
         value: function ScriptSave() {
+            var _this2 = this;
+
             console.log('Save');
             if (this.gameservice.app != null) {
-                this.gameservice.app.gscriptcomponents.put({
-                    name: this.gameservice.textscriptname,
-                    textscript: this.gameservice.textscript
+                //console.log(this.gameservice.app.uuid());
+                this.gameservice.app.gunobjectcheckid('scriptcomponents', this.gameservice.scriptuuid, function (bfind, uuid) {
+                    if (bfind) {
+                        console.log("Found!");
+                        console.log(uuid);
+                        _this2.gameservice.app.gunobjectsave('scriptcomponents', uuid, {
+                            name: _this2.gameservice.textscriptname,
+                            script: _this2.gameservice.textscript
+                        });
+                    } else {
+                        console.log("Not found!");
+                        _this2.gameservice.app.gunsetobject('scriptcomponents', {
+                            uuid: _this2.gameservice.scriptuuid,
+                            name: _this2.gameservice.textscriptname,
+                            textscript: _this2.gameservice.textscript
+                        });
+                    }
                 });
             }
         }
@@ -8079,6 +8202,9 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
                 }
             }
         }
+
+        //add script to html
+
     }, {
         key: 'AddScript',
         value: function AddScript() {
@@ -8098,7 +8224,13 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
         key: 'ScriptCreate',
         value: function ScriptCreate() {
             console.log('Create');
-            if (this.gameservice.app != null) {}
+            if (this.gameservice.app != null) {
+                this.gameservice.app.scriptcomponents.push({
+                    uuid: this.gameservice.app.uuid(),
+                    name: this.gameservice.app.uuid(),
+                    script: 'function main(){console.log(\'main\');}'
+                });
+            }
         }
     }]);
 
@@ -8538,6 +8670,7 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.selectobject = null;
     this.app = null;
     this.scripteditor = null;
+    this.scriptuuid = '';
     this.textscriptname = '';
     this.textscript = '';
 }) || _class);

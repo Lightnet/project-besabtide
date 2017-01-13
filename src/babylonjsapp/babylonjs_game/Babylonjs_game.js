@@ -286,6 +286,7 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     initscripts(){
 var mainscript ={
+uuid:'3a3c3492-d77e-4dd1-9ac5-af121106673e',
 name:'main',
 script:`
 function Test(){
@@ -299,6 +300,7 @@ Test();
 };
 this.scriptcomponents.push(mainscript);
 mainscript = {
+uuid:'9f20014a-200e-4e8b-bd1d-0a1484dd21dd',
 name:'test',
 script:`function Test(){
     console.log("test");

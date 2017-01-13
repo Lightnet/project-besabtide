@@ -116,7 +116,77 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         this.gscene = this.gun.get('scene');
 
         this.gscriptcomponents = this.gun.get('scriptcomponents');
+        this.gscriptcomponents.each(function (_obj) {
+            //console.log(_obj)
+        });
         //console.log("need to call out function to init?");
+    }
+
+    gunobjectsave(keyname,id,obj){
+        this.gun.get(keyname).path(id).put(obj);
+    }
+
+    //create new instance
+    gunsetobject(keyname,obj,cb){
+        this.gun.get(keyname).set(obj,cb);
+    }
+
+    //get list object only check
+    gunobjectlist(keyname,cb){
+        this.gun.get(keyname).valueobj(function(data){
+            console.log(keyname+"?");
+            for(var o in data){
+                //make sure it object data
+                if((data[o] !=null)&&(typeof data[o] === 'object')){
+                    //console.log(data[o]);
+                    cb(data[o]);
+                }
+            }
+        });
+    }
+
+    //key object list check UUID object
+    gunobjectcheckid(keyname,uuid,cb){
+        var self = this;
+        this.gun.get(keyname).value(function(data){
+            //console.log("check scene?" + Object.keys(data).length);
+            var bfound = false;
+            var count = 0;
+            function checkid(state,id){
+                if( ((Object.keys(data).length -1) == count)&&(state == false)&&(bfound == false)){
+                    //console.log("not found object!");
+                    count = null;
+                    cb(false);
+                }
+            }
+            for(var o in data){
+                if(data[o] !=null){
+                    if(data[o]['#'] !=null){
+                        //console.log(data[o]['#']);
+                        self.gun.get(data[o]['#']).value(function(objdata){
+                            //console.log(objdata);
+                            if(objdata['uuid'] !=null){
+                                if(objdata['uuid'].toString() == String(uuid)){
+                                    //console.log(objdata['uuid']);
+                                    //return cb(true, data[o]['#']);
+                                    bfound = true;
+                                    //console.log("found!");
+                                    //return checkid(true,data[o]['#']);
+                                    return cb(true, data[o]['#']);
+                                }
+                            }
+                        });
+                    }
+                }
+                checkid(false);
+                count++;
+            }
+            //return cb(bfound);
+            //console.log("END GUN CHECK...");
+            //console.log(data[1]);
+        });
+        //return cb(false);
+        //console.log("------------------- end");
     }
 
 }

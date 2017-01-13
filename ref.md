@@ -15,3 +15,6 @@ http://stackoverflow.com/questions/7717382/executing-a-javascript-file-directly-
 
 
 http://stackoverflow.com/questions/13243563/execute-javascript-from-textarea
+
+
+https://nodejs.org/api/vm.html

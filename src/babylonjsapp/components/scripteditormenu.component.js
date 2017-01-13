@@ -34,19 +34,38 @@ export class ScriptEditorMenu {
     ScriptReload(){
         console.log('Reload');
         if(this.gameservice.app !=null){
-            this.gameservice.app.gscriptcomponents.val(function (data) {
+            //this.gameservice.app.gscriptcomponents.val(function (data) {
               // render it, but only once. No updates.
-              console.log(data);
-            })
+              //console.log(data);
+            //})
+            this.gameservice.app.scriptcomponents = [];
+            this.gameservice.app.gunobjectlist('scriptcomponents',(_obj)=>{
+                console.log(_obj);
+                this.gameservice.app.scriptcomponents.push(_obj);
+            });
         }
     }
 
     ScriptSave(){
         console.log('Save');
         if(this.gameservice.app !=null){
-            this.gameservice.app.gscriptcomponents.put({
-                name:this.gameservice.textscriptname,
-                textscript:this.gameservice.textscript
+            //console.log(this.gameservice.app.uuid());
+            this.gameservice.app.gunobjectcheckid('scriptcomponents',this.gameservice.scriptuuid,(bfind,uuid)=>{
+                if(bfind){
+                    console.log("Found!");
+                    console.log(uuid)
+                    this.gameservice.app.gunobjectsave('scriptcomponents',uuid,{
+                        name:this.gameservice.textscriptname,
+                        script:this.gameservice.textscript
+                    });
+                }else{
+                    console.log("Not found!");
+                    this.gameservice.app.gunsetobject('scriptcomponents',{
+                        uuid:this.gameservice.scriptuuid,
+                        name:this.gameservice.textscriptname,
+                        textscript:this.gameservice.textscript
+                    });
+                }
             });
         }
     }
@@ -65,6 +84,7 @@ export class ScriptEditorMenu {
         }
     }
 
+    //add script to html
     AddScript(){
         if(this.gameservice !=null){
             var _script = document.createElement("script");
@@ -72,8 +92,6 @@ export class ScriptEditorMenu {
             document.getElementsByTagName('body')[0].appendChild(_script);
         }
     }
-
-
 
     ScriptDelete(){
         console.log('Delete');
@@ -85,7 +103,13 @@ export class ScriptEditorMenu {
     ScriptCreate(){
         console.log('Create');
         if(this.gameservice.app !=null){
-
+            this.gameservice.app.scriptcomponents.push(
+                {
+                    uuid:this.gameservice.app.uuid(),
+                    name:this.gameservice.app.uuid(),
+                    script:`function main(){console.log('main');}`
+                }
+            );
         }
     }
 }
