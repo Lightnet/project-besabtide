@@ -18,9 +18,10 @@ import {GameService} from '../services/game.service';
         <div style="height:100%;overflow:auto;background-color:gray;">
         Files:
         <div *ngIf="gameservice.app.scriptcomponents">
+            <input type="text" [(ngModel)]="this.gameservice.textscriptname" (change)="inputvaluechange($event);" />
             <ul>
             <li *ngFor="let obj of this.gameservice.app.scriptcomponents">
-                <label style="display: block;" (click)="selectscript(obj)"> {{obj.name}}</label>
+                <label style="display: block;" (click)="selectscript(obj);"> {{obj.name}}</label>
             </li>
             </ul>
         </div>
@@ -29,6 +30,38 @@ import {GameService} from '../services/game.service';
 })
 export class ScriptEditorExplore implements OnInit{
     gameservice = null;
+
+    inputvaluechange(event){
+        console.log(event.target.value);
+        console.log(this);
+
+        if(this.gameservice.app !=null){
+            //console.log(this.gameservice.app.uuid());
+
+            //this.gameservice.scriptuuid = event.target.value;
+            this.gameservice.app.gunobjectcheckid('scriptcomponents',this.gameservice.scriptuuid,(bfind,uuid)=>{
+                if(bfind){
+                    console.log("Found!");
+                    console.log(uuid)
+                    this.gameservice.app.gunobjectsave('scriptcomponents',uuid,{
+                        name:this.gameservice.textscriptname,
+                        script:this.gameservice.textscript
+                    });
+                }else{
+                    console.log("Not found!");
+                    if(this.gameservice.scriptuuid != ""){
+                        this.gameservice.app.gunsetobject('scriptcomponents',{
+                            uuid:this.gameservice.scriptuuid,
+                            name:this.gameservice.textscriptname,
+                            script:this.gameservice.textscript
+                        });
+                    }
+                }
+            });
+
+            this.gameservice.app.reloadscriptlist();
+        }
+    }
 
     selectscript(value){
         //console.log(value);
@@ -47,7 +80,6 @@ export class ScriptEditorExplore implements OnInit{
     constructor(gameservice:GameService){
         console.log(gameservice);
         this.gameservice = gameservice;
-
         //console.log(this.gameservice.app.scriptcomponents);
     }
 

@@ -32,41 +32,48 @@ export class ScriptEditorMenu {
     }
 
     ScriptReload(){
+        var self = this;
         console.log('Reload');
         if(this.gameservice.app !=null){
             //this.gameservice.app.gscriptcomponents.val(function (data) {
               // render it, but only once. No updates.
               //console.log(data);
             //})
-            this.gameservice.app.scriptcomponents = [];
-            this.gameservice.app.gunobjectlist('scriptcomponents',(_obj)=>{
-                console.log(_obj);
-                this.gameservice.app.scriptcomponents.push(_obj);
-            });
+            this.gameservice.app.reloadscriptlist()
         }
     }
 
     ScriptSave(){
-        console.log('Save');
+        if(this.gameservice.scriptuuid == ""){
+            console.log("Nothing here!");
+            return;
+        }else{
+            console.log('Save');
+        }
+        var self = this;
         if(this.gameservice.app !=null){
-            //console.log(this.gameservice.app.uuid());
-            this.gameservice.app.gunobjectcheckid('scriptcomponents',this.gameservice.scriptuuid,(bfind,uuid)=>{
+            //console.log(this.gameservice.app);
+            //console.log(this.gameservice.uuid());
+            //console.log(this.gameservice.scriptuuid);
+            this.gameservice.app.gunobjectcheckid('scriptcomponents',this.gameservice.scriptuuid,(bfind,id)=>{
+                console.log('checking...');
                 if(bfind){
-                    console.log("Found!");
-                    console.log(uuid)
-                    this.gameservice.app.gunobjectsave('scriptcomponents',uuid,{
-                        name:this.gameservice.textscriptname,
-                        script:this.gameservice.textscript
+                    //console.log("Found!");
+                    //console.log(id)
+                    self.gameservice.app.gunobjectsave('scriptcomponents',id,{
+                        name:self.gameservice.textscriptname,
+                        script:self.gameservice.textscript
                     });
                 }else{
                     console.log("Not found!");
-                    this.gameservice.app.gunsetobject('scriptcomponents',{
-                        uuid:this.gameservice.scriptuuid,
-                        name:this.gameservice.textscriptname,
-                        textscript:this.gameservice.textscript
+                    self.gameservice.app.gunsetobject('scriptcomponents',{
+                        uuid:self.gameservice.scriptuuid,
+                        name:self.gameservice.textscriptname,
+                        script:self.gameservice.textscript
                     });
                 }
             });
+            self.gameservice.app.reloadscriptlist();
         }
     }
 
@@ -96,7 +103,10 @@ export class ScriptEditorMenu {
     ScriptDelete(){
         console.log('Delete');
         if(this.gameservice.app !=null){
-
+            //console.log(this.gameservice.app);
+            //console.log(this.gameservice.uuid());
+            console.log(this.gameservice.scriptuuid);
+            this.gameservice.app.deletescriptid(this.gameservice.scriptuuid);
         }
     }
 

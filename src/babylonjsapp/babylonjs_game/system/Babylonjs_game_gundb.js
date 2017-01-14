@@ -73,7 +73,6 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
 
         Gun.chain.valueobj = function (cb, opt) {
           return this.val(function (val, field) {
-
               if(val !=null){
                   delete val._;
               }
@@ -101,7 +100,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         //http://stackoverflow.com/questions/7667958/clear-localstorage
         localStorage.clear();
 
-        //this.peers = ['http://127.0.0.1/gun'];
+        //this.peers = ['http://127.0.0.1:80/gun'];
         //this.peers = ['http://127.0.0.1/gun','https://hgdb.herokuapp.com/gun'];
         this.peers = ['https://hgdb.herokuapp.com/gun'];
         this.gun = Gun(this.peers);
@@ -109,17 +108,22 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         //var gun = this.gun;
         //this.gun.get('scene');
         //gun bug using different way to handle angular 2 from requirejs
-        this.gun.get('scene').each(function (_obj) {
-          //console.log(_obj)
+        this.gscene = this.gun.get('scene')
+        this.gscene.each(function (_obj) {
+          //console.log(_obj);
         });
-
-        this.gscene = this.gun.get('scene');
+        //this.gscene = this.gun.get('scene');
 
         this.gscriptcomponents = this.gun.get('scriptcomponents');
+        this.gscriptcomponents.put({none:"none"});
         this.gscriptcomponents.each(function (_obj) {
-            //console.log(_obj)
+            console.log(_obj)
         });
         //console.log("need to call out function to init?");
+    }
+
+    gunobjectdeletelist(keyname,id){
+        this.gun.get(keyname).path(id).put(null);
     }
 
     gunobjectsave(keyname,id,obj){
@@ -138,7 +142,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
             for(var o in data){
                 //make sure it object data
                 if((data[o] !=null)&&(typeof data[o] === 'object')){
-                    //console.log(data[o]);
+                    console.log(data[o]);
                     cb(data[o]);
                 }
             }
@@ -148,13 +152,14 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
     //key object list check UUID object
     gunobjectcheckid(keyname,uuid,cb){
         var self = this;
+        console.log("checking uuid:"+uuid);
         this.gun.get(keyname).value(function(data){
-            //console.log("check scene?" + Object.keys(data).length);
+            console.log("check scene?" + Object.keys(data).length);
             var bfound = false;
             var count = 0;
             function checkid(state,id){
                 if( ((Object.keys(data).length -1) == count)&&(state == false)&&(bfound == false)){
-                    //console.log("not found object!");
+                    console.log("not found object!");
                     count = null;
                     cb(false);
                 }
@@ -189,4 +194,27 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         //console.log("------------------- end");
     }
 
+    //===========================================
+    // Script section
+    //===========================================
+
+    reloadscriptlist(){
+        this.scriptcomponents = [];
+        this.gunobjectlist('scriptcomponents',(_obj)=>{
+            //console.log(_obj);
+            this.scriptcomponents.push(_obj);
+        });
+    }
+
+    deletescriptid(id){
+        var self = this;
+        this.gunobjectcheckid('scriptcomponents',id,(bfind,id)=>{
+            console.log('checking...');
+            if(bfind){
+                console.log("Found!");
+                this.gunobjectdeletelist('scriptcomponents',id);
+                self.reloadscriptlist();
+            }
+        });
+    }
 }
