@@ -19,11 +19,13 @@ import {GameService} from '../services/game.service';
             <!--<button (click)="refresh()">Refresh</button>-->
             <div *ngIf="gameservice.scene">
                 <ul>
-                    
-                <li *ngFor="let obj of gameservice.scene.meshes">
-                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >
-                </li>
-
+                    <strong *ngFor="let obj of gameservice.scene.meshes">
+                        <strong *ngIf="obj.rpgobj != null">
+                        <li>
+                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >
+                        </li>
+                        </strong>
+                    </strong>
                 </ul>
             </div>
         </div>

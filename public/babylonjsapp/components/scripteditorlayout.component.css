@@ -1,0 +1,21 @@
+nav {
+    float: left;
+    max-width: 256px;
+    margin: 0;
+    padding: 0;
+    height:100%;
+}
+/*position: static;width:20%;height:100%;float:left;margin:0;padding:0;*/
+
+article{
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    overflow: hidden;
+    padding:0;
+    margin:0;
+    height:100%;
+}
+
+/*
+style="position: static;width:80%;height:100%;float:left;margin:0;padding:0;"
+*/

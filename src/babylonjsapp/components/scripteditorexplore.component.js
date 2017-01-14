@@ -16,15 +16,15 @@ import {GameService} from '../services/game.service';
     styleUrls:  ['./components/scripteditorexplore.component.css'],
     template: `
         <div style="height:100%;overflow:auto;background-color:gray;">
-        Files:
-        <div *ngIf="gameservice.app.scriptcomponents">
-            <input type="text" [(ngModel)]="this.gameservice.textscriptname" (change)="inputvaluechange($event);" />
-            <ul>
-            <li *ngFor="let obj of this.gameservice.app.scriptcomponents">
-                <label style="display: block;" (click)="selectscript(obj);"> {{obj.name}}</label>
-            </li>
-            </ul>
-        </div>
+            <scripteditormenu></scripteditormenu>
+            <div *ngIf="gameservice.app.scriptcomponents">
+                File:<input type="text" [(ngModel)]="this.gameservice.textscriptname" (change)="inputvaluechange($event);" />
+                <ul>
+                <li *ngFor="let obj of this.gameservice.app.scriptcomponents">
+                    <label style="display: block;" (click)="selectscript(obj);"> {{obj.name}}</label>
+                </li>
+                </ul>
+            </div>
         </div>
     `
 })

@@ -4,21 +4,32 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    height:32px;
 }
 
 li {
     float: left;
-    height:32px;
+    #height:32px;
 }
 
 li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 4px 8px;
+    padding: 8px 16px;
     text-decoration: none;
+    height:16px;
 }
 
 li a:hover, .dropdown:hover .dropbtn {
     background-color: red;
+}
+
+header {
+    padding: 0;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+    height:32px;
 }

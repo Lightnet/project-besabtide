@@ -117,7 +117,7 @@ export class Babylonjs_game_gundb extends Babylonjs_game_module{
         this.gscriptcomponents = this.gun.get('scriptcomponents');
         this.gscriptcomponents.put({none:"none"});
         this.gscriptcomponents.each(function (_obj) {
-            console.log(_obj)
+            //console.log(_obj)
         });
         //console.log("need to call out function to init?");
     }

@@ -5737,7 +5737,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
             this.gscriptcomponents = this.gun.get('scriptcomponents');
             this.gscriptcomponents.put({ none: "none" });
             this.gscriptcomponents.each(function (_obj) {
-                console.log(_obj);
+                //console.log(_obj)
             });
             //console.log("need to call out function to init?");
         }
@@ -6128,32 +6128,31 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
         key: 'ClearSceneMap',
         value: function ClearSceneMap() {
             console.log("clear scene...");
-
-            if (this.scene != null) {
+            /*
+            if(this.scene !=null){
                 var objscene = this.scene;
-                for (var i = objscene.meshes.length; i > 0; i--) {
+                for(var i = objscene.meshes.length; i > 0 ;i--){
                     objscene.meshes[0].dispose();
                 }
             }
+            */
 
-            /*
             var delobjs = [];
             //console.log(this.scene.meshes.length);
-            for(var i = 0; i < this.scene.meshes.length;i++){
+            for (var i = 0; i < this.scene.meshes.length; i++) {
                 //console.log(this.scene.meshes[i]);
-                if(this.scene.meshes[i].rpgobj !=null){
+                if (this.scene.meshes[i].rpgobj != null) {
                     //console.log(this.scene.meshes[i]);
                     //this.scene.meshes[i].dispose();
                     //console.log(this.scene.meshes[i].dispose());
                     delobjs.push(this.scene.meshes[i]);
                 }
             }
-            for(var j = 0; j < delobjs.length;j++){
+            for (var j = 0; j < delobjs.length; j++) {
                 delobjs[j].dispose();
             }
             delobjs = null;
             //console.log(this.scene.meshes.length);
-            */
         }
     }]);
 
@@ -7220,7 +7219,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
     selector: 'assets-list',
-    template: '\n        Assets\n        <div style="width:100%;height:100%;overflow-y:scroll;">\n\n        </div>\n        <!--<button (click)="refresh()">Refresh</button>-->\n        <!--\n        <div *ngIf="gameservice.scene">\n            <a *ngFor="let obj of gameservice.scene.children">\n                <label>{{obj.name}}</label>\n            </a>\n        </div>\n        -->\n    '
+    styleUrls: ['./components/assets.component.css'],
+    template: '\n        Assets\n        <button (click)="refresh()">Refresh</button>\n        <div style="width:100%;height:100%;overflow-y:scroll;">\n\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <strong *ngIf="obj.rpgobj == null">\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                    </strong>\n                </ul>\n            </div>\n\n        </div>\n    '
 }), _dec(_class = function () {
     function AssetsList(gameservice) {
         _classCallCheck(this, AssetsList);
@@ -7230,10 +7230,17 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
     }
 
     _createClass(AssetsList, [{
+        key: 'selectobject',
+        value: function selectobject(_obj) {
+            console.log("scene object selected:");
+            console.log(_obj);
+            //this.gameservice.selectobject = _obj;
+        }
+    }, {
         key: 'refresh',
         value: function refresh() {
             console.log("refresh");
-            console.log(this.gameservice);
+            //console.log(this.gameservice.scene);
             //console.log(this.gameservice.scene.children[0]);
         }
     }]);
@@ -7613,7 +7620,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     selector: 'editorpanel',
     styleUrls: ['./components/editorpanel.component.css'],
-    template: '\n        <div style="height:100%;width:100%;">\n\n            <div style="position: static;width:100%;height:32px;margin:0;padding:0;">\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </div>\n\n            <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <scripteditorlayout [hidden]="bscript" style="height:100%;margin:0;padding:0;"></scripteditorlayout>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;">\n            <!-- -->\n            <header>\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </header>\n\n            <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <scripteditorlayout [hidden]="bscript" style="width:100%;height:100%;margin:0;padding:0;"></scripteditorlayout>\n        </div>\n    '
 }), _dec(_class = function () {
     function EditorPanel() {
         _classCallCheck(this, EditorPanel);
@@ -8013,7 +8020,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
     styleUrls: ['./components/scene.component.css'],
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    \n                <li *ngFor="let obj of gameservice.scene.meshes">\n                    <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                </li>\n\n                </ul>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <strong *ngIf="obj.rpgobj != null">\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                    </strong>\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
@@ -8070,7 +8077,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Component)({
     selector: 'scripteditorexplore',
     styleUrls: ['./components/scripteditorexplore.component.css'],
-    template: '\n        <div style="height:100%;overflow:auto;background-color:gray;">\n        Files:\n        <div *ngIf="gameservice.app.scriptcomponents">\n            <input type="text" [(ngModel)]="this.gameservice.textscriptname" (change)="inputvaluechange($event);" />\n            <ul>\n            <li *ngFor="let obj of this.gameservice.app.scriptcomponents">\n                <label style="display: block;" (click)="selectscript(obj);"> {{obj.name}}</label>\n            </li>\n            </ul>\n        </div>\n        </div>\n    '
+    template: '\n        <div style="height:100%;overflow:auto;background-color:gray;">\n            <scripteditormenu></scripteditormenu>\n            <div *ngIf="gameservice.app.scriptcomponents">\n                File:<input type="text" [(ngModel)]="this.gameservice.textscriptname" (change)="inputvaluechange($event);" />\n                <ul>\n                <li *ngFor="let obj of this.gameservice.app.scriptcomponents">\n                    <label style="display: block;" (click)="selectscript(obj);"> {{obj.name}}</label>\n                </li>\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     _createClass(ScriptEditorExplore, [{
         key: 'inputvaluechange',
@@ -8170,7 +8177,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Component)({
     selector: 'scripteditorlayout',
-    template: '\n        <div style="height:100%;width:100%;">\n            <div style="position: static;width:20%;height:100%;float:left;margin:0;padding:0;">\n                <scripteditormenu></scripteditormenu>\n                <scripteditorexplore></scripteditorexplore>\n            </div>\n            <div style="position: static;width:80%;height:100%;float:left;margin:0;padding:0;">\n                <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </div>\n        </div>\n    '
+    styleUrls: ['./components/scripteditorlayout.component.css'],
+    template: '\n        <div style="height:100%;width:100%;">\n            <nav>\n                <!--<scripteditormenu></scripteditormenu>-->\n                <scripteditorexplore></scripteditorexplore>\n            </nav>\n            <article >\n                <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>\n            </article>\n        </div>\n    '
 }), _dec(_class = function ScriptEditorLayout() {
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);

@@ -14,19 +14,19 @@ import { Component } from '@angular/core';
     styleUrls:  ['./components/editorpanel.component.css'],
     template: `
         <div style="height:100%;width:100%;">
-
-            <div style="position: static;width:100%;height:32px;margin:0;padding:0;">
+            <!-- -->
+            <header>
                 <ul>
                     <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>
                     <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>
                 </ul>
-            </div>
+            </header>
 
             <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">
                 <consolepanel></consolepanel>
             </div>
 
-            <scripteditorlayout [hidden]="bscript" style="height:100%;margin:0;padding:0;"></scripteditorlayout>
+            <scripteditorlayout [hidden]="bscript" style="width:100%;height:100%;margin:0;padding:0;"></scripteditorlayout>
         </div>
     `
 })

@@ -229,15 +229,15 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
 
     ClearSceneMap(){
         console.log("clear scene...");
-
+        /*
         if(this.scene !=null){
             var objscene = this.scene;
             for(var i = objscene.meshes.length; i > 0 ;i--){
                 objscene.meshes[0].dispose();
             }
         }
+        */
 
-        /*
         var delobjs = [];
         //console.log(this.scene.meshes.length);
         for(var i = 0; i < this.scene.meshes.length;i++){
@@ -254,6 +254,6 @@ export class Babylonjs_game_loadsave extends Babylonjs_game_module{
         }
         delobjs = null;
         //console.log(this.scene.meshes.length);
-        */
+
     }
 }

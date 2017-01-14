@@ -11,15 +11,16 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'scripteditorlayout',
+    styleUrls:  ['./components/scripteditorlayout.component.css'],
     template: `
         <div style="height:100%;width:100%;">
-            <div style="position: static;width:20%;height:100%;float:left;margin:0;padding:0;">
-                <scripteditormenu></scripteditormenu>
+            <nav>
+                <!--<scripteditormenu></scripteditormenu>-->
                 <scripteditorexplore></scripteditorexplore>
-            </div>
-            <div style="position: static;width:80%;height:100%;float:left;margin:0;padding:0;">
+            </nav>
+            <article >
                 <codeeditor-component style="margin:0;padding:0;"></codeeditor-component>
-            </div>
+            </article>
         </div>
     `
 })
