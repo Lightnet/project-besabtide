@@ -7932,7 +7932,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     selector: 'objectprops',
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}<button (click)="meshdelete()">Delete</button>\n                <br><label>px:<input type="number" ng-model=\'val | number: 2\' [ngModel]="gameservice.selectobject.position.x" value="{{gameservice.selectobject.position.x}}" (ngModelChange)="objposx($event)" step ="0.000001" /></label>\n                <br><label>py:<input type="number" [ngModel]="gameservice.selectobject.position.y" value="{{gameservice.selectobject.position.y}}" (ngModelChange)="objposy($event)" step ="0.000001" /></label>\n                <br><label>pz:<input type="number" [ngModel]="gameservice.selectobject.position.z" value="{{gameservice.selectobject.position.z}}" (ngModelChange)="objposz($event)" step ="0.000001" /></label>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}<button (click)="meshdelete()">Delete</button>\n                <br><button (click)="togglevisible()">Visible</button> : {{ this.gameservice.selectobject.isVisible }}\n                <br>Position:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.position.x" (ngModelChange)="objposx($event);" step ="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.position.y" (ngModelChange)="objposy($event);" step ="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.position.z" (ngModelChange)="objposz($event);" step ="0.100000" /></label>\n                <br>Rotation:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.rotation.x" (ngModelChange)="objrotx($event);" step="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.rotation.y" (ngModelChange)="objroty($event);" step="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.rotation.z" (ngModelChange)="objrotz($event);" step="0.100000" /></label>\n                <br>Scaling:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.scaling.x" (ngModelChange)="objscalex($event);" step ="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.scaling.y" (ngModelChange)="objscaley($event);" step="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.scaling.z" (ngModelChange)="objscalez($event);" step="0.100000" /></label>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function Objectprops(gameservice) {
         _classCallCheck(this, Objectprops);
@@ -7944,10 +7944,22 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     }
 
     _createClass(Objectprops, [{
+        key: 'togglevisible',
+        value: function togglevisible() {
+            if (this.gameservice.selectobject != null) {
+                //console.log(this.gameservice.selectobject.visibility);
+                if (this.gameservice.selectobject.isVisible) {
+                    this.gameservice.selectobject.isVisible = false;
+                } else {
+                    this.gameservice.selectobject.isVisible = true;
+                }
+            }
+        }
+    }, {
         key: 'objposx',
         value: function objposx(value) {
-            console.log(value);
-            console.log("pos x");
+            //console.log(value);
+            //console.log("pos x");
             if (this.gameservice.selectobject != null) {
                 this.gameservice.selectobject.position.x = value;
             }
@@ -7955,8 +7967,8 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     }, {
         key: 'objposy',
         value: function objposy(value) {
-            console.log(value);
-            console.log("pos y");
+            //console.log(value);
+            //console.log("pos y");
             if (this.gameservice.selectobject != null) {
                 this.gameservice.selectobject.position.y = value;
             }
@@ -7964,16 +7976,63 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     }, {
         key: 'objposz',
         value: function objposz(value) {
-            console.log(value);
-            console.log("pos z");
+            //console.log(value);
             if (this.gameservice.selectobject != null) {
                 this.gameservice.selectobject.position.z = value;
             }
         }
     }, {
+        key: 'objrotx',
+        value: function objrotx(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.rotation.x = value;
+            }
+        }
+    }, {
+        key: 'objroty',
+        value: function objroty(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.rotation.y = value;
+            }
+        }
+    }, {
+        key: 'objrotz',
+        value: function objrotz(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.rotation.z = value;
+            }
+        }
+    }, {
+        key: 'objscalex',
+        value: function objscalex(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.scaling.x = value;
+            }
+        }
+    }, {
+        key: 'objscaley',
+        value: function objscaley(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.scaling.y = value;
+            }
+        }
+    }, {
+        key: 'objscalez',
+        value: function objscalez(value) {
+            //console.log(value);
+            if (this.gameservice.selectobject != null) {
+                this.gameservice.selectobject.scaling.z = value;
+            }
+        }
+    }, {
         key: 'meshdelete',
         value: function meshdelete() {
-            console.log("delete");
+            //console.log("delete");
             if (this.gameservice.selectobject != null) {
                 this.gameservice.selectobject.dispose();
                 this.gameservice.selectobject = null;
@@ -8020,7 +8079,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
     styleUrls: ['./components/scene.component.css'],
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <strong *ngIf="obj.rpgobj != null">\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                    </strong>\n                </ul>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <!--<strong *ngIf="obj.rpgobj != null">-->\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                    <!--</strong>-->\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
