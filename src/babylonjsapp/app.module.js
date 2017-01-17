@@ -41,6 +41,8 @@ import {ShapeTerrainModal} from './components/shapeterrainmodal.component';
 import {ObjectMaterialModal} from './components/objectmaterialmodal.component';
 import {ShapeCharacterModal} from './components/shapecharactermodal.component';
 
+import {ScriptComponent} from './components/scriptcomponent.component';
+
 
 import {NavMenu} from './components/navmenu.component';
 import {GameService} from './services/game.service';
@@ -76,7 +78,8 @@ import {GameService} from './services/game.service';
         ShapePlaneModal,
         ShapeTerrainModal,
         ObjectMaterialModal,
-        ShapeCharacterModal
+        ShapeCharacterModal,
+        ScriptComponent
     ],
     providers: [
         GameService

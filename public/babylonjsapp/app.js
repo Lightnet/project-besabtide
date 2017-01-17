@@ -46,7 +46,7 @@ var MainApp = exports.MainApp = (_dec = (0, _core.Component)({
 }) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], MainApp);
 
-},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":69,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
+},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":70,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -118,6 +118,8 @@ var _objectmaterialmodal = require('./components/objectmaterialmodal.component')
 
 var _shapecharactermodal = require('./components/shapecharactermodal.component');
 
+var _scriptcomponent = require('./components/scriptcomponent.component');
+
 var _navmenu = require('./components/navmenu.component');
 
 var _game = require('./services/game.service');
@@ -131,14 +133,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AppModule = exports.AppModule = (_dec = (0, _core.NgModule)({
     imports: [_platformBrowser.BrowserModule, _forms.FormsModule],
-    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu, _shapecubemodal.ShapeCubeModal, _shapespheremodal.ShapeSphereModal, _shapeplanemodal.ShapePlaneModal, _shapeterrainmodal.ShapeTerrainModal, _objectmaterialmodal.ObjectMaterialModal, _shapecharactermodal.ShapeCharacterModal],
+    declarations: [_app.MainApp, _ng2AceEditor.AceEditorDirective, _ng2AceEditor.AceEditorComponent, _gameeditor.GameEditor, _navmenu.NavMenu, _scripteditorlayout.ScriptEditorLayout, _scene.SceneList, _assets.AssetsList, _scripteditormenu.ScriptEditorMenu, _scripteditorexplore.ScriptEditorExplore, _codeeditor.CodeEditor, _objectprops.Objectprops, _editorpanel.EditorPanel, _consolepanel.ConsolePanel, _editormenu.EditorMenu, _shapecubemodal.ShapeCubeModal, _shapespheremodal.ShapeSphereModal, _shapeplanemodal.ShapePlaneModal, _shapeterrainmodal.ShapeTerrainModal, _objectmaterialmodal.ObjectMaterialModal, _shapecharactermodal.ShapeCharacterModal, _scriptcomponent.ScriptComponent],
     providers: [_game.GameService],
     bootstrap: [_app.MainApp]
 }), _dec(_class = function AppModule() {
     _classCallCheck(this, AppModule);
 }) || _class);
 
-},{"./app.component":2,"./components/assets.component":50,"./components/codeeditor.component":51,"./components/consolepanel.component":52,"./components/editormenu.component":53,"./components/editorpanel.component":54,"./components/gameeditor.component":55,"./components/navmenu.component":56,"./components/objectmaterialmodal.component":57,"./components/objectprops.component":58,"./components/scene.component":59,"./components/scripteditorexplore.component":60,"./components/scripteditorlayout.component":61,"./components/scripteditormenu.component":62,"./components/shapecharactermodal.component":63,"./components/shapecubemodal.component":64,"./components/shapeplanemodal.component":65,"./components/shapespheremodal.component":66,"./components/shapeterrainmodal.component":67,"./services/game.service":69,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
+},{"./app.component":2,"./components/assets.component":50,"./components/codeeditor.component":51,"./components/consolepanel.component":52,"./components/editormenu.component":53,"./components/editorpanel.component":54,"./components/gameeditor.component":55,"./components/navmenu.component":56,"./components/objectmaterialmodal.component":57,"./components/objectprops.component":58,"./components/scene.component":59,"./components/scriptcomponent.component":60,"./components/scripteditorexplore.component":61,"./components/scripteditorlayout.component":62,"./components/scripteditormenu.component":63,"./components/shapecharactermodal.component":64,"./components/shapecubemodal.component":65,"./components/shapeplanemodal.component":66,"./components/shapespheremodal.component":67,"./components/shapeterrainmodal.component":68,"./services/game.service":70,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1148,11 +1150,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             //var box1 = BABYLON.Mesh.CreateBox("box", 1.0, this.scene);
             //this.showAxis(3, box1);
             var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), this.scene);
-
             this.create_window_jqui();
-            //this.bo();
-
-
             this.init_physics();
             //this.create2DHUD();
             this.create_input();
@@ -7249,7 +7247,7 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], AssetsList);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],51:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7393,7 +7391,7 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
 })), _class2)) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], CodeEditor);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],52:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7594,7 +7592,7 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":69,"@angular/core":"@angular/core"}],54:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":70,"@angular/core":"@angular/core"}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7760,7 +7758,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], GameEditor);
 
-},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":69,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],56:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":70,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7826,7 +7824,7 @@ var NavMenu = exports.NavMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], NavMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":69,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":70,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7905,7 +7903,7 @@ var ObjectMaterialModal = exports.ObjectMaterialModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ObjectMaterialModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7932,16 +7930,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     selector: 'objectprops',
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}<button (click)="meshdelete()">Delete</button>\n                <br><button (click)="togglevisible()">Visible</button> : {{ this.gameservice.selectobject.isVisible }}\n                <br>Position:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.position.x" (ngModelChange)="objposx($event);" step ="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.position.y" (ngModelChange)="objposy($event);" step ="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.position.z" (ngModelChange)="objposz($event);" step ="0.100000" /></label>\n                <br>Rotation:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.rotation.x" (ngModelChange)="objrotx($event);" step="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.rotation.y" (ngModelChange)="objroty($event);" step="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.rotation.z" (ngModelChange)="objrotz($event);" step="0.100000" /></label>\n                <br>Scaling:\n                <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.scaling.x" (ngModelChange)="objscalex($event);" step ="0.100000" /></label>\n                <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.scaling.y" (ngModelChange)="objscaley($event);" step="0.100000" /></label>\n                <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.scaling.z" (ngModelChange)="objscalez($event);" step="0.100000" /></label>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}\n                <br><button (click)="meshdelete()">Delete</button>\n                <br><button (click)="togglevisible()">Visible</button> : {{ this.gameservice.selectobject.isVisible }}\n                <br><button (click)="toggletransform()">Transform</button>: {{ btransform }}\n                <div [hidden]="btransform">\n                    Position:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.position.x" (ngModelChange)="objposx($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.position.y" (ngModelChange)="objposy($event);" step ="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.position.z" (ngModelChange)="objposz($event);" step ="0.100000" /></label>\n                    <br>Rotation:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.rotation.x" (ngModelChange)="objrotx($event);" step="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.rotation.y" (ngModelChange)="objroty($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.rotation.z" (ngModelChange)="objrotz($event);" step="0.100000" /></label>\n                    <br>Scaling:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.scaling.x" (ngModelChange)="objscalex($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.scaling.y" (ngModelChange)="objscaley($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.scaling.z" (ngModelChange)="objscalez($event);" step="0.100000" /></label>\n                </div>\n                <br><button (click)="togglemesh()">Mesh</button>:\n                <div [hidden]="bmesh">\n                    Test!\n                </div>\n                <br><button (click)="toggleanimation()">Animation</button>:\n                <div [hidden]="banimation">\n                    Test!\n                </div>\n                <br><button (click)="togglematerial()">Material</button>:\n                <div [hidden]="bmaterial">\n                    Test!\n                </div>\n                <br><button (click)="togglescript()">Script</button>:\n                <div [hidden]="bscript">\n                    Test!\n                </div>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
+    //bshader = true;
+    //bskybox = true;
+
     function Objectprops(gameservice) {
         _classCallCheck(this, Objectprops);
 
-        this.posx = 0;
+        this.btransform = true;
+        this.bmesh = true;
+        this.banimation = true;
+        this.bmaterial = true;
+        this.bscript = true;
+        this.blight = true;
+        this.bcamera = true;
 
         //console.log(gameservice);
         this.gameservice = gameservice;
     }
+    //toggle div hide or show
+
 
     _createClass(Objectprops, [{
         key: 'togglevisible',
@@ -7953,6 +7962,51 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
                 } else {
                     this.gameservice.selectobject.isVisible = true;
                 }
+            }
+        }
+    }, {
+        key: 'toggletransform',
+        value: function toggletransform() {
+            if (this.btransform) {
+                this.btransform = false;
+            } else {
+                this.btransform = true;
+            }
+        }
+    }, {
+        key: 'togglemesh',
+        value: function togglemesh() {
+            if (this.bmesh) {
+                this.bmesh = false;
+            } else {
+                this.bmesh = true;
+            }
+        }
+    }, {
+        key: 'toggleanimation',
+        value: function toggleanimation() {
+            if (this.banimation) {
+                this.banimation = false;
+            } else {
+                this.banimation = true;
+            }
+        }
+    }, {
+        key: 'togglematerial',
+        value: function togglematerial() {
+            if (this.bmaterial) {
+                this.bmaterial = false;
+            } else {
+                this.bmaterial = true;
+            }
+        }
+    }, {
+        key: 'togglescript',
+        value: function togglescript() {
+            if (this.bscript) {
+                this.bscript = false;
+            } else {
+                this.bscript = true;
             }
         }
     }, {
@@ -8051,7 +8105,7 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], Objectprops);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8108,7 +8162,62 @@ var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], SceneList);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ScriptComponent = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class; /*
+                      Project Name: project-besabtide
+                      Link:https://github.com/Lightnet/project-besabtide
+                      Created By: Lightnet
+                      License: cc (creative commons)
+                  
+                      Information: Please read the readme.md file for more information.
+                  */
+
+var _core = require('@angular/core');
+
+var _game = require('../services/game.service');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ScriptComponent = exports.ScriptComponent = (_dec = (0, _core.Component)({
+    selector: 'scriptcomponent',
+    template: '\n        <div style="height:100%;width:100%;overflow-y:scroll;">\n        </div>\n    '
+}), _dec(_class = function () {
+    function ScriptComponent(gameservice) {
+        _classCallCheck(this, ScriptComponent);
+
+        //console.log(gameservice);
+        this.gameservice = gameservice;
+    }
+
+    //selectobject(_obj){
+    //console.log("scene object selected:");
+    //console.log(_obj);
+    //this.gameservice.selectobject = _obj;
+    //}
+
+    _createClass(ScriptComponent, [{
+        key: 'refresh',
+        value: function refresh() {
+            console.log("refresh");
+            console.log(this.gameservice);
+            console.log(this.gameservice.scene.meshes);
+        }
+    }]);
+
+    return ScriptComponent;
+}()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptComponent);
+
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8213,7 +8322,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorExplore);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8242,7 +8351,7 @@ var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Componen
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],62:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8384,7 +8493,7 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorMenu);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],63:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8457,7 +8566,7 @@ var ShapeCharacterModal = exports.ShapeCharacterModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCharacterModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],64:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8536,7 +8645,7 @@ var ShapeCubeModal = exports.ShapeCubeModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCubeModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8615,7 +8724,7 @@ var ShapePlaneModal = exports.ShapePlaneModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapePlaneModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8691,7 +8800,7 @@ var ShapeSphereModal = exports.ShapeSphereModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeSphereModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8764,7 +8873,7 @@ var ShapeTerrainModal = exports.ShapeTerrainModal = (_dec = (0, _core.Component)
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeTerrainModal);
 
-},{"../services/game.service":69,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
+},{"../services/game.service":70,"@angular/core":"@angular/core"}],69:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -8788,7 +8897,7 @@ var _app = require('./app.module');
 
 (0, _platformBrowserDynamic.platformBrowserDynamic)().bootstrapModule(_app.AppModule);
 
-},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],69:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],70:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8821,6 +8930,6 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.textscript = '';
 }) || _class);
 
-},{"@angular/core":"@angular/core"}]},{},[68])
+},{"@angular/core":"@angular/core"}]},{},[69])
 
 //# sourceMappingURL=app.js.map

@@ -335,15 +335,16 @@ Test();`
         //var box1 = BABYLON.Mesh.CreateBox("box", 1.0, this.scene);
         //this.showAxis(3, box1);
         var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), this.scene);
-
-
         this.create_window_jqui();
-        //this.bo();
-
-
         this.init_physics();
         //this.create2DHUD();
         this.create_input();
+
+
+        
+
+
+
 
         //this.create_gamepadinput();
         //this.simpleterrain04();
