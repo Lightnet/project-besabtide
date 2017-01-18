@@ -23,7 +23,7 @@ export class Babylonjs_game_character extends Babylonjs_game_module{
         //console.log('create_character');
         args = args || {};
         var self = this;
-        var tmpmodel = this.getmesh("CubeBody");
+        var tmpmodel = this.getMeshAssets("CubeBody");
         //console.log("here tmp model?");
         tmpmodel.isVisible = true;
         //var objphysics = BABYLON.MeshBuilder.CreateCylinder("indicator", { height: 1, diameterTop: 0, diameterBottom: 0.5 }, this.scene);

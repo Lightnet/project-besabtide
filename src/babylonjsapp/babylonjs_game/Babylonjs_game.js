@@ -43,6 +43,9 @@ import {Babylonjs_game_terrain} from './terrain/Babylonjs_game_terrain';
 
 import {Babylonjs_game_jqueryui} from './jqueryui/Babylonjs_game_jqueryui';
 
+
+import {RPGDungeonBuild} from './rpgdungeon/RPGDungeonBuild';
+
 import {GAMEAPI} from './system/Babylonjs_game_api';
 
 // Converts from degrees to radians.
@@ -98,6 +101,16 @@ export class Babylonjs_game extends Babylonjs_framework {
             back: 0
         };
         this.moveVector = new BABYLON.Vector3(0, 0, 0);
+
+        //hit result
+        this.hitobject = null;
+        this.hitposition = new BABYLON.Vector3(0, 0, 0);
+        this.placeposition = new BABYLON.Vector3(0, 0, 0);
+
+        //place dungeon block
+        this.placebuild = null;
+        this.placename = "floor";
+        this.buildmode = true;
 
         this.npc = null;
 
@@ -167,6 +180,8 @@ export class Babylonjs_game extends Babylonjs_framework {
 
         new Babylonjs_game_gundb(this);
 
+        new RPGDungeonBuild(this);
+
     }
 
     ScenePickObject() {
@@ -187,6 +202,56 @@ export class Babylonjs_game extends Babylonjs_framework {
             }
         };
     }
+
+    WindowScenePickObject(){
+        var self = this;
+        //When click event is raised
+        window.addEventListener("click", function () {
+           // We try to pick an object
+           var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
+           console.log(pickResult);
+        })
+    }
+
+    InitWindowMouse(){
+        var self = this;
+        window.addEventListener("mousemove", (event)=>{
+            self.ScenePickTrace(event);
+        });
+
+        window.addEventListener("mousewheel", (event)=>{
+            self.MouseWheel(event);
+        });
+    }
+
+    MouseWheel(event){
+        //console.log(event);
+        console.log(event.wheelDelta );
+        if(event.wheelDelta > 0){
+            this.nextblock(+1);
+        }
+
+        if(event.wheelDelta < 0){
+            this.nextblock(-1);
+        }
+    }
+
+    ScenePickTrace(event){
+        var self = this;
+        var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
+        if(pickResult.hit){
+            //console.log('hit');
+            //this.placeposition
+            self.hitobject = pickResult.pickedMesh;
+
+            self.hitposition.x = pickResult.pickedPoint.x;
+            self.hitposition.y = pickResult.pickedPoint.y;
+            self.hitposition.z = pickResult.pickedPoint.z;
+        }else{
+            //console.log('miss');
+        }
+    }
+
 
     //override function...
     start_scenerender() {
@@ -231,11 +296,29 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     init() {
         super.init();
-        console.log("init [babylonjs_game]");
+        //console.log("init [babylonjs_game]");
         this.createspacecavnas2D();
         this.createscene_assets();
         this.init_gundb();
     }
+
+    setup_placeholderblocks(){
+        this.blocks = [];
+
+        var _objmesh = this.getMeshAssets('block_floor');
+        this.blocks.push({name:'floor',meshname:'block_floor', mesh:_objmesh});
+
+        _objmesh = this.getMeshAssets('block_wall');
+        this.blocks.push({name:'wall',meshname:'block_wall', mesh:_objmesh});
+
+        _objmesh = this.getMeshAssets('block_stair');
+        this.blocks.push({name:'stair',meshname:'block_stair', mesh:_objmesh});
+
+        _objmesh = this.getMeshAssets('block_framedoor');
+        this.blocks.push({name:'framedoor',meshname:'block_framedoor', mesh:_objmesh});
+        _objmesh =null;
+    }
+
 
     setup_gamedata() {
         //list inventory
@@ -313,6 +396,10 @@ Test();`
 
     setup_game() {
         var self = this;
+        this.setup_placeholderblocks();
+        this.setup_buildkeys();
+        this.WindowScenePickObject();
+        this.InitWindowMouse();
         //setup game API variable access for sandbox acccess
         //console.log(GAMEAPI);
         this.initscripts();
@@ -341,7 +428,7 @@ Test();`
         this.create_input();
 
 
-        
+
 
 
 

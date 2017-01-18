@@ -15,7 +15,9 @@ import {GameService} from '../services/game.service';
     template: `
         <div style="height:50%;width:100%;overflow-y:scroll;">
             Props:
-            <!--<button (click)="refresh()">Refresh</button>-->
+            <!--
+            <button (click)="refresh()">Refresh</button>
+            -->
             <div *ngIf="gameservice.selectobject">
                 Object: {{gameservice.selectobject.id}}
                 <br><button (click)="meshdelete()">Delete</button>
@@ -123,8 +125,6 @@ export class Objectprops {
             this.bscript = true;
         }
     }
-
-
 
     objposx(value){
         //console.log(value);

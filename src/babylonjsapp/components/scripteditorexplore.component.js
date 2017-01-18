@@ -32,8 +32,8 @@ export class ScriptEditorExplore implements OnInit{
     gameservice = null;
 
     inputvaluechange(event){
-        console.log(event.target.value);
-        console.log(this);
+        //console.log(event.target.value);
+        //console.log(this);
 
         if(this.gameservice.app !=null){
             //console.log(this.gameservice.app.uuid());
@@ -78,7 +78,7 @@ export class ScriptEditorExplore implements OnInit{
     }
 
     constructor(gameservice:GameService){
-        console.log(gameservice);
+        //console.log(gameservice);
         this.gameservice = gameservice;
         //console.log(this.gameservice.app.scriptcomponents);
     }
@@ -86,6 +86,6 @@ export class ScriptEditorExplore implements OnInit{
     ngOnInit(): void {
         //this.editor.setTheme("eclipse");
         //console.log(this.editor);
-        console.log(this.gameservice.app.scriptcomponents);
+        //console.log(this.gameservice.app.scriptcomponents);
     }
 }

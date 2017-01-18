@@ -46,7 +46,7 @@ var MainApp = exports.MainApp = (_dec = (0, _core.Component)({
 }) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], MainApp);
 
-},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":70,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
+},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":71,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -140,7 +140,7 @@ var AppModule = exports.AppModule = (_dec = (0, _core.NgModule)({
     _classCallCheck(this, AppModule);
 }) || _class);
 
-},{"./app.component":2,"./components/assets.component":50,"./components/codeeditor.component":51,"./components/consolepanel.component":52,"./components/editormenu.component":53,"./components/editorpanel.component":54,"./components/gameeditor.component":55,"./components/navmenu.component":56,"./components/objectmaterialmodal.component":57,"./components/objectprops.component":58,"./components/scene.component":59,"./components/scriptcomponent.component":60,"./components/scripteditorexplore.component":61,"./components/scripteditorlayout.component":62,"./components/scripteditormenu.component":63,"./components/shapecharactermodal.component":64,"./components/shapecubemodal.component":65,"./components/shapeplanemodal.component":66,"./components/shapespheremodal.component":67,"./components/shapeterrainmodal.component":68,"./services/game.service":70,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
+},{"./app.component":2,"./components/assets.component":51,"./components/codeeditor.component":52,"./components/consolepanel.component":53,"./components/editormenu.component":54,"./components/editorpanel.component":55,"./components/gameeditor.component":56,"./components/navmenu.component":57,"./components/objectmaterialmodal.component":58,"./components/objectprops.component":59,"./components/scene.component":60,"./components/scriptcomponent.component":61,"./components/scripteditorexplore.component":62,"./components/scripteditorlayout.component":63,"./components/scripteditormenu.component":64,"./components/shapecharactermodal.component":65,"./components/shapecubemodal.component":66,"./components/shapeplanemodal.component":67,"./components/shapespheremodal.component":68,"./components/shapeterrainmodal.component":69,"./services/game.service":71,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -845,6 +845,8 @@ var _Babylonjs_game_terrain = require('./terrain/Babylonjs_game_terrain');
 
 var _Babylonjs_game_jqueryui = require('./jqueryui/Babylonjs_game_jqueryui');
 
+var _RPGDungeonBuild = require('./rpgdungeon/RPGDungeonBuild');
+
 var _Babylonjs_game_api = require('./system/Babylonjs_game_api');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -917,6 +919,16 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         };
         _this.moveVector = new BABYLON.Vector3(0, 0, 0);
 
+        //hit result
+        _this.hitobject = null;
+        _this.hitposition = new BABYLON.Vector3(0, 0, 0);
+        _this.placeposition = new BABYLON.Vector3(0, 0, 0);
+
+        //place dungeon block
+        _this.placebuild = null;
+        _this.placename = "floor";
+        _this.buildmode = true;
+
         _this.npc = null;
 
         _this.leftstickmove = false;
@@ -985,6 +997,8 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
 
         new _Babylonjs_game_gundb.Babylonjs_game_gundb(_this);
 
+        new _RPGDungeonBuild.RPGDungeonBuild(_this);
+
         return _this;
     }
 
@@ -1007,6 +1021,59 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
                     //console.log("HIT"+pickResult.pickedPoint);
                 }
             };
+        }
+    }, {
+        key: 'WindowScenePickObject',
+        value: function WindowScenePickObject() {
+            var self = this;
+            //When click event is raised
+            window.addEventListener("click", function () {
+                // We try to pick an object
+                var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
+                console.log(pickResult);
+            });
+        }
+    }, {
+        key: 'InitWindowMouse',
+        value: function InitWindowMouse() {
+            var self = this;
+            window.addEventListener("mousemove", function (event) {
+                self.ScenePickTrace(event);
+            });
+
+            window.addEventListener("mousewheel", function (event) {
+                self.MouseWheel(event);
+            });
+        }
+    }, {
+        key: 'MouseWheel',
+        value: function MouseWheel(event) {
+            //console.log(event);
+            console.log(event.wheelDelta);
+            if (event.wheelDelta > 0) {
+                this.nextblock(+1);
+            }
+
+            if (event.wheelDelta < 0) {
+                this.nextblock(-1);
+            }
+        }
+    }, {
+        key: 'ScenePickTrace',
+        value: function ScenePickTrace(event) {
+            var self = this;
+            var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
+            if (pickResult.hit) {
+                //console.log('hit');
+                //this.placeposition
+                self.hitobject = pickResult.pickedMesh;
+
+                self.hitposition.x = pickResult.pickedPoint.x;
+                self.hitposition.y = pickResult.pickedPoint.y;
+                self.hitposition.z = pickResult.pickedPoint.z;
+            } else {
+                //console.log('miss');
+            }
         }
 
         //override function...
@@ -1055,10 +1122,28 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         key: 'init',
         value: function init() {
             _get(Babylonjs_game.prototype.__proto__ || Object.getPrototypeOf(Babylonjs_game.prototype), 'init', this).call(this);
-            console.log("init [babylonjs_game]");
+            //console.log("init [babylonjs_game]");
             this.createspacecavnas2D();
             this.createscene_assets();
             this.init_gundb();
+        }
+    }, {
+        key: 'setup_placeholderblocks',
+        value: function setup_placeholderblocks() {
+            this.blocks = [];
+
+            var _objmesh = this.getMeshAssets('block_floor');
+            this.blocks.push({ name: 'floor', meshname: 'block_floor', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_wall');
+            this.blocks.push({ name: 'wall', meshname: 'block_wall', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_stair');
+            this.blocks.push({ name: 'stair', meshname: 'block_stair', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_framedoor');
+            this.blocks.push({ name: 'framedoor', meshname: 'block_framedoor', mesh: _objmesh });
+            _objmesh = null;
         }
     }, {
         key: 'setup_gamedata',
@@ -1130,6 +1215,10 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         key: 'setup_game',
         value: function setup_game() {
             var self = this;
+            this.setup_placeholderblocks();
+            this.setup_buildkeys();
+            this.WindowScenePickObject();
+            this.InitWindowMouse();
             //setup game API variable access for sandbox acccess
             //console.log(GAMEAPI);
             this.initscripts();
@@ -1271,7 +1360,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
     return Babylonjs_game;
 }(_babylonjs_framework.Babylonjs_framework);
 
-},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":37,"./rpg/RPGStatus":38,"./scene/Babylonjs_game_scene":40,"./system/Babylonjs_game_api":41,"./system/Babylonjs_game_assets":42,"./system/Babylonjs_game_battle":43,"./system/Babylonjs_game_gundb":44,"./system/Babylonjs_game_loadsave":45,"./system/Babylonjs_game_parse":47,"./terrain/Babylonjs_game_terrain":48,"./ui/Babylonjs_game_ui":49}],12:[function(require,module,exports){
+},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":37,"./rpg/RPGStatus":38,"./rpgdungeon/RPGDungeonBuild":40,"./scene/Babylonjs_game_scene":41,"./system/Babylonjs_game_api":42,"./system/Babylonjs_game_assets":43,"./system/Babylonjs_game_battle":44,"./system/Babylonjs_game_gundb":45,"./system/Babylonjs_game_loadsave":46,"./system/Babylonjs_game_parse":48,"./terrain/Babylonjs_game_terrain":49,"./ui/Babylonjs_game_ui":50}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1315,7 +1404,7 @@ var Babylonjs_game_character = exports.Babylonjs_game_character = function (_Bab
             //console.log('create_character');
             args = args || {};
             var self = this;
-            var tmpmodel = this.getmesh("CubeBody");
+            var tmpmodel = this.getMeshAssets("CubeBody");
             //console.log("here tmp model?");
             tmpmodel.isVisible = true;
             //var objphysics = BABYLON.MeshBuilder.CreateCylinder("indicator", { height: 1, diameterTop: 0, diameterBottom: 0.5 }, this.scene);
@@ -1478,7 +1567,7 @@ var Babylonjs_game_character = exports.Babylonjs_game_character = function (_Bab
     return Babylonjs_game_character;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":46}],13:[function(require,module,exports){
+},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":47}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1732,7 +1821,7 @@ var Babylonjs_game_controller = exports.Babylonjs_game_controller = function (_B
     return Babylonjs_game_controller;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":37,"../rpg/RPGStatus":38,"../system/Babylonjs_game_module":46}],14:[function(require,module,exports){
+},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":37,"../rpg/RPGStatus":38,"../system/Babylonjs_game_module":47}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2258,7 +2347,7 @@ var Babylonjs_game_editor = exports.Babylonjs_game_editor = function (_Babylonjs
     return Babylonjs_game_editor;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGPlane":35,"../rpg/RPGSphere":36,"../system/Babylonjs_game_module":46}],15:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGPlane":35,"../rpg/RPGSphere":36,"../system/Babylonjs_game_module":47}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2518,7 +2607,7 @@ var Babylonjs_game_hud = exports.Babylonjs_game_hud = function (_Babylonjs_game_
     return Babylonjs_game_hud;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],16:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2584,7 +2673,7 @@ var Babylonjs_game_hud_battle = exports.Babylonjs_game_hud_battle = function (_B
     return Babylonjs_game_hud_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],17:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2824,7 +2913,7 @@ var Babylonjs_game_hud_inventory = exports.Babylonjs_game_hud_inventory = functi
     return Babylonjs_game_hud_inventory;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],18:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2889,7 +2978,7 @@ var Babylonjs_game_hud_loot = exports.Babylonjs_game_hud_loot = function (_Babyl
     return Babylonjs_game_hud_loot;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],19:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2924,7 +3013,7 @@ var Babylonjs_game_hud_market = exports.Babylonjs_game_hud_market = function (_B
     return Babylonjs_game_hud_market;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],20:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],20:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3085,7 +3174,7 @@ var Babylonjs_game_hud_shop = exports.Babylonjs_game_hud_shop = function (_Babyl
     return Babylonjs_game_hud_shop;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],21:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3153,7 +3242,7 @@ var Babylonjs_game_hud_skills = exports.Babylonjs_game_hud_skills = function (_B
     return Babylonjs_game_hud_skills;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],22:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3218,7 +3307,7 @@ var Babylonjs_game_hud_storage = exports.Babylonjs_game_hud_storage = function (
     return Babylonjs_game_hud_storage;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],23:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3253,7 +3342,7 @@ var Babylonjs_game_hud_trade = exports.Babylonjs_game_hud_trade = function (_Bab
     return Babylonjs_game_hud_trade;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],24:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],24:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4089,7 +4178,7 @@ var Babylonjs_game_jqueryui = exports.Babylonjs_game_jqueryui = function (_Babyl
     return Babylonjs_game_jqueryui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],25:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4152,7 +4241,7 @@ var Babylonjs_game_load = exports.Babylonjs_game_load = function (_Babylonjs_gam
     return Babylonjs_game_load;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],26:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4229,7 +4318,7 @@ var Babylonjs_game_network = exports.Babylonjs_game_network = function (_Babylon
     return Babylonjs_game_network;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],27:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4264,7 +4353,7 @@ var Babylonjs_game_physics = exports.Babylonjs_game_physics = function (_Babylon
     return Babylonjs_game_physics;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],28:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4980,6 +5069,112 @@ var RPGTerrain = exports.RPGTerrain = function (_ObjectRPGID) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.RPGDungeonBuild = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Babylonjs_game_module = require("../system/Babylonjs_game_module");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul) {
+    _inherits(RPGDungeonBuild, _Babylonjs_game_modul);
+
+    function RPGDungeonBuild(args) {
+        _classCallCheck(this, RPGDungeonBuild);
+
+        return _possibleConstructorReturn(this, (RPGDungeonBuild.__proto__ || Object.getPrototypeOf(RPGDungeonBuild)).call(this, args));
+    }
+
+    _createClass(RPGDungeonBuild, [{
+        key: "nextblock",
+        value: function nextblock(scroll) {
+            if (scroll > 0) {
+                this.blockindex++;
+            }
+            if (scroll < 0) {
+                this.blockindex--;
+            }
+
+            if (this.blockindex > this.blocks.length - 1) {
+                this.blockindex = 0;
+            }
+
+            if (this.blockindex < 0) {
+                this.blockindex = this.blocks.length - 1;
+            }
+
+            this.placename = this.blocks[this.blockindex].name;
+            console.log(this.placename);
+            console.log(this.blockindex);
+        }
+    }, {
+        key: "setup_buildkeys",
+        value: function setup_buildkeys() {
+            var self = this;
+            this.blockindex = 0;
+
+            this.scene.actionManager = new BABYLON.ActionManager(this.scene);
+            this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction({ trigger: BABYLON.ActionManager.OnKeyUpTrigger, parameter: "b" }, function (evt) {
+                //console.log("typing r...");
+                console.log(evt);
+                if (evt.sourceEvent.key == "b") {
+                    self.buildobjectdungeon();
+                }
+            }));
+
+            this.scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction({ trigger: BABYLON.ActionManager.OnKeyUpTrigger, parameter: "r" }, function (evt) {
+                //console.log("typing r...");
+                console.log(evt);
+                if (evt.sourceEvent.key == "r") {
+                    self.rotateobjectdungeon();
+                }
+            }));
+        }
+    }, {
+        key: "buildobjectdungeon",
+        value: function buildobjectdungeon() {
+            console.log('build block...');
+
+            for (var i = 0; i < this.blocks.length; i++) {
+                if (this.blocks[i].name == this.placename) {
+                    var _objmesh = this.getMeshAssets(this.blocks[i].meshname);
+                    _objmesh.isVisible = true;
+                    _objmesh.position.x = this.hitposition.x;
+                    _objmesh.position.y = this.hitposition.y;
+                    _objmesh.position.z = this.hitposition.z;
+
+                    break;
+                }
+            }
+        }
+    }, {
+        key: "rotateobjectdungeon",
+        value: function rotateobjectdungeon() {
+            console.log('rotate block...');
+        }
+    }]);
+
+    return RPGDungeonBuild;
+}(_Babylonjs_game_module.Babylonjs_game_module);
+
+},{"../system/Babylonjs_game_module":47}],41:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.Babylonjs_game_scene = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -5055,7 +5250,7 @@ var Babylonjs_game_scene = exports.Babylonjs_game_scene = function (_Babylonjs_g
     return Babylonjs_game_scene;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],41:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],42:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5125,7 +5320,7 @@ function GAMEAPI(app) {
     window.Game = new GameAPI();
 };
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5328,7 +5523,7 @@ var Babylonjs_game_assets = exports.Babylonjs_game_assets = function (_Babylonjs
 				return Babylonjs_game_assets;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":46}],43:[function(require,module,exports){
+},{"./Babylonjs_game_module":47}],44:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5595,7 +5790,7 @@ var Babylonjs_game_battle = exports.Babylonjs_game_battle = function (_Babylonjs
 	return Babylonjs_game_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":46}],44:[function(require,module,exports){
+},{"./Babylonjs_game_module":47}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5858,7 +6053,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
     return Babylonjs_game_gundb;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":46}],45:[function(require,module,exports){
+},{"./Babylonjs_game_module":47}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6157,7 +6352,7 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
     return Babylonjs_game_loadsave;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":36,"../rpg/RPGTerrain":39,"./Babylonjs_game_module":46}],46:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":36,"../rpg/RPGTerrain":39,"./Babylonjs_game_module":47}],47:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6195,7 +6390,7 @@ var Babylonjs_game_module = exports.Babylonjs_game_module = function Babylonjs_g
     }
 };
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6344,7 +6539,7 @@ var Babylonjs_game_parse = exports.Babylonjs_game_parse = function (_Babylonjs_g
 	return Babylonjs_game_parse;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":46}],48:[function(require,module,exports){
+},{"./Babylonjs_game_module":47}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6674,7 +6869,7 @@ var Babylonjs_game_terrain = exports.Babylonjs_game_terrain = function (_Babylon
     return Babylonjs_game_terrain;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGTerrain":39,"../system/Babylonjs_game_module":46}],49:[function(require,module,exports){
+},{"../rpg/RPGTerrain":39,"../system/Babylonjs_game_module":47}],50:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7190,7 +7385,7 @@ var Babylonjs_game_ui = exports.Babylonjs_game_ui = function (_Babylonjs_game_mo
     return Babylonjs_game_ui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":46}],50:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":47}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7247,7 +7442,7 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], AssetsList);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],51:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7391,7 +7586,7 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
 })), _class2)) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], CodeEditor);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],52:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7434,7 +7629,7 @@ var ConsolePanel = exports.ConsolePanel = (_dec = (0, _core.Component)({
     _classCallCheck(this, ConsolePanel);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],53:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7592,7 +7787,7 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":70,"@angular/core":"@angular/core"}],54:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":71,"@angular/core":"@angular/core"}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7644,7 +7839,7 @@ var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     return EditorPanel;
 }()) || _class);
 
-},{"@angular/core":"@angular/core"}],55:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7758,7 +7953,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], GameEditor);
 
-},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":70,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],56:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":71,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7824,7 +8019,7 @@ var NavMenu = exports.NavMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], NavMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":70,"@angular/core":"@angular/core"}],57:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":71,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7903,7 +8098,7 @@ var ObjectMaterialModal = exports.ObjectMaterialModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ObjectMaterialModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7930,7 +8125,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
     selector: 'objectprops',
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}\n                <br><button (click)="meshdelete()">Delete</button>\n                <br><button (click)="togglevisible()">Visible</button> : {{ this.gameservice.selectobject.isVisible }}\n                <br><button (click)="toggletransform()">Transform</button>: {{ btransform }}\n                <div [hidden]="btransform">\n                    Position:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.position.x" (ngModelChange)="objposx($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.position.y" (ngModelChange)="objposy($event);" step ="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.position.z" (ngModelChange)="objposz($event);" step ="0.100000" /></label>\n                    <br>Rotation:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.rotation.x" (ngModelChange)="objrotx($event);" step="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.rotation.y" (ngModelChange)="objroty($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.rotation.z" (ngModelChange)="objrotz($event);" step="0.100000" /></label>\n                    <br>Scaling:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.scaling.x" (ngModelChange)="objscalex($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.scaling.y" (ngModelChange)="objscaley($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.scaling.z" (ngModelChange)="objscalez($event);" step="0.100000" /></label>\n                </div>\n                <br><button (click)="togglemesh()">Mesh</button>:\n                <div [hidden]="bmesh">\n                    Test!\n                </div>\n                <br><button (click)="toggleanimation()">Animation</button>:\n                <div [hidden]="banimation">\n                    Test!\n                </div>\n                <br><button (click)="togglematerial()">Material</button>:\n                <div [hidden]="bmaterial">\n                    Test!\n                </div>\n                <br><button (click)="togglescript()">Script</button>:\n                <div [hidden]="bscript">\n                    Test!\n                </div>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Props:\n            <!--\n            <button (click)="refresh()">Refresh</button>\n            -->\n            <div *ngIf="gameservice.selectobject">\n                Object: {{gameservice.selectobject.id}}\n                <br><button (click)="meshdelete()">Delete</button>\n                <br><button (click)="togglevisible()">Visible</button> : {{ this.gameservice.selectobject.isVisible }}\n                <br><button (click)="toggletransform()">Transform</button>: {{ btransform }}\n                <div [hidden]="btransform">\n                    Position:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.position.x" (ngModelChange)="objposx($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.position.y" (ngModelChange)="objposy($event);" step ="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.position.z" (ngModelChange)="objposz($event);" step ="0.100000" /></label>\n                    <br>Rotation:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.rotation.x" (ngModelChange)="objrotx($event);" step="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.rotation.y" (ngModelChange)="objroty($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.rotation.z" (ngModelChange)="objrotz($event);" step="0.100000" /></label>\n                    <br>Scaling:\n                    <br><label>x:<input type="number" [ngModel]="gameservice.selectobject.scaling.x" (ngModelChange)="objscalex($event);" step ="0.100000" /></label>\n                    <br><label>y:<input type="number" [ngModel]="gameservice.selectobject.scaling.y" (ngModelChange)="objscaley($event);" step="0.100000" /></label>\n                    <br><label>z:<input type="number" [ngModel]="gameservice.selectobject.scaling.z" (ngModelChange)="objscalez($event);" step="0.100000" /></label>\n                </div>\n                <br><button (click)="togglemesh()">Mesh</button>:\n                <div [hidden]="bmesh">\n                    Test!\n                </div>\n                <br><button (click)="toggleanimation()">Animation</button>:\n                <div [hidden]="banimation">\n                    Test!\n                </div>\n                <br><button (click)="togglematerial()">Material</button>:\n                <div [hidden]="bmaterial">\n                    Test!\n                </div>\n                <br><button (click)="togglescript()">Script</button>:\n                <div [hidden]="bscript">\n                    Test!\n                </div>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     //bshader = true;
     //bskybox = true;
@@ -8105,7 +8300,7 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], Objectprops);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8133,7 +8328,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
     selector: 'scene-list',
     styleUrls: ['./components/scene.component.css'],
-    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <!--<strong *ngIf="obj.rpgobj != null">-->\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                    <!--</strong>-->\n                </ul>\n            </div>\n        </div>\n    '
+    template: '\n        <div style="height:50%;width:100%;overflow-y:scroll;">\n            Scene\n            <!--<button (click)="refresh()">Refresh</button>-->\n            <div *ngIf="gameservice.scene">\n                <ul>\n                    <strong *ngFor="let obj of gameservice.scene.meshes">\n                        <!--\n\n                        -->\n                        <strong *ngIf="obj.rpgobj != null">\n                        <li>\n                            <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >\n                        </li>\n                        </strong>\n                        </strong>\n                    <!--\n\n                    -->\n                </ul>\n            </div>\n        </div>\n    '
 }), _dec(_class = function () {
     function SceneList(gameservice) {
         _classCallCheck(this, SceneList);
@@ -8162,7 +8357,7 @@ var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], SceneList);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8217,7 +8412,7 @@ var ScriptComponent = exports.ScriptComponent = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptComponent);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8252,8 +8447,8 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
         value: function inputvaluechange(event) {
             var _this = this;
 
-            console.log(event.target.value);
-            console.log(this);
+            //console.log(event.target.value);
+            //console.log(this);
 
             if (this.gameservice.app != null) {
                 //console.log(this.gameservice.app.uuid());
@@ -8304,7 +8499,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
 
         this.gameservice = null;
 
-        console.log(gameservice);
+        //console.log(gameservice);
         this.gameservice = gameservice;
         //console.log(this.gameservice.app.scriptcomponents);
     }
@@ -8314,7 +8509,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
         value: function ngOnInit() {
             //this.editor.setTheme("eclipse");
             //console.log(this.editor);
-            console.log(this.gameservice.app.scriptcomponents);
+            //console.log(this.gameservice.app.scriptcomponents);
         }
     }]);
 
@@ -8322,7 +8517,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorExplore);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8351,7 +8546,7 @@ var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Componen
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],63:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8493,7 +8688,7 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorMenu);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],64:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8566,7 +8761,7 @@ var ShapeCharacterModal = exports.ShapeCharacterModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCharacterModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8645,7 +8840,7 @@ var ShapeCubeModal = exports.ShapeCubeModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCubeModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8724,7 +8919,7 @@ var ShapePlaneModal = exports.ShapePlaneModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapePlaneModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8800,7 +8995,7 @@ var ShapeSphereModal = exports.ShapeSphereModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeSphereModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],69:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8873,7 +9068,7 @@ var ShapeTerrainModal = exports.ShapeTerrainModal = (_dec = (0, _core.Component)
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeTerrainModal);
 
-},{"../services/game.service":70,"@angular/core":"@angular/core"}],69:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],70:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -8897,7 +9092,7 @@ var _app = require('./app.module');
 
 (0, _platformBrowserDynamic.platformBrowserDynamic)().bootstrapModule(_app.AppModule);
 
-},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],70:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],71:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8930,6 +9125,6 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.textscript = '';
 }) || _class);
 
-},{"@angular/core":"@angular/core"}]},{},[69])
+},{"@angular/core":"@angular/core"}]},{},[70])
 
 //# sourceMappingURL=app.js.map

@@ -20,12 +20,18 @@ import {GameService} from '../services/game.service';
             <div *ngIf="gameservice.scene">
                 <ul>
                     <strong *ngFor="let obj of gameservice.scene.meshes">
-                        <!--<strong *ngIf="obj.rpgobj != null">-->
+                        <!--
+
+                        -->
+                        <strong *ngIf="obj.rpgobj != null">
                         <li>
                             <label style="display: block;" (click)="selectobject(obj)">{{obj.name}}</label >
                         </li>
                         </strong>
-                    <!--</strong>-->
+                        </strong>
+                    <!--
+
+                    -->
                 </ul>
             </div>
         </div>
