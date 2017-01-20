@@ -18,3 +18,5 @@ http://stackoverflow.com/questions/13243563/execute-javascript-from-textarea
 
 
 https://nodejs.org/api/vm.html
+
+https://github.com/babel/babel-standalone

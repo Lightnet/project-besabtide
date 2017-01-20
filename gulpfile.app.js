@@ -108,6 +108,7 @@ gulp.task('copy',['html:copy','app_html:copy','css:copy','app_css:copy']);
 //build single file
 gulp.task('build:app.js', () => {
   const b = browserify(PATHAPP+'/index.js', { debug: true })
+    .ignore('./src/js/babel.min.js')
     .ignore('./src/js/babylon.min.js')
     .ignore('./src/js/babylon.canvas2d.max.js')
     .ignore('./src/js/three.min.js')
@@ -123,6 +124,7 @@ gulp.task('build:app.js', () => {
 
 gulp.task('app_watch:index.js', () => {
   const b = browserify([PATHAPP+'/index.js'], assign({ debug: true }, watchify.args))
+    .ignore('./src/js/babel.min.js')
     .ignore('./src/js/babylon.min.js')
     .ignore('./src/js/babylon.canvas2d.max.js')
     .ignore('./src/js/three.min.js')

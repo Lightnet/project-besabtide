@@ -1049,7 +1049,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         key: 'MouseWheel',
         value: function MouseWheel(event) {
             //console.log(event);
-            console.log(event.wheelDelta);
+            //console.log(event.wheelDelta );
             if (event.wheelDelta > 0) {
                 this.nextblock(+1);
             }
@@ -1061,19 +1061,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
     }, {
         key: 'ScenePickTrace',
         value: function ScenePickTrace(event) {
-            var self = this;
-            var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
-            if (pickResult.hit) {
-                //console.log('hit');
-                //this.placeposition
-                self.hitobject = pickResult.pickedMesh;
-
-                self.hitposition.x = pickResult.pickedPoint.x;
-                self.hitposition.y = pickResult.pickedPoint.y;
-                self.hitposition.z = pickResult.pickedPoint.z;
-            } else {
-                //console.log('miss');
-            }
+            this.UpdatePlacement();
         }
 
         //override function...
@@ -1126,24 +1114,6 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             this.createspacecavnas2D();
             this.createscene_assets();
             this.init_gundb();
-        }
-    }, {
-        key: 'setup_placeholderblocks',
-        value: function setup_placeholderblocks() {
-            this.blocks = [];
-
-            var _objmesh = this.getMeshAssets('block_floor');
-            this.blocks.push({ name: 'floor', meshname: 'block_floor', mesh: _objmesh });
-
-            _objmesh = this.getMeshAssets('block_wall');
-            this.blocks.push({ name: 'wall', meshname: 'block_wall', mesh: _objmesh });
-
-            _objmesh = this.getMeshAssets('block_stair');
-            this.blocks.push({ name: 'stair', meshname: 'block_stair', mesh: _objmesh });
-
-            _objmesh = this.getMeshAssets('block_framedoor');
-            this.blocks.push({ name: 'framedoor', meshname: 'block_framedoor', mesh: _objmesh });
-            _objmesh = null;
         }
     }, {
         key: 'setup_gamedata',
@@ -1223,6 +1193,8 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             //console.log(GAMEAPI);
             this.initscripts();
             new _Babylonjs_game_api.GAMEAPI(this);
+
+            this.create_dungeonhud();
 
             //new API(self);
             //Global variable when just Game in the any script area out once loaded.
@@ -5098,8 +5070,64 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
     }
 
     _createClass(RPGDungeonBuild, [{
+        key: "create_dungeonhud",
+        value: function create_dungeonhud() {
+            console.log("dungeon hud");
+            var screencanvas_group2d_RT = new BABYLON.Group2D({
+                parent: this.screencanvas,
+                id: "screencanvas_group2d_RT",
+                marginAlignment: "h: left, v: top"
+                //scale:0.6 //limited since backgroundRoundRadius effect render
+                //scale:1 //limited since backgroundRoundRadius effect render
+            });
+
+            //new BABYLON.Rectangle2D({
+            //parent: screencanvas_group2d_RT, id: "R2DStamina", x: -36, y: -42, width: 32, height: 32, fill: "#263238FF"
+            //});
+
+            // LEFT BOTTOM
+            var screencanvas_group2d_LT = new BABYLON.Group2D({
+                parent: this.screencanvas,
+                id: "screencanvas_group2d_LT",
+                marginAlignment: "h: left, v: top"
+                //scale:0.6 //limited since backgroundRoundRadius effect render
+                //scale:1 //limited since backgroundRoundRadius effect render
+            });
+
+            new BABYLON.Rectangle2D({
+                parent: screencanvas_group2d_LT, id: "R2DDungeonHUD", x: 8, y: 8, width: 128, height: 32, fill: "#263238FF",
+                children: [new BABYLON.Text2D("Dungeon HUD", { fontName: "10pt Arial", marginAlignment: "h: center, v: center" })]
+            });
+        }
+    }, {
+        key: "setup_placeholderblocks",
+        value: function setup_placeholderblocks() {
+            this.blocks = [];
+
+            var _objmesh = this.getMeshAssets('block_floor');
+            _objmesh.isPickable = false;
+            this.blocks.push({ name: 'floor', meshname: 'block_floor', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_wall');
+            _objmesh.isPickable = false;
+            this.blocks.push({ name: 'wall', meshname: 'block_wall', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_stair');
+            _objmesh.isPickable = false;
+            this.blocks.push({ name: 'stair', meshname: 'block_stair', mesh: _objmesh });
+
+            _objmesh = this.getMeshAssets('block_framedoor');
+            _objmesh.isPickable = false;
+            this.blocks.push({ name: 'framedoor', meshname: 'block_framedoor', mesh: _objmesh });
+            _objmesh = null;
+        }
+    }, {
         key: "nextblock",
         value: function nextblock(scroll) {
+            if (this.blocks[this.blockindex].mesh != null) {
+                this.blocks[this.blockindex].mesh.isVisible = false;
+            }
+
             if (scroll > 0) {
                 this.blockindex++;
             }
@@ -5115,9 +5143,43 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
                 this.blockindex = this.blocks.length - 1;
             }
 
+            if (this.blocks[this.blockindex].mesh != null) {
+                this.blocks[this.blockindex].mesh.isVisible = true;
+            }
+
             this.placename = this.blocks[this.blockindex].name;
-            console.log(this.placename);
-            console.log(this.blockindex);
+            //console.log(this.placename);
+            //console.log(this.blockindex);
+        }
+    }, {
+        key: "UpdatePlacement",
+        value: function UpdatePlacement() {
+            var self = this;
+            if (this.buildmode == false) {
+                return;
+            }
+            //console.log("update?");
+            var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
+
+            if (pickResult.hit) {
+                console.log(pickResult);
+                console.log(pickResult.getNormal());
+                //console.log('hit');
+                //this.placeposition
+                self.hitobject = pickResult.pickedMesh;
+                self.hitposition.x = pickResult.pickedPoint.x;
+                self.hitposition.y = pickResult.pickedPoint.y;
+                self.hitposition.z = pickResult.pickedPoint.z;
+
+                if (self.blocks[this.blockindex].mesh != null) {
+                    //this.blocks[this.blockindex].mesh.isVisible = false;
+                    self.blocks[this.blockindex].mesh.position.x = self.hitposition.x;
+                    self.blocks[this.blockindex].mesh.position.y = self.hitposition.y;
+                    self.blocks[this.blockindex].mesh.position.z = self.hitposition.z;
+                }
+            } else {
+                //console.log('miss');
+            }
         }
     }, {
         key: "setup_buildkeys",
@@ -7659,7 +7721,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
     selector: 'editormenu',
     styleUrls: ['./components/editormenu.component.css'],
-    template: '\n    <ul style="z-index:100">\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:10">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addterrain();">Terrain</a>\n      <!--<a href="#" (click)="addmesh();">Mesh</a>-->\n      <a href="#" (click)="addmaterial();">Material</a>\n      <a href="#" (click)="addcharacter();">Character</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
+    template: '\n    <ul style="z-index:100">\n    <li class="dropdown" >\n    <a href="#" class="dropbtn">File</a>\n    <div class="dropdown-content" style="z-index:10">\n      <a href="#" (click)="scriptopenscene();">Open Scene</a>\n      <a href="#" (click)="scriptloadscene();">Load Scene</a>\n      <a href="#" (click)="scriptsavescene();">Save Scene</a>\n      <a href="#" (click)="scriptclearscene();">Clear Scene</a>\n      <a href="#" (click)="scriptdeletescene();">Delete Scene</a>\n    </div>\n    </li>\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Edit</a>\n    <div class="dropdown-content" style="z-index:5">\n      <!--<a href="#" (click)="scriptdeleteobject();">Delete Object</a>-->\n      <!--<a href="#" (click)="scriptdeleteobject();">Deselect Object</a>-->\n    </div>\n    </li>\n\n    <li class="dropdown">\n    <a href="#" class="dropbtn">Components</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#" (click)="addcube();" >Cube</a>\n      <a href="#" (click)="addspshere();">Sphere</a>\n      <a href="#" (click)="addsplane();">Plane</a>\n      <a href="#" (click)="addterrain();">Terrain</a>\n      <!--<a href="#" (click)="addmesh();">Mesh</a>-->\n      <a href="#" (click)="addmaterial();">Material</a>\n      <a href="#" (click)="addcharacter();">Character</a>\n    </div>\n    </li>\n    <!--\n    <li class="dropdown"><a href="#" class="dropbtn">Packages</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Scripts</a>\n      <a href="#">Mods</a>\n    </div>\n    </li>\n    <li class="dropdown"><a href="#" class="dropbtn">Help</a>\n    <div class="dropdown-content" style="z-index:5">\n      <a href="#">Docs</a>\n      <a href="#">About</a>\n    </div>\n    </li>\n    <li><a href="#" class="dropbtn" (click)="scriptbuild();">Build</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptdebug();">Debug</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptplay();">Play</a></li>\n    <li><a href="#" class="dropbtn" (click)="scriptstop();">Stop</a></li>\n    -->\n    </ul>\n    '
 }), _dec(_class = function () {
     function EditorMenu(gameservice) {
         _classCallCheck(this, EditorMenu);
@@ -7808,18 +7870,23 @@ var _dec, _class; /*
 
 var _core = require('@angular/core');
 
+var _game = require('../services/game.service');
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
     selector: 'editorpanel',
     styleUrls: ['./components/editorpanel.component.css'],
-    template: '\n        <div style="height:100%;width:100%;">\n            <!-- -->\n            <header>\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel()">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel()">Console</a> </li>\n                </ul>\n            </header>\n\n            <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <scripteditorlayout [hidden]="bscript" style="width:100%;height:100%;margin:0;padding:0;"></scripteditorlayout>\n        </div>\n    '
+    template: '\n        <div style="height:100%;width:100%;">\n            <!-- -->\n            <header>\n                <ul>\n                    <li> <a class="dropbtn" href="#" (click)="setscriptpanel();">Script</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="scriptcompile();">Compile</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="scriptrun();">Run</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="scriptstop();">Stop</a> </li>\n                    <li> <a class="dropbtn" href="#" (click)="setconsolepanel();">Console</a> </li>\n                </ul>\n            </header>\n\n            <div [hidden]="bconsole"style="width:100%;height:100%;background-color:gray;">\n                <consolepanel></consolepanel>\n            </div>\n\n            <scripteditorlayout [hidden]="bscript" style="width:100%;height:100%;margin:0;padding:0;"></scripteditorlayout>\n        </div>\n    '
 }), _dec(_class = function () {
-    function EditorPanel() {
+    function EditorPanel(gameservice) {
         _classCallCheck(this, EditorPanel);
 
         this.bscript = false;
         this.bconsole = true;
+
+        //console.log(gameservice);
+        this.gameservice = gameservice;
     }
 
     _createClass(EditorPanel, [{
@@ -7834,12 +7901,32 @@ var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
             this.bscript = true;
             this.bconsole = false;
         }
+    }, {
+        key: 'scriptcompile',
+        value: function scriptcompile() {
+            if (this.gameservice.textscript != null) {
+                var scriptinput = this.gameservice.textscript;
+                var output = Babel.transform(scriptinput, { presets: ['es2015'] }).code;
+                console.log(output);
+            }
+        }
+    }, {
+        key: 'scriptrun',
+        value: function scriptrun() {
+            console.log("run script!");
+        }
+    }, {
+        key: 'scriptstop',
+        value: function scriptstop() {
+            console.log("stop script!");
+        }
     }]);
 
     return EditorPanel;
 }()) || _class);
+Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorPanel);
 
-},{"@angular/core":"@angular/core"}],56:[function(require,module,exports){
+},{"../services/game.service":71,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

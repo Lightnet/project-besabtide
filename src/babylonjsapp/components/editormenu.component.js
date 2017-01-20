@@ -30,7 +30,8 @@ import '../../js/babylon.min.js';
     <li class="dropdown">
     <a href="#" class="dropbtn">Edit</a>
     <div class="dropdown-content" style="z-index:5">
-      <a href="#" (click)="scriptdeleteobject();">Delete Object</a>
+      <!--<a href="#" (click)="scriptdeleteobject();">Delete Object</a>-->
+      <!--<a href="#" (click)="scriptdeleteobject();">Deselect Object</a>-->
     </div>
     </li>
 

@@ -226,7 +226,7 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     MouseWheel(event){
         //console.log(event);
-        console.log(event.wheelDelta );
+        //console.log(event.wheelDelta );
         if(event.wheelDelta > 0){
             this.nextblock(+1);
         }
@@ -237,21 +237,8 @@ export class Babylonjs_game extends Babylonjs_framework {
     }
 
     ScenePickTrace(event){
-        var self = this;
-        var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
-        if(pickResult.hit){
-            //console.log('hit');
-            //this.placeposition
-            self.hitobject = pickResult.pickedMesh;
-
-            self.hitposition.x = pickResult.pickedPoint.x;
-            self.hitposition.y = pickResult.pickedPoint.y;
-            self.hitposition.z = pickResult.pickedPoint.z;
-        }else{
-            //console.log('miss');
-        }
+        this.UpdatePlacement();
     }
-
 
     //override function...
     start_scenerender() {
@@ -300,23 +287,6 @@ export class Babylonjs_game extends Babylonjs_framework {
         this.createspacecavnas2D();
         this.createscene_assets();
         this.init_gundb();
-    }
-
-    setup_placeholderblocks(){
-        this.blocks = [];
-
-        var _objmesh = this.getMeshAssets('block_floor');
-        this.blocks.push({name:'floor',meshname:'block_floor', mesh:_objmesh});
-
-        _objmesh = this.getMeshAssets('block_wall');
-        this.blocks.push({name:'wall',meshname:'block_wall', mesh:_objmesh});
-
-        _objmesh = this.getMeshAssets('block_stair');
-        this.blocks.push({name:'stair',meshname:'block_stair', mesh:_objmesh});
-
-        _objmesh = this.getMeshAssets('block_framedoor');
-        this.blocks.push({name:'framedoor',meshname:'block_framedoor', mesh:_objmesh});
-        _objmesh =null;
     }
 
 
@@ -404,6 +374,8 @@ Test();`
         //console.log(GAMEAPI);
         this.initscripts();
         new GAMEAPI(this);
+
+        this.create_dungeonhud();
 
 
 
