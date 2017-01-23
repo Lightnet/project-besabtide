@@ -61,6 +61,7 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
 
         var _objmesh = this.getMeshAssets('block_floor');
         _objmesh.isPickable = false;
+        _objmesh.isVisible = true;
         this.blocks.push({name:'floor',meshname:'block_floor', mesh:_objmesh});
 
         _objmesh = this.getMeshAssets('block_wall');
@@ -119,7 +120,9 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
             //console.log(pickResult);
             //console.log(pickResult.getNormal());
 
-            console.log(pickResult.pickedMesh.getBoundingInfo());
+            this.hitnormal = pickResult.getNormal();
+
+            //console.log(pickResult.pickedMesh.getBoundingInfo());
             //console.log('hit');
             //this.placeposition
             self.hitobject = pickResult.pickedMesh;
@@ -132,27 +135,67 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
                 var posx = Math.floor(self.hitposition.x);
                 var posy = Math.floor(self.hitposition.y);
                 var posz = Math.floor(self.hitposition.z);
-                console.log(self.hitposition.x);
+                //console.log(self.hitposition.x);
 
                 if(pickResult.pickedMesh.rpgobj !=null){
                     console.log("found rpg!");
+                    //var bb = pickResult.pickedMesh.getBoundingInfo();
+                    self.checkplacement(pickResult.pickedMesh);
+                    //console.log(bb.maximum);
 
                 }else{
-                    console.log("not found!");
+                    //console.log("not found!");
                 }
-
-
-                self.placeposition.x = posx;
-                self.placeposition.y = posy;
-                self.placeposition.z = posz;
-
-
-                self.blocks[this.blockindex].mesh.position.x = posx;
-                self.blocks[this.blockindex].mesh.position.y = posy;
-                self.blocks[this.blockindex].mesh.position.z = posz;
+                //self.placeposition.x = posx;
+                //self.placeposition.y = posy;
+                //self.placeposition.z = posz;
+                self.blocks[this.blockindex].mesh.position.x = self.placeposition.x;
+                self.blocks[this.blockindex].mesh.position.y = self.placeposition.y;
+                self.blocks[this.blockindex].mesh.position.z = self.placeposition.z;
             }
         }else{
             //console.log('miss');
+        }
+    }
+
+    checkplacement(mesh){
+        var boundbox = mesh.getBoundingInfo();
+        //
+        console.log(this.hitposition);
+        //var distance = BABYLON.Vector3.Distance(mesh.position, this.hitposition);
+        //console.log(distance);
+        var hitdistance_x  = this.hitposition.x - mesh.position.x;
+        var hitdistance_y  = this.hitposition.y - mesh.position.y;
+        var hitdistance_z  = this.hitposition.z - mesh.position.z;
+        //console.log(hitdistance_x);
+        console.log(hitdistance_x);
+
+        //if(hitdistance_x > boundbox.maximum)
+        if(hitdistance_x > 0.5){
+            this.placeposition.x = Math.floor(this.hitposition.x) + 2;
+            console.log("check???");
+        }else if(hitdistance_x < -0.5){
+            this.placeposition.x = Math.floor(this.hitposition.x) - 1;
+        }else{
+            this.placeposition.x = Math.floor(this.hitposition.x)
+        }
+
+        if(hitdistance_z > 0.5){
+            this.placeposition.z = Math.floor(this.hitposition.z) + 2;
+            console.log("check???");
+        }else if(hitdistance_z < -0.5){
+            this.placeposition.z = Math.floor(this.hitposition.z) - 1;
+        }else{
+                this.placeposition.z = Math.floor(this.hitposition.z);
+        }
+
+        if(hitdistance_y > 0.5){
+            this.placeposition.y = Math.floor(this.hitposition.y) + 2;
+            console.log("check???");
+        }else if(hitdistance_y < -0.5){
+            this.placeposition.y = Math.floor(this.hitposition.y) - 1;
+        }else{
+                this.placeposition.y = Math.floor(this.hitposition.y);
         }
     }
 

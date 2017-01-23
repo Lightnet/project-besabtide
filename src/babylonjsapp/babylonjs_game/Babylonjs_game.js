@@ -107,6 +107,7 @@ export class Babylonjs_game extends Babylonjs_framework {
         //hit result
         this.hitobject = null;
         this.hitposition = new BABYLON.Vector3(0, 0, 0);
+        this.hitnormal = new BABYLON.Vector3(0, 0, 0);
         this.placeposition = new BABYLON.Vector3(0, 0, 0);
 
         //place dungeon block

@@ -83,6 +83,7 @@ export class GameEditor implements OnInit{
         layout.sizePane("south", 250);
         layout.allowOverflow("north");
         //layout.toggle("north");
+        layout.toggle("south");
     }
 
     resizecanvas(){
