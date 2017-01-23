@@ -73,6 +73,14 @@ export class Babylonjs_game_terrain extends Babylonjs_game_module{
         );
     }
 
+    creategrid(){
+        var ground = BABYLON.Mesh.CreateGround("ground", 128, 128, 2, this.scene, true);
+    	var material = new BABYLON.StandardMaterial("mat", this.scene);
+    	material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+    	ground.material = material;
+        ground.material.wireframe = true;
+    }
+
     simpleterrain01(){
         //http://www.babylonjs-playground.com/#PF032
         //http://www.html5gamedevs.com/topic/23973-editing-height-map-terrain/

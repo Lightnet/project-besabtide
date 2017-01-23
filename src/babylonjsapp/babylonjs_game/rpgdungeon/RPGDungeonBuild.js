@@ -10,6 +10,14 @@
 
 import {Babylonjs_game_module} from '../system/Babylonjs_game_module';
 
+
+import {RPGBlock01} from './RPGBlock01';
+import {RPGFloor01} from './RPGFloor01';
+import {RPGFrameDoor01} from './RPGFrameDoor01';
+import {RPGDoor01} from './RPGDoor01';
+import {RPGStair01} from './RPGStair01';
+import {RPGWall01} from './RPGWall01';
+
 export class RPGDungeonBuild extends Babylonjs_game_module{
 
     constructor(args){
@@ -108,8 +116,10 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
         var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
 
         if(pickResult.hit){
-            console.log(pickResult);
-            console.log(pickResult.getNormal());
+            //console.log(pickResult);
+            //console.log(pickResult.getNormal());
+
+            console.log(pickResult.pickedMesh.getBoundingInfo());
             //console.log('hit');
             //this.placeposition
             self.hitobject = pickResult.pickedMesh;
@@ -119,9 +129,27 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
 
             if(self.blocks[this.blockindex].mesh !=null){
                 //this.blocks[this.blockindex].mesh.isVisible = false;
-                self.blocks[this.blockindex].mesh.position.x = self.hitposition.x;
-                self.blocks[this.blockindex].mesh.position.y = self.hitposition.y;
-                self.blocks[this.blockindex].mesh.position.z = self.hitposition.z;
+                var posx = Math.floor(self.hitposition.x);
+                var posy = Math.floor(self.hitposition.y);
+                var posz = Math.floor(self.hitposition.z);
+                console.log(self.hitposition.x);
+
+                if(pickResult.pickedMesh.rpgobj !=null){
+                    console.log("found rpg!");
+
+                }else{
+                    console.log("not found!");
+                }
+
+
+                self.placeposition.x = posx;
+                self.placeposition.y = posy;
+                self.placeposition.z = posz;
+
+
+                self.blocks[this.blockindex].mesh.position.x = posx;
+                self.blocks[this.blockindex].mesh.position.y = posy;
+                self.blocks[this.blockindex].mesh.position.z = posz;
             }
         }else{
             //console.log('miss');
@@ -158,14 +186,34 @@ export class RPGDungeonBuild extends Babylonjs_game_module{
             if(this.blocks[i].name == this.placename){
                 var _objmesh = this.getMeshAssets(this.blocks[i].meshname);
                 _objmesh.isVisible = true;
-                _objmesh.position.x = this.hitposition.x;
-                _objmesh.position.y = this.hitposition.y;
-                _objmesh.position.z = this.hitposition.z;
+                _objmesh.position.x = this.placeposition.x;
+                _objmesh.position.y = this.placeposition.y;
+                _objmesh.position.z = this.placeposition.z;
+                this.assignrpgobject(_objmesh, this.placename );
 
                 break;
             }
         }
     }
+
+    assignrpgobject(mesh, typename){
+        console.log("typename");
+        console.log(typename);
+        if(typename == "floor"){
+            mesh.rpgobj = new RPGFloor01();
+        }
+        if(typename == "wall"){
+            mesh.rpgobj = new RPGWall01();
+        }
+        if(typename == "stair"){
+            mesh.rpgobj = new RPGStair01();
+        }
+        if(typename == "framedoor"){
+            mesh.rpgobj = new RPGFrameDoor01();
+        }
+    }
+
+
 
     rotateobjectdungeon(){
         console.log('rotate block...');

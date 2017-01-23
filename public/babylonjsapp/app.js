@@ -46,7 +46,7 @@ var MainApp = exports.MainApp = (_dec = (0, _core.Component)({
 }) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], MainApp);
 
-},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":71,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
+},{"../js/babylon.min.js":1,"../js/jquery-ui.min.js":1,"../js/jquery.layout.min.js":1,"../js/jquery.min.js":1,"./services/game.service":78,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -140,7 +140,7 @@ var AppModule = exports.AppModule = (_dec = (0, _core.NgModule)({
     _classCallCheck(this, AppModule);
 }) || _class);
 
-},{"./app.component":2,"./components/assets.component":51,"./components/codeeditor.component":52,"./components/consolepanel.component":53,"./components/editormenu.component":54,"./components/editorpanel.component":55,"./components/gameeditor.component":56,"./components/navmenu.component":57,"./components/objectmaterialmodal.component":58,"./components/objectprops.component":59,"./components/scene.component":60,"./components/scriptcomponent.component":61,"./components/scripteditorexplore.component":62,"./components/scripteditorlayout.component":63,"./components/scripteditormenu.component":64,"./components/shapecharactermodal.component":65,"./components/shapecubemodal.component":66,"./components/shapeplanemodal.component":67,"./components/shapespheremodal.component":68,"./components/shapeterrainmodal.component":69,"./services/game.service":71,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
+},{"./app.component":2,"./components/assets.component":58,"./components/codeeditor.component":59,"./components/consolepanel.component":60,"./components/editormenu.component":61,"./components/editorpanel.component":62,"./components/gameeditor.component":63,"./components/navmenu.component":64,"./components/objectmaterialmodal.component":65,"./components/objectprops.component":66,"./components/scene.component":67,"./components/scriptcomponent.component":68,"./components/scripteditorexplore.component":69,"./components/scripteditorlayout.component":70,"./components/scripteditormenu.component":71,"./components/shapecharactermodal.component":72,"./components/shapecubemodal.component":73,"./components/shapeplanemodal.component":74,"./components/shapespheremodal.component":75,"./components/shapeterrainmodal.component":76,"./services/game.service":78,"@angular/core":"@angular/core","@angular/forms":"@angular/forms","@angular/platform-browser":"@angular/platform-browser","ng2-ace-editor":"ng2-ace-editor","rxjs/add/operator/map":"rxjs/add/operator/map"}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -841,6 +841,8 @@ var _Babylonjs_game_loadsave = require('./system/Babylonjs_game_loadsave');
 
 var _Babylonjs_game_gundb = require('./system/Babylonjs_game_gundb');
 
+var _Babylonjs_game_scriptcomponent = require('./system/Babylonjs_game_scriptcomponent');
+
 var _Babylonjs_game_terrain = require('./terrain/Babylonjs_game_terrain');
 
 var _Babylonjs_game_jqueryui = require('./jqueryui/Babylonjs_game_jqueryui');
@@ -986,16 +988,13 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
         new _Babylonjs_game_assets.Babylonjs_game_assets(_this);
 
         new _Babylonjs_game_character.Babylonjs_game_character(_this);
-
         new _Babylonjs_game_controller.Babylonjs_game_controller(_this);
-
         new _Babylonjs_game_battle.Babylonjs_game_battle(_this);
-
         new _Babylonjs_game_terrain.Babylonjs_game_terrain(_this);
-
         new _Babylonjs_game_jqueryui.Babylonjs_game_jqueryui(_this);
-
         new _Babylonjs_game_gundb.Babylonjs_game_gundb(_this);
+
+        new _Babylonjs_game_scriptcomponent.Babylonjs_game_scriptcomponent(_this);
 
         new _RPGDungeonBuild.RPGDungeonBuild(_this);
 
@@ -1085,27 +1084,6 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
                 }
             });
         }
-
-        /*
-        canvasrender() {
-            //console.log("render?");
-            var self = this;
-            this.engine.runRenderLoop(function() {
-                //console.log("hellow");
-                if (self.scene != null) {
-                    self.scene.render();
-                    for (var i = 0; i < self.scene.meshes.length; i++) {
-                        //console.log("hellow");
-                        if (typeof self.scene.meshes[i].update === 'function') {
-                            self.scene.meshes[i].update();
-                        }
-                    }
-                    if (self.selectobject != null) {}
-                }
-            });
-        }
-        */
-
     }, {
         key: 'init',
         value: function init() {
@@ -1165,23 +1143,6 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             this.scroll_shop_y = 0;
         }
     }, {
-        key: 'initscripts',
-        value: function initscripts() {
-            var mainscript = {
-                uuid: '3a3c3492-d77e-4dd1-9ac5-af121106673e',
-                name: 'main',
-                script: '\nfunction Test(){\n    console.log("hello world text");\n}\nTest();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);'
-            };
-            this.scriptcomponents.push(mainscript);
-            mainscript = {
-                uuid: '9f20014a-200e-4e8b-bd1d-0a1484dd21dd',
-                name: 'test',
-                script: 'function Test(){\n    console.log("test");\n}\nTest();'
-            };
-            this.scriptcomponents.push(mainscript);
-            mainscript = null;
-        }
-    }, {
         key: 'setup_game',
         value: function setup_game() {
             var self = this;
@@ -1215,6 +1176,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
             this.init_physics();
             //this.create2DHUD();
             this.create_input();
+            this.creategrid();
 
             //this.create_gamepadinput();
             //this.simpleterrain04();
@@ -1229,6 +1191,27 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
 
             //this.spawn_character({y: 32, bplayer: true});
         }
+
+        /*
+        canvasrender() {
+            //console.log("render?");
+            var self = this;
+            this.engine.runRenderLoop(function() {
+                //console.log("hellow");
+                if (self.scene != null) {
+                    self.scene.render();
+                    for (var i = 0; i < self.scene.meshes.length; i++) {
+                        //console.log("hellow");
+                        if (typeof self.scene.meshes[i].update === 'function') {
+                            self.scene.meshes[i].update();
+                        }
+                    }
+                    if (self.selectobject != null) {}
+                }
+            });
+        }
+        */
+
         /*
         setup_game00() {
             var self = this;
@@ -1332,7 +1315,7 @@ var Babylonjs_game = exports.Babylonjs_game = function (_Babylonjs_framework) {
     return Babylonjs_game;
 }(_babylonjs_framework.Babylonjs_framework);
 
-},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":37,"./rpg/RPGStatus":38,"./rpgdungeon/RPGDungeonBuild":40,"./scene/Babylonjs_game_scene":41,"./system/Babylonjs_game_api":42,"./system/Babylonjs_game_assets":43,"./system/Babylonjs_game_battle":44,"./system/Babylonjs_game_gundb":45,"./system/Babylonjs_game_loadsave":46,"./system/Babylonjs_game_parse":48,"./terrain/Babylonjs_game_terrain":49,"./ui/Babylonjs_game_ui":50}],12:[function(require,module,exports){
+},{"../babylonjs_framework/babylonjs_framework":4,"./character/Babylonjs_game_character":12,"./controller/Babylonjs_game_controller":13,"./editor/Babylonjs_game_editor":14,"./hud/Babylonjs_game_hud":15,"./hud/Babylonjs_game_hud_battle":16,"./hud/Babylonjs_game_hud_inventory":17,"./hud/Babylonjs_game_hud_loot":18,"./hud/Babylonjs_game_hud_market":19,"./hud/Babylonjs_game_hud_shop":20,"./hud/Babylonjs_game_hud_skills":21,"./hud/Babylonjs_game_hud_storage":22,"./hud/Babylonjs_game_hud_trade":23,"./jqueryui/Babylonjs_game_jqueryui":24,"./load/Babylonjs_game_load":25,"./network/Babylonjs_game_network":26,"./physics/Babylonjs_game_physics":27,"./rpg/ObjectRPGID":28,"./rpg/RPGItem":32,"./rpg/RPGStats":37,"./rpg/RPGStatus":38,"./rpgdungeon/RPGDungeonBuild":42,"./scene/Babylonjs_game_scene":47,"./system/Babylonjs_game_api":48,"./system/Babylonjs_game_assets":49,"./system/Babylonjs_game_battle":50,"./system/Babylonjs_game_gundb":51,"./system/Babylonjs_game_loadsave":52,"./system/Babylonjs_game_parse":54,"./system/Babylonjs_game_scriptcomponent":55,"./terrain/Babylonjs_game_terrain":56,"./ui/Babylonjs_game_ui":57}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1539,7 +1522,7 @@ var Babylonjs_game_character = exports.Babylonjs_game_character = function (_Bab
     return Babylonjs_game_character;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":47}],13:[function(require,module,exports){
+},{"../rpg/RPGCharacter":29,"../rpg/RPGNPCCharacter":34,"../system/Babylonjs_game_module":53}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1793,7 +1776,7 @@ var Babylonjs_game_controller = exports.Babylonjs_game_controller = function (_B
     return Babylonjs_game_controller;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":37,"../rpg/RPGStatus":38,"../system/Babylonjs_game_module":47}],14:[function(require,module,exports){
+},{"../rpg/ObjectRPGID":28,"../rpg/RPGNPCCharacter":34,"../rpg/RPGStats":37,"../rpg/RPGStatus":38,"../system/Babylonjs_game_module":53}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2319,7 +2302,7 @@ var Babylonjs_game_editor = exports.Babylonjs_game_editor = function (_Babylonjs
     return Babylonjs_game_editor;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGPlane":35,"../rpg/RPGSphere":36,"../system/Babylonjs_game_module":47}],15:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGPlane":35,"../rpg/RPGSphere":36,"../system/Babylonjs_game_module":53}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2579,7 +2562,7 @@ var Babylonjs_game_hud = exports.Babylonjs_game_hud = function (_Babylonjs_game_
     return Babylonjs_game_hud;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],16:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2645,7 +2628,7 @@ var Babylonjs_game_hud_battle = exports.Babylonjs_game_hud_battle = function (_B
     return Babylonjs_game_hud_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],17:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2885,7 +2868,7 @@ var Babylonjs_game_hud_inventory = exports.Babylonjs_game_hud_inventory = functi
     return Babylonjs_game_hud_inventory;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],18:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2950,7 +2933,7 @@ var Babylonjs_game_hud_loot = exports.Babylonjs_game_hud_loot = function (_Babyl
     return Babylonjs_game_hud_loot;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],19:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2985,7 +2968,7 @@ var Babylonjs_game_hud_market = exports.Babylonjs_game_hud_market = function (_B
     return Babylonjs_game_hud_market;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],20:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],20:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3146,7 +3129,7 @@ var Babylonjs_game_hud_shop = exports.Babylonjs_game_hud_shop = function (_Babyl
     return Babylonjs_game_hud_shop;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],21:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3214,7 +3197,7 @@ var Babylonjs_game_hud_skills = exports.Babylonjs_game_hud_skills = function (_B
     return Babylonjs_game_hud_skills;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],22:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3279,7 +3262,7 @@ var Babylonjs_game_hud_storage = exports.Babylonjs_game_hud_storage = function (
     return Babylonjs_game_hud_storage;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],23:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3314,7 +3297,7 @@ var Babylonjs_game_hud_trade = exports.Babylonjs_game_hud_trade = function (_Bab
     return Babylonjs_game_hud_trade;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],24:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],24:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4150,7 +4133,7 @@ var Babylonjs_game_jqueryui = exports.Babylonjs_game_jqueryui = function (_Babyl
     return Babylonjs_game_jqueryui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],25:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4213,7 +4196,7 @@ var Babylonjs_game_load = exports.Babylonjs_game_load = function (_Babylonjs_gam
     return Babylonjs_game_load;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],26:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4290,7 +4273,7 @@ var Babylonjs_game_network = exports.Babylonjs_game_network = function (_Babylon
     return Babylonjs_game_network;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],27:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4325,7 +4308,7 @@ var Babylonjs_game_physics = exports.Babylonjs_game_physics = function (_Babylon
     return Babylonjs_game_physics;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],28:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],28:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5036,7 +5019,109 @@ var RPGTerrain = exports.RPGTerrain = function (_ObjectRPGID) {
 }(_ObjectRPGID2.ObjectRPGID);
 
 },{"./ObjectRPGID":28}],40:[function(require,module,exports){
-"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGBlock01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGBlock01 = exports.RPGBlock01 = function (_ObjectRPGID) {
+    _inherits(RPGBlock01, _ObjectRPGID);
+
+    _createClass(RPGBlock01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGBlock01';
+        }
+    }]);
+
+    function RPGBlock01(args) {
+        _classCallCheck(this, RPGBlock01);
+
+        var _this = _possibleConstructorReturn(this, (RPGBlock01.__proto__ || Object.getPrototypeOf(RPGBlock01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGBlock01";
+        _this.geometrytype = 'block';
+        return _this;
+    }
+
+    return RPGBlock01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],41:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGFoor01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGFoor01 = exports.RPGFoor01 = function (_ObjectRPGID) {
+    _inherits(RPGFoor01, _ObjectRPGID);
+
+    _createClass(RPGFoor01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGFoor01';
+        }
+    }]);
+
+    function RPGFoor01(args) {
+        _classCallCheck(this, RPGFoor01);
+
+        var _this = _possibleConstructorReturn(this, (RPGFoor01.__proto__ || Object.getPrototypeOf(RPGFoor01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGFoor01";
+        _this.geometrytype = 'door';
+        return _this;
+    }
+
+    return RPGFoor01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],42:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -5045,7 +5130,19 @@ exports.RPGDungeonBuild = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Babylonjs_game_module = require("../system/Babylonjs_game_module");
+var _Babylonjs_game_module = require('../system/Babylonjs_game_module');
+
+var _RPGBlock = require('./RPGBlock01');
+
+var _RPGFloor = require('./RPGFloor01');
+
+var _RPGFrameDoor = require('./RPGFrameDoor01');
+
+var _RPGDoor = require('./RPGDoor01');
+
+var _RPGStair = require('./RPGStair01');
+
+var _RPGWall = require('./RPGWall01');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5070,7 +5167,7 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
     }
 
     _createClass(RPGDungeonBuild, [{
-        key: "create_dungeonhud",
+        key: 'create_dungeonhud',
         value: function create_dungeonhud() {
             console.log("dungeon hud");
             var screencanvas_group2d_RT = new BABYLON.Group2D({
@@ -5100,7 +5197,7 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
             });
         }
     }, {
-        key: "setup_placeholderblocks",
+        key: 'setup_placeholderblocks',
         value: function setup_placeholderblocks() {
             this.blocks = [];
 
@@ -5122,7 +5219,7 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
             _objmesh = null;
         }
     }, {
-        key: "nextblock",
+        key: 'nextblock',
         value: function nextblock(scroll) {
             if (this.blocks[this.blockindex].mesh != null) {
                 this.blocks[this.blockindex].mesh.isVisible = false;
@@ -5152,7 +5249,7 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
             //console.log(this.blockindex);
         }
     }, {
-        key: "UpdatePlacement",
+        key: 'UpdatePlacement',
         value: function UpdatePlacement() {
             var self = this;
             if (this.buildmode == false) {
@@ -5162,8 +5259,10 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
             var pickResult = self.scene.pick(self.scene.pointerX, self.scene.pointerY);
 
             if (pickResult.hit) {
-                console.log(pickResult);
-                console.log(pickResult.getNormal());
+                //console.log(pickResult);
+                //console.log(pickResult.getNormal());
+
+                console.log(pickResult.pickedMesh.getBoundingInfo());
                 //console.log('hit');
                 //this.placeposition
                 self.hitobject = pickResult.pickedMesh;
@@ -5173,16 +5272,31 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
 
                 if (self.blocks[this.blockindex].mesh != null) {
                     //this.blocks[this.blockindex].mesh.isVisible = false;
-                    self.blocks[this.blockindex].mesh.position.x = self.hitposition.x;
-                    self.blocks[this.blockindex].mesh.position.y = self.hitposition.y;
-                    self.blocks[this.blockindex].mesh.position.z = self.hitposition.z;
+                    var posx = Math.floor(self.hitposition.x);
+                    var posy = Math.floor(self.hitposition.y);
+                    var posz = Math.floor(self.hitposition.z);
+                    console.log(self.hitposition.x);
+
+                    if (pickResult.pickedMesh.rpgobj != null) {
+                        console.log("found rpg!");
+                    } else {
+                        console.log("not found!");
+                    }
+
+                    self.placeposition.x = posx;
+                    self.placeposition.y = posy;
+                    self.placeposition.z = posz;
+
+                    self.blocks[this.blockindex].mesh.position.x = posx;
+                    self.blocks[this.blockindex].mesh.position.y = posy;
+                    self.blocks[this.blockindex].mesh.position.z = posz;
                 }
             } else {
                 //console.log('miss');
             }
         }
     }, {
-        key: "setup_buildkeys",
+        key: 'setup_buildkeys',
         value: function setup_buildkeys() {
             var self = this;
             this.blockindex = 0;
@@ -5205,7 +5319,7 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
             }));
         }
     }, {
-        key: "buildobjectdungeon",
+        key: 'buildobjectdungeon',
         value: function buildobjectdungeon() {
             console.log('build block...');
 
@@ -5213,16 +5327,35 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
                 if (this.blocks[i].name == this.placename) {
                     var _objmesh = this.getMeshAssets(this.blocks[i].meshname);
                     _objmesh.isVisible = true;
-                    _objmesh.position.x = this.hitposition.x;
-                    _objmesh.position.y = this.hitposition.y;
-                    _objmesh.position.z = this.hitposition.z;
+                    _objmesh.position.x = this.placeposition.x;
+                    _objmesh.position.y = this.placeposition.y;
+                    _objmesh.position.z = this.placeposition.z;
+                    this.assignrpgobject(_objmesh, this.placename);
 
                     break;
                 }
             }
         }
     }, {
-        key: "rotateobjectdungeon",
+        key: 'assignrpgobject',
+        value: function assignrpgobject(mesh, typename) {
+            console.log("typename");
+            console.log(typename);
+            if (typename == "floor") {
+                mesh.rpgobj = new _RPGFloor.RPGFloor01();
+            }
+            if (typename == "wall") {
+                mesh.rpgobj = new _RPGWall.RPGWall01();
+            }
+            if (typename == "stair") {
+                mesh.rpgobj = new _RPGStair.RPGStair01();
+            }
+            if (typename == "framedoor") {
+                mesh.rpgobj = new _RPGFrameDoor.RPGFrameDoor01();
+            }
+        }
+    }, {
+        key: 'rotateobjectdungeon',
         value: function rotateobjectdungeon() {
             console.log('rotate block...');
         }
@@ -5231,7 +5364,211 @@ var RPGDungeonBuild = exports.RPGDungeonBuild = function (_Babylonjs_game_modul)
     return RPGDungeonBuild;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],41:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53,"./RPGBlock01":40,"./RPGDoor01":41,"./RPGFloor01":43,"./RPGFrameDoor01":44,"./RPGStair01":45,"./RPGWall01":46}],43:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGFloor01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGFloor01 = exports.RPGFloor01 = function (_ObjectRPGID) {
+    _inherits(RPGFloor01, _ObjectRPGID);
+
+    _createClass(RPGFloor01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGFloor01';
+        }
+    }]);
+
+    function RPGFloor01(args) {
+        _classCallCheck(this, RPGFloor01);
+
+        var _this = _possibleConstructorReturn(this, (RPGFloor01.__proto__ || Object.getPrototypeOf(RPGFloor01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGFloor01";
+        _this.geometrytype = 'floor';
+        return _this;
+    }
+
+    return RPGFloor01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],44:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGFrameDoor01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGFrameDoor01 = exports.RPGFrameDoor01 = function (_ObjectRPGID) {
+    _inherits(RPGFrameDoor01, _ObjectRPGID);
+
+    _createClass(RPGFrameDoor01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGFrameDoor01';
+        }
+    }]);
+
+    function RPGFrameDoor01(args) {
+        _classCallCheck(this, RPGFrameDoor01);
+
+        var _this = _possibleConstructorReturn(this, (RPGFrameDoor01.__proto__ || Object.getPrototypeOf(RPGFrameDoor01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGFrameDoor01";
+        _this.geometrytype = 'framedoor';
+        return _this;
+    }
+
+    return RPGFrameDoor01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],45:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGStair01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGStair01 = exports.RPGStair01 = function (_ObjectRPGID) {
+    _inherits(RPGStair01, _ObjectRPGID);
+
+    _createClass(RPGStair01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGStair01';
+        }
+    }]);
+
+    function RPGStair01(args) {
+        _classCallCheck(this, RPGStair01);
+
+        var _this = _possibleConstructorReturn(this, (RPGStair01.__proto__ || Object.getPrototypeOf(RPGStair01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGStair01";
+        _this.geometrytype = 'stair';
+        return _this;
+    }
+
+    return RPGStair01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],46:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RPGWall01 = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _ObjectRPGID2 = require('../rpg/ObjectRPGID');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {Babylonjs_game_module} from '../rpg/Babylonjs_game_module';
+
+var RPGWall01 = exports.RPGWall01 = function (_ObjectRPGID) {
+    _inherits(RPGWall01, _ObjectRPGID);
+
+    _createClass(RPGWall01, null, [{
+        key: 'getClass',
+        value: function getClass() {
+            return 'RPGWall01';
+        }
+    }]);
+
+    function RPGWall01(args) {
+        _classCallCheck(this, RPGWall01);
+
+        var _this = _possibleConstructorReturn(this, (RPGWall01.__proto__ || Object.getPrototypeOf(RPGWall01)).call(this, args));
+
+        _this.objtype = "block";
+        _this.nameClass = "RPGWall01";
+        _this.geometrytype = 'wall';
+        return _this;
+    }
+
+    return RPGWall01;
+}(_ObjectRPGID2.ObjectRPGID);
+
+},{"../rpg/ObjectRPGID":28}],47:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5312,7 +5649,7 @@ var Babylonjs_game_scene = exports.Babylonjs_game_scene = function (_Babylonjs_g
     return Babylonjs_game_scene;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],42:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],48:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5382,7 +5719,7 @@ function GAMEAPI(app) {
     window.Game = new GameAPI();
 };
 
-},{}],43:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5585,7 +5922,7 @@ var Babylonjs_game_assets = exports.Babylonjs_game_assets = function (_Babylonjs
 				return Babylonjs_game_assets;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":47}],44:[function(require,module,exports){
+},{"./Babylonjs_game_module":53}],50:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5852,7 +6189,7 @@ var Babylonjs_game_battle = exports.Babylonjs_game_battle = function (_Babylonjs
 	return Babylonjs_game_battle;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":47}],45:[function(require,module,exports){
+},{"./Babylonjs_game_module":53}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6115,7 +6452,7 @@ var Babylonjs_game_gundb = exports.Babylonjs_game_gundb = function (_Babylonjs_g
     return Babylonjs_game_gundb;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":47}],46:[function(require,module,exports){
+},{"./Babylonjs_game_module":53}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6414,7 +6751,7 @@ var Babylonjs_game_loadsave = exports.Babylonjs_game_loadsave = function (_Babyl
     return Babylonjs_game_loadsave;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":36,"../rpg/RPGTerrain":39,"./Babylonjs_game_module":47}],47:[function(require,module,exports){
+},{"../rpg/RPGCube":30,"../rpg/RPGCylinder":31,"../rpg/RPGMesh":33,"../rpg/RPGNPCCharacter":34,"../rpg/RPGSphere":36,"../rpg/RPGTerrain":39,"./Babylonjs_game_module":53}],53:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6452,7 +6789,7 @@ var Babylonjs_game_module = exports.Babylonjs_game_module = function Babylonjs_g
     }
 };
 
-},{}],48:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6601,7 +6938,68 @@ var Babylonjs_game_parse = exports.Babylonjs_game_parse = function (_Babylonjs_g
 	return Babylonjs_game_parse;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"./Babylonjs_game_module":47}],49:[function(require,module,exports){
+},{"./Babylonjs_game_module":53}],55:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Babylonjs_game_scriptcomponent = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Babylonjs_game_module = require('./Babylonjs_game_module');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Project Name: project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Link:https://github.com/Lightnet/project-besabtide
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Created By: Lightnet
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   License: cc (creative commons)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Information: Please read the readme.md file for more information.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+//import {RPGCube} from '../rpg/RPGCube';
+//import {RPGSphere} from '../rpg/RPGSphere';
+//import {RPGCylinder} from '../rpg/RPGCylinder';
+//import {RPGPlane} from '../rpg/RPGPlane';
+
+var Babylonjs_game_scriptcomponent = exports.Babylonjs_game_scriptcomponent = function (_Babylonjs_game_modul) {
+    _inherits(Babylonjs_game_scriptcomponent, _Babylonjs_game_modul);
+
+    function Babylonjs_game_scriptcomponent(args) {
+        _classCallCheck(this, Babylonjs_game_scriptcomponent);
+
+        return _possibleConstructorReturn(this, (Babylonjs_game_scriptcomponent.__proto__ || Object.getPrototypeOf(Babylonjs_game_scriptcomponent)).call(this, args));
+    }
+
+    _createClass(Babylonjs_game_scriptcomponent, [{
+        key: 'initscripts',
+        value: function initscripts() {
+            var mainscript = {
+                uuid: '3a3c3492-d77e-4dd1-9ac5-af121106673e',
+                name: 'main',
+                script: '\nfunction Test(){\n    console.log("hello world text");\n}\nTest();\n//console.log("test");\n//console.log(this);\n//console.log(Game);\n//console.log(Game.scene);'
+            };
+            this.scriptcomponents.push(mainscript);
+            mainscript = {
+                uuid: '9f20014a-200e-4e8b-bd1d-0a1484dd21dd',
+                name: 'test',
+                script: 'function Test(){\n    console.log("test");\n}\nTest();'
+            };
+            this.scriptcomponents.push(mainscript);
+            mainscript = null;
+        }
+    }]);
+
+    return Babylonjs_game_scriptcomponent;
+}(_Babylonjs_game_module.Babylonjs_game_module);
+
+},{"./Babylonjs_game_module":53}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6689,6 +7087,15 @@ var Babylonjs_game_terrain = exports.Babylonjs_game_terrain = function (_Babylon
             this.scene, false, // updateable?
             null // callback when mesh is ready
             );
+        }
+    }, {
+        key: 'creategrid',
+        value: function creategrid() {
+            var ground = BABYLON.Mesh.CreateGround("ground", 128, 128, 2, this.scene, true);
+            var material = new BABYLON.StandardMaterial("mat", this.scene);
+            material.diffuseColor = new BABYLON.Color3(1, 1, 1);
+            ground.material = material;
+            ground.material.wireframe = true;
         }
     }, {
         key: 'simpleterrain01',
@@ -6931,7 +7338,7 @@ var Babylonjs_game_terrain = exports.Babylonjs_game_terrain = function (_Babylon
     return Babylonjs_game_terrain;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../rpg/RPGTerrain":39,"../system/Babylonjs_game_module":47}],50:[function(require,module,exports){
+},{"../rpg/RPGTerrain":39,"../system/Babylonjs_game_module":53}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7447,7 +7854,7 @@ var Babylonjs_game_ui = exports.Babylonjs_game_ui = function (_Babylonjs_game_mo
     return Babylonjs_game_ui;
 }(_Babylonjs_game_module.Babylonjs_game_module);
 
-},{"../system/Babylonjs_game_module":47}],51:[function(require,module,exports){
+},{"../system/Babylonjs_game_module":53}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7504,7 +7911,7 @@ var AssetsList = exports.AssetsList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], AssetsList);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],52:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7648,7 +8055,7 @@ var CodeEditor = exports.CodeEditor = (_dec = (0, _core.Component)({
 })), _class2)) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], CodeEditor);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],53:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core","zone.js/dist/zone":"zone.js/dist/zone"}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7691,7 +8098,7 @@ var ConsolePanel = exports.ConsolePanel = (_dec = (0, _core.Component)({
     _classCallCheck(this, ConsolePanel);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],54:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7849,7 +8256,7 @@ var EditorMenu = exports.EditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":71,"@angular/core":"@angular/core"}],55:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":78,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7926,7 +8333,7 @@ var EditorPanel = exports.EditorPanel = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], EditorPanel);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],56:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8040,7 +8447,7 @@ var GameEditor = exports.GameEditor = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], GameEditor);
 
-},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":71,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],57:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../../js/jquery-ui.min.js":1,"../../js/jquery.layout.min.js":1,"../../js/jquery.min.js":1,"../babylonjs_game/babylonjs_game":11,"../services/game.service":78,"@angular/core":"@angular/core","rxjs/add/operator/map":"rxjs/add/operator/map"}],64:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8106,7 +8513,7 @@ var NavMenu = exports.NavMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], NavMenu);
 
-},{"../../js/babylon.min.js":1,"../services/game.service":71,"@angular/core":"@angular/core"}],58:[function(require,module,exports){
+},{"../../js/babylon.min.js":1,"../services/game.service":78,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8185,7 +8592,7 @@ var ObjectMaterialModal = exports.ObjectMaterialModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ObjectMaterialModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],59:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8387,7 +8794,7 @@ var Objectprops = exports.Objectprops = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], Objectprops);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],60:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8444,7 +8851,7 @@ var SceneList = exports.SceneList = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], SceneList);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],61:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8499,7 +8906,7 @@ var ScriptComponent = exports.ScriptComponent = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptComponent);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],62:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],69:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8604,7 +9011,7 @@ var ScriptEditorExplore = exports.ScriptEditorExplore = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorExplore);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],63:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],70:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8633,7 +9040,7 @@ var ScriptEditorLayout = exports.ScriptEditorLayout = (_dec = (0, _core.Componen
     _classCallCheck(this, ScriptEditorLayout);
 }) || _class);
 
-},{"@angular/core":"@angular/core"}],64:[function(require,module,exports){
+},{"@angular/core":"@angular/core"}],71:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8775,7 +9182,7 @@ var ScriptEditorMenu = exports.ScriptEditorMenu = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ScriptEditorMenu);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],65:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],72:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8848,7 +9255,7 @@ var ShapeCharacterModal = exports.ShapeCharacterModal = (_dec = (0, _core.Compon
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCharacterModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],66:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],73:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8927,7 +9334,7 @@ var ShapeCubeModal = exports.ShapeCubeModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeCubeModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],67:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],74:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9006,7 +9413,7 @@ var ShapePlaneModal = exports.ShapePlaneModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapePlaneModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],68:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],75:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9082,7 +9489,7 @@ var ShapeSphereModal = exports.ShapeSphereModal = (_dec = (0, _core.Component)({
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeSphereModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],69:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],76:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9155,7 +9562,7 @@ var ShapeTerrainModal = exports.ShapeTerrainModal = (_dec = (0, _core.Component)
 }()) || _class);
 Reflect.defineMetadata('design:paramtypes', [_game.GameService], ShapeTerrainModal);
 
-},{"../services/game.service":71,"@angular/core":"@angular/core"}],70:[function(require,module,exports){
+},{"../services/game.service":78,"@angular/core":"@angular/core"}],77:[function(require,module,exports){
 'use strict';
 
 require('babel-polyfill');
@@ -9179,7 +9586,7 @@ var _app = require('./app.module');
 
 (0, _platformBrowserDynamic.platformBrowserDynamic)().bootstrapModule(_app.AppModule);
 
-},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],71:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":"@angular/platform-browser-dynamic","babel-polyfill":"babel-polyfill","zone.js/dist/zone":"zone.js/dist/zone"}],78:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -9212,6 +9619,6 @@ var GameService = exports.GameService = (_dec = (0, _core.Injectable)(), _dec(_c
     this.textscript = '';
 }) || _class);
 
-},{"@angular/core":"@angular/core"}]},{},[70])
+},{"@angular/core":"@angular/core"}]},{},[77])
 
 //# sourceMappingURL=app.js.map

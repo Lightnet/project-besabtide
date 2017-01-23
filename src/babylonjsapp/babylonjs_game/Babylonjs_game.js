@@ -39,6 +39,8 @@ import {Babylonjs_game_parse} from './system/Babylonjs_game_parse';
 import {Babylonjs_game_loadsave} from './system/Babylonjs_game_loadsave';
 import {Babylonjs_game_gundb} from './system/Babylonjs_game_gundb';
 
+import {Babylonjs_game_scriptcomponent} from './system/Babylonjs_game_scriptcomponent';
+
 import {Babylonjs_game_terrain} from './terrain/Babylonjs_game_terrain';
 
 import {Babylonjs_game_jqueryui} from './jqueryui/Babylonjs_game_jqueryui';
@@ -169,16 +171,13 @@ export class Babylonjs_game extends Babylonjs_framework {
         new Babylonjs_game_assets(this);
 
         new Babylonjs_game_character(this);
-
         new Babylonjs_game_controller(this);
-
         new Babylonjs_game_battle(this);
-
         new Babylonjs_game_terrain(this);
-
         new Babylonjs_game_jqueryui(this);
-
         new Babylonjs_game_gundb(this);
+
+        new Babylonjs_game_scriptcomponent(this);
 
         new RPGDungeonBuild(this);
 
@@ -261,26 +260,6 @@ export class Babylonjs_game extends Babylonjs_framework {
 
     }
 
-    /*
-    canvasrender() {
-        //console.log("render?");
-        var self = this;
-        this.engine.runRenderLoop(function() {
-            //console.log("hellow");
-            if (self.scene != null) {
-                self.scene.render();
-                for (var i = 0; i < self.scene.meshes.length; i++) {
-                    //console.log("hellow");
-                    if (typeof self.scene.meshes[i].update === 'function') {
-                        self.scene.meshes[i].update();
-                    }
-                }
-                if (self.selectobject != null) {}
-            }
-        });
-    }
-    */
-
     init() {
         super.init();
         //console.log("init [babylonjs_game]");
@@ -337,33 +316,6 @@ export class Babylonjs_game extends Babylonjs_framework {
         this.scroll_shop_y = 0;
     }
 
-    initscripts(){
-var mainscript ={
-uuid:'3a3c3492-d77e-4dd1-9ac5-af121106673e',
-name:'main',
-script:`
-function Test(){
-    console.log("hello world text");
-}
-Test();
-//console.log("test");
-//console.log(this);
-//console.log(Game);
-//console.log(Game.scene);`
-};
-this.scriptcomponents.push(mainscript);
-mainscript = {
-uuid:'9f20014a-200e-4e8b-bd1d-0a1484dd21dd',
-name:'test',
-script:`function Test(){
-    console.log("test");
-}
-Test();`
-}
-        this.scriptcomponents.push(mainscript);
-        mainscript = null;
-    }
-
     setup_game() {
         var self = this;
         this.setup_placeholderblocks();
@@ -376,7 +328,6 @@ Test();`
         new GAMEAPI(this);
 
         this.create_dungeonhud();
-
 
 
         //new API(self);
@@ -398,12 +349,7 @@ Test();`
         this.init_physics();
         //this.create2DHUD();
         this.create_input();
-
-
-
-
-
-
+        this.creategrid();
 
         //this.create_gamepadinput();
         //this.simpleterrain04();
@@ -419,6 +365,29 @@ Test();`
         //this.spawn_character({y: 32, bplayer: true});
 
     }
+
+    /*
+    canvasrender() {
+        //console.log("render?");
+        var self = this;
+        this.engine.runRenderLoop(function() {
+            //console.log("hellow");
+            if (self.scene != null) {
+                self.scene.render();
+                for (var i = 0; i < self.scene.meshes.length; i++) {
+                    //console.log("hellow");
+                    if (typeof self.scene.meshes[i].update === 'function') {
+                        self.scene.meshes[i].update();
+                    }
+                }
+                if (self.selectobject != null) {}
+            }
+        });
+    }
+    */
+
+
+
     /*
     setup_game00() {
         var self = this;
